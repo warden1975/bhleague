@@ -1,0 +1,6 @@
+[03-May-2012 23:29:02] PHP Notice:  Undefined variable: team1_score in /home/bhleague/public_html/admin/schedule/callback.php on line 33
+[03-May-2012 23:29:02] PHP Notice:  Undefined variable: team2_score in /home/bhleague/public_html/admin/schedule/callback.php on line 33
+[03-May-2012 23:30:39] PHP Notice:  Undefined variable: team1_score in /home/bhleague/public_html/admin/schedule/callback.php on line 33
+[03-May-2012 23:30:39] PHP Notice:  Undefined variable: team2_score in /home/bhleague/public_html/admin/schedule/callback.php on line 33
+[03-May-2012 23:46:01] PHP Notice:  Undefined variable: team1_score in /home/bhleague/public_html/admin/schedule/callback.php on line 33
+[03-May-2012 23:46:01] PHP Notice:  Undefined variable: team2_score in /home/bhleague/public_html/admin/schedule/callback.php on line 33
