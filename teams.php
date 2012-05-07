@@ -22,13 +22,13 @@ $myarr[$row['id']] = $row['team_name'];
 
 }
 
-if($action=='get_team_stats_current')
+if(@$action=='get_team_stats_current')
 {
 	if(!isset($team_id) || $team_id=='')
 	{
 		$team_id=13;
 	}
-	$sql = "SELECT `game_date`,`game_time`,team1,team2,CONCAT(team1_score,' - ',team2_score) as score FROM bhleague.`schedule` WHERE (team1 = $team_id or team2 = $team_id) and YEAR(game_date) = $current_year  ORDER by `game_date`,`game_time` ";
+	$sql = "SELECT `game_date`,`game_time`,team1,team2,CONCAT(team1_score,' - ',team2_score) as score,team1_score,team2_score FROM bhleague.`schedule` WHERE (team1 = $team_id or team2 = $team_id) and YEAR(game_date) = $current_year  ORDER by `game_date`,`game_time` ";
 	
 	$arr = array();
 	
@@ -41,22 +41,36 @@ if($action=='get_team_stats_current')
 		$record_count = $rs->num_rows;
 		while($obj = $rs->fetch_array()){
 			@$obj['game_date'] = date('D M d, Y', strtotime(@$obj['game_date']));
-			@$obj['team1'] = $myarr[$obj['team1']];
-			@$obj['team2'] = $myarr[$obj['team2']];
+			if(@$obj['team1_score']>@$obj['team2_score'])
+			{
+				@$obj['team1'] = "<font color='green'>".$myarr[$obj['team1']]."</font>";
+				@$obj['team2'] = "<font color='red'>".$myarr[$obj['team2']]."</font>";
+			}
+			else if(@$obj['team1_score']<@$obj['team2_score'])
+			{
+				@$obj['team1'] = "<font color='red'>".$myarr[$obj['team1']]."</font>";
+				@$obj['team2'] = "<font color='green'>".$myarr[$obj['team2']]."</font>";
+
+			}
+			else
+			{
+				@$obj['team1'] = $myarr[$obj['team1']];
+				@$obj['team2'] = $myarr[$obj['team2']];
+			}
 			array_push($arr,$obj);
 		}
 	
-		echo '{results:'.$record_count.',rows:'.json_encode($arr).'}';
+		echo '{"results":'.$record_count.',"rows":'.json_encode($arr).'}';
 	
 	}
 }
-if($action=='get_team_stats_previous')
+if(@$action=='get_team_stats_previous')
 {
 	if(!isset($team_id) || $team_id=='')
 	{
 		$team_id=13;
 	}
-	$sql = "SELECT `game_date`,`game_time`,team1,team2,CONCAT(team1_score,' - ',team2_score) as score FROM bhleague.`schedule` WHERE (team1 = $team_id or team2 = $team_id) and YEAR(game_date) = $previous_year  ORDER by `game_date`,`game_time` ";
+	$sql = "SELECT `game_date`,`game_time`,team1,team2,CONCAT(team1_score,' - ',team2_score) as score,team1_score,team2_score FROM bhleague.`schedule` WHERE (team1 = $team_id or team2 = $team_id) and YEAR(game_date) = $previous_year  ORDER by `game_date`,`game_time` ";
 	
 	$arr = array();
 	
@@ -69,8 +83,22 @@ if($action=='get_team_stats_previous')
 		$record_count = $rs->num_rows;
 		while($obj = $rs->fetch_array()){
 			@$obj['game_date'] = date('D M d, Y', strtotime(@$obj['game_date']));
-			@$obj['team1'] = $myarr[$obj['team1']];
-			@$obj['team2'] = $myarr[$obj['team2']];
+			if(@$obj['team1_score']>@$obj['team2_score'])
+			{
+				@$obj['team1'] = "<font color='green'>".$myarr[$obj['team1']]."</font>";
+				@$obj['team2'] = "<font color='red'>".$myarr[$obj['team2']]."</font>";
+			}
+			else if(@$obj['team1_score']<@$obj['team2_score'])
+			{
+				@$obj['team1'] = "<font color='red'>".$myarr[$obj['team1']]."</font>";
+				@$obj['team2'] = "<font color='green'>".$myarr[$obj['team2']]."</font>";
+
+			}
+			else
+			{
+				@$obj['team1'] = $myarr[$obj['team1']];
+				@$obj['team2'] = $myarr[$obj['team2']];
+			}
 			array_push($arr,$obj);
 		}
 	
@@ -78,7 +106,7 @@ if($action=='get_team_stats_previous')
 	
 	}
 }
-else if($action=='get_team_roster_current')
+else if(@$action=='get_team_roster_current')
 {
 	if(!isset($team_id) || $team_id=='')
 	{
@@ -122,7 +150,7 @@ if ($rs = $db->query($sql)) {
 $data = implode(', ', $d);
 echo "[ {$data} ]";
 }
-else if($action=='get_team_roster_previous')
+else if(@$action=='get_team_roster_previous')
 {
 	if(!isset($team_id) || $team_id=='')
 	{
@@ -166,7 +194,7 @@ if ($rs = $db->query($sql)) {
 $data = implode(', ', $d);
 echo "[ {$data} ]";
 }
-else if($action=='getAllTeam')
+else if(@$action=='getAllTeam')
 {
 	$sql ="SELECT `id`,team_name from bhleague.teams ";
   	
@@ -189,11 +217,11 @@ else if($action=='getAllTeam')
 	
 	echo json_encode($teamData); 
 }
-else if($action=='getteamname')
+else if(@$action=='getteamname')
 {
 	echo @$myarr[@$team_id];
 }
-else if($action=='getteam_leader')
+else if(@$action=='getteam_leader')
 {
 	$sql ="SELECT  count(winner_score) as wins,game_winner FROM bhleague.games_stats GROUP BY game_winner ORDER BY count(winner_score) desc LIMIT 1";
 	
