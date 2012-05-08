@@ -426,7 +426,7 @@ function getTeam_Profile(teamid,title,uri,sz)
 				typeAhead: true,
 				editable: false,
 				triggerAction: 'all',
-				value:sz
+				value:sz,
 				listeners: {
 					
 					select: function(combo, record, index) 
