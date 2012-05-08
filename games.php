@@ -28,7 +28,7 @@ if(@$action=='get_game_stats')
 	{
 		$gamedate= getLastGameDate()
 	}
-	$sql = "SELECT `game_date`,`game_time`,team1,team2,CONCAT(team1_score,' - ',team2_score) as score,team1_score,team2_score FROM bhleague.`schedule` WHERE game_date ='gamedate' and YEAR(game_date) = $current_year  ORDER by `game_date`,`game_time` ";
+	$sql = "SELECT `game_date`,`game_time`,team1,team2,CONCAT(team1_score,' - ',team2_score) as score,team1_score,team2_score FROM bhleague.`schedule` WHERE game_date ='$gamedate' and YEAR(game_date) = $current_year  ORDER by `game_date`,`game_time` ";
 	
 	$arr = array();
 	
@@ -112,7 +112,7 @@ echo "[ {$data} ]";
 
 else if(@$action=='getAllGameDate')
 {
-	$sql ="SELECT DISTINCT game_date FROM `bhleague`.`games_stats` ORDER BY game_date;
+	$sql ="SELECT DISTINCT game_date,DATE_FORMAT(game_date,'%b %d %Y')as formatted_date FROM `games_stats` ORDER BY game_date;e;
 
 ";
   	

@@ -143,7 +143,7 @@
 	grid1.getSelectionModel().selectFirstRow();
 	}
 
-function getTeam_Profile(teamid,title,uri,sz)
+function getGame_Profile(gamedate,title,uri,sz)
 {
 	var ds_model = Ext.data.Record.create([
 		{name: 'game_date'},
@@ -164,42 +164,25 @@ function getTeam_Profile(teamid,title,uri,sz)
 	    });
 	
 		var teamStore = new Ext.data.JsonStore({
-		url: 'teams.php',
+		url: 'games.php',
 		autoLoad: true,
-		baseParams:{action: 'getAllTeam'},
-		root:'teams',
+		baseParams:{action: 'getAllGameDate'},
+		root:'games',
 		listeners: {
                 load: {
                         fn: function() {
-                                Ext.getCmp('teams').setValue(teamid);
+                                Ext.getCmp('teams').setValue(gamedate);
                         }
                 }
         },
-		fields:['id','team_name'],
-		
-		
-		
-	
+		fields:['game_date','formatted_date'],
+
 		});
 		//teamStore.load();
 		//Ext.getCmp('teams').setValue(teamid);
 		
 		 
-          var seasonStore = new Ext.data.SimpleStore({
-            fields: ['id','description'],
-            data: [
-              ["1","Current Season"],["2","Previous Season"]               
-                  ]
-			//listeners: {
-//                load: {
-//                        fn: function() {
-//                                Ext.getCmp('season').setValue(sz);
-//                        }
-//                }
-//        },
-			
-        });
-	
+         
     // create the Grid
     var grid = new Ext.grid.GridPanel({
         store: store,
@@ -252,15 +235,15 @@ function getTeam_Profile(teamid,title,uri,sz)
 				xtype: 'combo',
 				ref:'teams',
 				id:'teams',
-				fieldLabel: 'Select Team Profile',
+				fieldLabel: 'Select Game Date',
 				triggerAction: 'all',
 				store: teamStore,
-				valueField:'id',
-				displayField:'team_name',
+				valueField:'game_date',
+				displayField:'formatted_date',
 				typeAhead: true,
 				forceSelection:true,
 				querymode: 'local',
-				emptyText:'Select Team Profile',
+				emptyText:'Select Game Date',
 				width:160,
 				float: false,
 				listeners: {
@@ -276,11 +259,11 @@ function getTeam_Profile(teamid,title,uri,sz)
 							teamidz = combo.getValue()
 							title_teamx = combo.getRawValue() + +':( Game Stats Current Season) ';
 							title_player = combo.getRawValue() + +':( Player Stats Current Season) ';
-							urx ='teams.php?action=get_team_stats_current&team_id=' + teamidz
-							urz ='teams.php?action=get_team_roster_current&team_id=' + teamidz
+							urx ='games.php?action=get_game_stats&gamedate=' + teamidz
+							urz ='games.php?action=get_game_player_roster&gamedate=' + teamidz
 							sx =idx
-							getTeam_Profile(idx,title_teamx,urx,sx )
-							getTeam_Profile(idx,title_player,urz,sx)
+							getGame_Profile(idx,title_teamx,urx,sx )
+							getGame_Profile(idx,title_player,urz,sx)
 							
 						}
 						else if(idx=='2')
@@ -288,11 +271,11 @@ function getTeam_Profile(teamid,title,uri,sz)
 							teamidz = combo.getValue()
 							title_teamx = combo.getRawValue() + +':( Game Stats Previous Season ) ';
 							title_player = combo.getRawValue() + +':( Player Stats Previous Season) ';
-							urx ='teams.php?action=get_team_stats_current&team_id=' + teamidz
-							urz ='teams.php?action=get_team_roster_current&team_id=' + teamidz
+							urx ='games.php?action=get_game_stats&gamedate=' + teamidz
+							urz ='games.php?action=get_game_player_roster&gamedate=' + teamidz
 							sx =idx
-							getTeam_Profile(idx,title_teamx,urx,sx )
-							getTeam_Profile(idx,title_player,urz,sx)
+							getGame_Profile(idx,title_teamx,urx,sx )
+							getGame_Profile(idx,title_player,urz,sx)
 							
 						}
 
@@ -300,69 +283,7 @@ function getTeam_Profile(teamid,title,uri,sz)
 					
 				}
     
-			},'-',{
-				xtype: 'combo',
-				ref:'season',
-				id:'season',
-				store: seasonStore,
-				fieldLabel: 'Select Season',
-				displayField: 'description',
-				valueField: 'id',
-				selectOnFocus: true,
-				mode: 'local',
-				typeAhead: true,
-				editable: false,
-				triggerAction: 'all',
-				value:sz,
-				listeners: {
-					
-					select: function(combo, record, index) 
-					{
-						
-							document.getElementById('grid-team-stats').innerHTML ="";
-							document.getElementById('grid-team-rosters').innerHTML ="";
-							//document.getElementById('grid-team-stats-prev').innerHTML ="";
-							//document.getElementById('grid-team-rosters-prev').innerHTML ="";
-							var sx = combo.getValue()
-							if(sx=='1')
-							{
-								var titlev = Ext.getCmp('teams').getRawValue();
-								var idx = Ext.getCmp('teams').value;
-								titlex = titlev + ' (Game Stats: Current Season)';
-								
-								urx ='teams.php?action=get_team_stats_current&team_id=' + idx;
-								//alert(idx);
-								getTeam_Profile(idx,titlev,urx,sx )
-								
-								idz = idx
-								titlez = titlev + ' (Player Stats: Current Season)';
-								urz ='teams.php?action=get_team_roster_current&team_id=' + idx;
-								getTeam_Player_Profile(idz,titlez,urz,sx )
-								combo.setValue(sx)
-							}
-	
-							else if(sx=='2')
-							{
-								var titlev = Ext.getCmp('teams').getRawValue();
-								var idx = Ext.getCmp('teams').value;
-								titlex = titlev + ' (Game Stats: Current Season)';
-								
-								urx ='teams.php?action=get_team_stats_previous&team_id=' + idx;
-								alert(idx);
-								getTeam_Profile(idx,titlev,urx,sx )
-								
-								idz = idx
-								titlez = titlev + ' (Player Stats: Current Season)';
-								urz ='teams.php?action=get_team_roster_previous&team_id=' + idx;
-								getTeam_Player_Profile(idz,titlez,urz,sx )
-								combo.setValue(sx)
-							}
-		
-						}
-	
-					}
-					
-				}],
+			}],
     
 			
         stripeRows: true,
@@ -385,7 +306,7 @@ function getTeam_Profile(teamid,title,uri,sz)
 	
 	}
 
-	function getteamname(idx,si)
+	function getteamname(idx)
 	{
 		Ext.Ajax.request({
 		params: {action: 'getteamname', team_id: idx},
@@ -396,15 +317,15 @@ function getTeam_Profile(teamid,title,uri,sz)
 		//titlex = resp.responseText;
 		//teamid,title,uri
 		//Ext.getCmp('teams').setValue(idx);
-		titlex = resp.responseText + ' (Game Stats: Current Season)';
-		urx ='teams.php?action=get_team_stats_current&team_id=' + idx;
+		titlex = resp.responseText + ' Game Stats';
+		urx ='games.php?action=get_game_stats&gamedate=' + idx;
 		//alert(idx);
-		getTeam_Profile(idx,titlex,urx,si )
+		getGame_Profile(idx,titlex,urx )
 		
 		idz = idx
-		titlez = resp.responseText + ' (Player Stats: Current Season)';
-		urz ='teams.php?action=get_team_roster_current&team_id=' + idx;
-		getTeam_Player_Profile(idz,titlez,urz,si )
+		titlez = resp.responseText + ' Player Stats';
+		urz ='games.php?action=get_game_player_roster&gamedate=' + idx;
+		getTeam_Player_Profile(idz,titlez,urz )
 	
 		},
 		
