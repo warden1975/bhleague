@@ -44,6 +44,7 @@ Ext.onReady(function(){
 	
 	// tell the store how to process the data
 	var reader = new Ext.data.ArrayReader({}, [
+		{name: 'team_id', type: 'int'},									   
 		{name: 'team'},
 		{name: 'wins', type: 'float'},
 		{name: 'losses', type: 'float'},
@@ -85,6 +86,14 @@ Ext.onReady(function(){
     var grid = new Ext.grid.GridPanel({
         store: store,
         columns: [
+			{
+                id       :'team_id',
+                header   : '', 
+                width    : 160, 
+                sortable : false, 
+				hidden : true,
+                dataIndex: 'team_id'
+            },
             {
                 id       :'team',
                 header   : 'Team', 
@@ -135,6 +144,15 @@ Ext.onReady(function(){
         ],
         stripeRows: true,
         autoExpandColumn: 'team',
+		listeners: {
+				cellclick: function(grid, rowIndex, columnIndex, e) {
+					var record = grid.getStore().getAt(rowIndex);  // Get the Record
+	
+					var data = record.get('team_id');
+					window.location.href='teams.html?team_id='+data;
+			
+				}
+			},
 		border: false,
 		autoHeight: true,
 		layout: 'fit',

@@ -13,7 +13,7 @@ extract($_REQUEST);
 
 $d = array();
 
-$sql = "select b.team_name as team, 
+$sql = "select b.team_name as team, b.id as team_id,
 	sum(if(a.game_winner=b.id,1,0)) as wins, 
 	sum(if(a.game_loser=b.id,1,0)) as losses, 
 	(sum(if(a.game_winner=b.id,a.winner_score,0)) + sum(if(a.game_loser=b.id,a.loser_score,0))) as pts_for,
@@ -31,6 +31,7 @@ if ($rs = $db->query($sql)) {
 		while ($row = $rs->fetch_object()) {
 			if ($gbw == -1) $gbw = $row->wins;
 			if ($gbl == -1) $gbl = $row->losses;
+			$team_id = $row->team_id;
 			$team = $row->team;
 			$wins = $row->wins;
 			$losses = $row->losses;
@@ -41,7 +42,7 @@ if ($rs = $db->query($sql)) {
 			$pt_diff = ($pt_for - $pt_against);
 			$gb = (abs($gbw - $wins) / 2) + (abs($gbl - $losses) / 2);
 			
-			$d[] = "['{$team}', {$wins}, {$losses}, {$win_pct}, {$pt_diff}, {$gb}]";
+			$d[] = "['{$team_id}','{$team}', {$wins}, {$losses}, {$win_pct}, {$pt_diff}, {$gb}]";
 		}
 	}
 }

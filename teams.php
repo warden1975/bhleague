@@ -28,7 +28,7 @@ if(@$action=='get_team_stats_current')
 	{
 		$team_id=13;
 	}
-	$sql = "SELECT `game_date`,`game_time`,team1,team2,CONCAT(team1_score,' - ',team2_score) as score,team1_score,team2_score FROM bhleague.`schedule` WHERE (team1 = $team_id or team2 = $team_id) and YEAR(game_date) = $current_year  ORDER by `game_date`,`game_time` ";
+	$sql = "SELECT `game_date`,`game_time`,team1,team2,team1 as team1x,team2 as team2x,CONCAT(team1_score,' - ',team2_score) as score,team1_score,team2_score FROM bhleague.`schedule` WHERE (team1 = $team_id or team2 = $team_id) and YEAR(game_date) = $current_year  ORDER by `game_date`,`game_time` ";
 	
 	$arr = array();
 	
@@ -114,7 +114,7 @@ else if(@$action=='get_team_roster_current')
 	}
 	$d = array();
 
-$sql = "select distinct b.team_id,concat(b.player_fname, ' ', b.player_lname) as player_name, 
+$sql = "select distinct b.team_id,concat(b.player_fname, ' ', b.player_lname) as player_name,b.id as player_id, 
 	b.height, b.weight, (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
 	sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
 	sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
@@ -128,6 +128,7 @@ if ($rs = $db->query($sql)) {
 	$rs_cnt = $rs->num_rows;
 	if ($rs_cnt > 0) {
 		while ($row = $rs->fetch_object()) {
+			$player_id =$row->player_id;
 			$player = $row->player_name;
 			$height = htmlentities($row->height, ENT_QUOTES);
 			$weight = @$row->weight;
@@ -141,7 +142,7 @@ if ($rs = $db->query($sql)) {
 			$apg = number_format(@round($assists / $games, 2), 1);
 			
 			/*$d[] = "['{$player}', {$points}, {$rebounds}, {$assists}, {$games}, {$ppg}, {$rpg}, {$apg}]";*/
-			$d[] = "['{$player}', '{$height}', '{$weight}', '{$position}', {$ppg}, {$rpg}, {$apg}, {$games}]";
+			$d[] = "['{$player_id}','{$player}', '{$height}', '{$weight}', '{$position}', {$ppg}, {$rpg}, {$apg}, {$games}]";
 		}
 	}
 	$rs->close();
@@ -158,7 +159,7 @@ else if(@$action=='get_team_roster_previous')
 	}
 	$d = array();
 
-$sql = "select distinct b.team_id,concat(b.player_fname, ' ', b.player_lname) as player_name, 
+$sql = "select distinct b.team_id,concat(b.player_fname, ' ', b.player_lname) as player_name,,b.id as player_id,  
 	b.height, b.weight, (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
 	sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
 	sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
@@ -172,6 +173,7 @@ if ($rs = $db->query($sql)) {
 	$rs_cnt = $rs->num_rows;
 	if ($rs_cnt > 0) {
 		while ($row = $rs->fetch_object()) {
+			$player_id =$row->player_id;
 			$player = $row->player_name;
 			$height = htmlentities($row->height, ENT_QUOTES);
 			$weight = @$row->weight;
@@ -185,7 +187,7 @@ if ($rs = $db->query($sql)) {
 			$apg = number_format(@round($assists / $games, 2), 1);
 			
 			/*$d[] = "['{$player}', {$points}, {$rebounds}, {$assists}, {$games}, {$ppg}, {$rpg}, {$apg}]";*/
-			$d[] = "['{$player}', '{$height}', '{$weight}', '{$position}', {$ppg}, {$rpg}, {$apg}, {$games}]";
+			$d[] = "['{$player_id}','{$player}', '{$height}', '{$weight}', '{$position}', {$ppg}, {$rpg}, {$apg}, {$games}]";
 		}
 	}
 	$rs->close();
