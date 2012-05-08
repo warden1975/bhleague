@@ -210,7 +210,7 @@ $db = NULL;
         <div class="f_right">
           <div class="box">
             <h3>BHL BASKETBALL SCHEDULE</h3>
-            <h4><span><?php echo $s['game_dayname']; ?></span> <?php echo $s['game_date']; ?></h4>
+            <h4><span><?php echo @$s['game_dayname']; ?></span> <?php echo @$s['game_date']; ?></h4>
             <div id="grid-next_game" class="sub-box"></div>
           </div>
         </div>
