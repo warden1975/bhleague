@@ -80,7 +80,8 @@ Ext.onReady(function(){
             {
                 header   : 'Player', 
                 width    : 160, 
-                sortable : false, 
+                sortable : false,
+				renderer : Ext.bhlcommondata.format_underline,
                 dataIndex: 'player'
             },
 			{

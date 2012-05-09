@@ -68,6 +68,7 @@
                 header   : 'Player', 
                 width    : 160, 
                 sortable : false, 
+				renderer : Ext.bhlcommondata.format_underline,
                 dataIndex: 'player'
             },
 			{
@@ -240,16 +241,16 @@ function getTeam_Profile(teamid,title,uri,sz)
                 width    : 160, 
                 sortable : false, 
                 dataIndex: 'team1',
-				//renderer:  myRenderer,
-				align	 : 'center'
+				renderer : Ext.bhlcommondata.format_underline,
+				align	 : 'left'
             },
 			{
                 header   : 'Team 2', 
                 width    : 160, 
                 sortable : false, 
                 dataIndex: 'team2',
-				//renderer: myRenderer,
-				align	 : 'center'
+				renderer : Ext.bhlcommondata.format_underline,
+				align	 : 'left'
             },
 			{
                 header   : 'Score', 
@@ -360,7 +361,7 @@ function getTeam_Profile(teamid,title,uri,sz)
 								titlex = titlev + ' (Game Stats: Current Season)';
 								
 								urx ='teams.php?action=get_team_stats_previous&team_id=' + idx;
-								alert(idx);
+								//alert(idx);
 								getTeam_Profile(idx,titlev,urx,sx )
 								
 								idz = idx
@@ -538,5 +539,24 @@ Ext.onReady(function(){
 	
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	
+	// Get Team Logo image path - WG
+	var bhl_tid = document.getElementById('hid_team_id').value;
+	var bhl_img_url = 'teams.php?action=getteam_logo&team_id=' + bhl_tid; 
+	
+	var bhl_store = new Ext.data.JsonStore ({
+		url: bhl_img_url,
+		root: 'logo',
+		fields: ['team', 'path']
+	});
+	bhl_store.load({
+		callback: function(records, operation, success) {
+        	var path = records[0].get('path');
+			var team = records[0].get('team');
+			console.log('url: '+bhl_img_url+', img_path: '+path+', team: '+team);
+			Ext.get('bhlogo_img').dom.src = path;
+			Ext.fly('bhlogo_team').update(team);
+    	}
+	});
+	//
 	
 });

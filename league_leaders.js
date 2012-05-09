@@ -20,7 +20,7 @@ Ext.onReady(function() {
 		
 		var colModel = new Ext.grid.ColumnModel([
 		{header: "ID", dataIndex: 'player_id', width:0,sortable:false,align:'left',hidden:true},
-		{header: "Player", dataIndex: 'player', width:100,sortable:false,align:'left'},
+		{header: "Player", dataIndex: 'player', width:100,sortable:false,renderer : Ext.bhlcommondata.format_underline,align:'left'},
 		{header: "Points", dataIndex: 'points', width:180,sortable:false,align:'right'},
 	
 	 ]);
@@ -110,7 +110,7 @@ Ext.onReady(function() {
 	        store: myStore2,
 	        columns: [
 				{header: "ID", dataIndex: 'player_id', width:0,sortable:false,align:'left',hidden:true},
-				{header: "Player", dataIndex: 'player', width:100,sortable:false,align:'left'},
+				{header: "Player", dataIndex: 'player', width:100,sortable:false,renderer : Ext.bhlcommondata.format_underline,align:'left'},
 				{header: "Rebounds", dataIndex: 'rebounds', width:190,sortable:false,align:'right'}
 				
 	        ],
@@ -164,7 +164,7 @@ Ext.onReady(function() {
 	        store: myStore3,
 	        columns: [
 				{header: "ID", dataIndex: 'player_id', width:0,sortable:false,align:'left',hidden:true},
-				{header: "Player", dataIndex: 'player', width:100,sortable:false,align:'left'},
+				{header: "Player", dataIndex: 'player', width:100,sortable:false,renderer : Ext.bhlcommondata.format_underline,align:'left'},
 				{header: "Assists", dataIndex: 'assists', width:170,sortable:false,align:'right'}
 				
 	        ],

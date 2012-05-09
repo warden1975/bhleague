@@ -19,7 +19,7 @@ $sql1 = "select concat(year(a.game_date), '-', month(a.game_date)) as season, co
 	sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
 	sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
 	sum(if(a.player_id=b.id, 1, 0)) as games_played, 
-	c.team_name 
+	c.team_name, c.id as team_id 
 from bhleague.players_stats a, bhleague.players b , bhleague.teams c  
 where b.team_id = c.id and weekday(a.game_date) = '{$gameday}' and b.id = '{$player}'  
 group by month(a.game_date), b.id 
@@ -36,11 +36,12 @@ if ($rs1 = $db->query($sql1)) {
 			$assists = $row1->assists;
 			$games = $row1->games_played;
 			$team = $row1->team_name;
+			$team_id = $row1->team_id;
 			$ppg = number_format(@round($points / $games, 2), 1);
 			$rpg = number_format(@round($rebounds / $games, 2), 1);
 			$apg = number_format(@round($assists / $games, 2), 1);
 			
-			$d[] = "['{$season}', '{$team}', '{$games}', {$ppg}, {$rpg}, {$apg}]";
+			$d[] = "['{$season}', '{$team_id}', '{$team}', '{$games}', {$ppg}, {$rpg}, {$apg}]";
 		}
 	}
 	$rs1->close();
@@ -244,7 +245,7 @@ Ext.bhlcommondata.player_stats = <?php echo $player_store; ?>;
       <br />
       <div class="content-bottom">
         <div class="box">
-          <h3>PLAYER STATS BY SEASON</h3>
+          <h4><span>BHL</span> - PLAYER STATS BY SEASON</h4>
           <div id="grid-player_stats" class="sub-box"></div>
         </div>
         <div class="clear"></div>

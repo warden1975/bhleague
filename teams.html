@@ -94,7 +94,7 @@ FORM_DATA = createRequestObject();
 <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css" />
 <!-- overrides to base library -->
 <!-- page specific -->
-<link rel="stylesheet" type="text/css" href="extjs/shared/examples.css" />
+<!--link rel="stylesheet" type="text/css" href="extjs/shared/examples.css" /-->
 <link rel="stylesheet" type="text/css" href="extjs/examples/grid/grid-examples.css" />
 <style type=text/css>
 /* style rows on mouseover */
@@ -132,13 +132,13 @@ function setteam_id()
 	var team_id= FORM_DATA['team_id'];
 	document.getElementById('hid_team_id').value = team_id
 	
-	}
+}
 </script> 
 <script  type="text/javascript" src="teams.js"></script>
 <div id="header">
   <div class="wrap">
     <h1 class="logo"><a href="index.php"><img src="images/logo.png" /></a></h1>
-    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a><a href="teams.html">TEAM PROFILE</a> <a href="rosters.html" class="last">ROSTERS</a>
+    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a> <a href="rosters.html" class="last">ROSTERS</a>
       <div class="clear"></div>
     </div>
   </div>
@@ -165,8 +165,8 @@ function setteam_id()
               </div>
               <div class="people">
                 <div class="logo2">
-                  <div class="img"> <img src="images/logo/bh league logo-01.png" />
-                    <div class="the-info"> LOGO DESCRIPTION </div>
+                  <div class="img"> <img id="bhlogo_img" src="images/no-profile.gif" />
+                    <div id="bhlogo_team" class="the-info">  </div>
                   </div>
                 </div>
                 <div class="clear"></div>
@@ -178,16 +178,14 @@ function setteam_id()
       </div>
       <div class="content-top">
         <div class="box">
-          <h3>BHL TEAM PROFILE</h3>
-          <h4><span>2012</span> Night League</h4>
+          <h4><span>BHL</span> - TEAM PROFILE</h4>
           <div id="grid-team-stats"></div>
         </div>
         <div class="clear"></div>
       </div>
       <div class="content-top">					
 		<div class="box">
-        	<h3>BHL TEAM PLAYER</h3>
-            <h4><span>2012</span> Night League</h4>
+            <h4><span>BHL</span> - TEAM PLAYERS</h4>
             <div id="grid-team-rosters"></div>
         </div>
         <div class="clear"></div>

@@ -12,6 +12,11 @@ Ext.bhlcommondata.gamedays = [
 	[6, 'Sunday League']
 ];
 
+Ext.bhlcommondata.format_underline = function (value, metadata, record) {
+	metadata.attr = ' style="text-decoration:underline;" ';
+	return value;
+}
+
 Ext.bhlcommondata.app = function() {
 
 	var store_gamedays = new Ext.data.ArrayStore({

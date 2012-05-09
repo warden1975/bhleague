@@ -30,7 +30,7 @@ if (isset($action) && strlen(trim($action)) > 0) {
 			}
 			break;
 		case 'insert':
-			$sql = "INSERT INTO bhleague.schedule (game_date, game_time, team1, team2,team1_score,team2_score) VALUES ('".$game_date."','".$game_time."','".$team1."','".$team2."','".$team1_score."','".$team2_score."')";
+			$sql = "INSERT INTO bhleague.schedule (game_date, game_time, team1, team2,team1_score,team2_score) VALUES ('".@$game_date."','".@$game_time."','".@$team1."','".@$team2."','".@$team1_score."','".@$team2_score."')";
 			if ($rs = $db->query($sql)) echo '{success:true}';
 			else echo '{success:false}';
 			break;

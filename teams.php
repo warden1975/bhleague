@@ -7,6 +7,8 @@ require DB_CLS;
 $db = new DB_Connect(MYSQL_INTRANET, 1);
 if (!$db) die("Can't connect to database.");
 
+$team_id = 0;
+
 extract($_REQUEST);
 
 $current_year = date("Y");
@@ -239,6 +241,20 @@ else if(@$action=='getteam_leader')
 	{
 	 echo $db->error;
 	}
+}
+
+if (@$action=='getteam_logo') {
+	$logo = 'images/no-profile.gif';
+	$sql = "select team_name as team, logo as path from bhleague.teams where id = '{$team_id}'";
+	if ($rs = $db->query($sql)) {
+		$rs_cnt = $rs->num_rows;
+		if ($rs_cnt > 0) {
+			$row = $rs->fetch_assoc();
+			$path[] = $row;
+		}
+		$rs->close();
+	}
+	echo json_encode(array('logo' => $path));
 }
 
 $db->close();

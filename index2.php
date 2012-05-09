@@ -57,8 +57,8 @@ if ($rs = $db->query($sql)) {
 	$rs->close();
 }
 
-$sql = "select rank.team, round(rank.pts_for - rank.pts_against, 0) as pts_diff, rank.team_id from (
-select b.team_name as team, b.id as team_id, 
+$sql = "select rank.team, round(rank.pts_for - rank.pts_against, 0) as pts_diff from (
+select b.team_name as team, 
 	sum(if(a.game_winner=b.id,1,0)) as wins, 
 	sum(if(a.game_loser=b.id,1,0)) as losses, 
 	(sum(if(a.game_winner=b.id,a.winner_score,0)) + sum(if(a.game_loser=b.id,a.loser_score,0))) as pts_for,
@@ -85,34 +85,6 @@ if ($rs = $db->query($sql)) {
 	$rs_cnt = $rs->num_rows;
 	if ($rs_cnt > 0) {
 		$s = $rs->fetch_assoc();
-	}
-	$rs->close();
-}
-
-$sql = "select b.team_name as team, b.id as team_id,
-	sum(if(a.game_winner=b.id,1,0)) as wins, 
-	sum(if(a.game_loser=b.id,1,0)) as losses
-from bhleague.games_stats a, bhleague.teams b 
-where a.game_date in (
-  select * from (
-	  select game_date from bhleague.`games_stats` where game_date <= now() and weekday(game_date) = '{$gameday}' group by game_date desc limit 3
-  ) as game_x
-)
-group by b.id having wins <> 0 
-order by wins desc, losses asc;";
-
-if ($rs = $db->query($sql)) {
-	$rs_cnt = $rs->num_rows;
-	if ($rs_cnt > 0) {
-		while ($row = $rs->fetch_object()) {
-			$team_id = $row->team_id;
-			$team = $row->team;
-			$wins = $row->wins;
-			$losses = $row->losses;
-			$win_pct = @round($wins / ($wins + $losses), 2) * 100;
-			
-			$g[] = array('team_id' => $team_id, 'team' => $team, 'win_pct' => $win_pct);
-		}
 	}
 	$rs->close();
 }
@@ -188,133 +160,67 @@ $db = NULL;
 </div>
 <div id="header2">
   <div class="wrap">
-    <div id="game_league_id">
-      <input type="text" id="local-gamedays" size="20"/>
-    </div>
+  	<div id="game_league_id"><input type="text" id="local-gamedays" size="20"/></div>
     <div class="clear"></div>
   </div>
 </div>
 <div id="content">
-<div class="wrap1 bg-white">
-<div class="wrap">
-  <div class="content-top">
-    <div class="f_left">
-      <div class="box bg1" style="margin-bottom:10px">
-        <h3>BHL BASKETBALL LEADERS</h3>
-        <div class="sub-box">
-          <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <?php echo $m_class; ?>
-            <div class="clear"></div>
-          </div>
-          <div class="people">
-            <?php
+  <div class="wrap1 bg-white">
+    <div class="wrap">
+      <div class="content-top">
+        <div class="f_left">
+          <div class="box bg1">
+            <h3>BHL BASKETBALL LEADERS</h3>
+            <div class="sub-box">
+              <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <?php echo $m_class; ?>
+                <div class="clear"></div>
+              </div>
+              <div class="people">
+              <?php
 			  $first = true;
 			  foreach ($pg as $k) {
 			  if ($first) {
 			  ?>
-            <div class="person first">
+                <div class="person first">
               <?php
 			  	$first = false;
 			  } else {
               ?>
-              <div class="person">
-                <?php
+                <div class="person">
+              <?php
 			  }
               ?>
-                <div class="img">
-                  <div class="the-info"> <?php echo $k['team_name']; ?> </div>
-                  <img src="images/no-profile.gif" /> </div>
-                <div class="detail">
-                  <div class="f_left"> <a href="player.php?player=<?php echo $k['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $k['player_name']; ?></a> </div>
-                  <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> <?php echo $m; ?> </div>
-                  <div class="clear"></div>
+                  <div class="img">
+                    <div class="the-info"> <?php echo $k['team_name']; ?> </div>
+                    <img src="images/no-profile.gif" /> </div>
+                  <div class="detail">
+                    <div class="f_left"> <a href="player.php?player=<?php echo $k['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $k['player_name']; ?></a> </div>
+                    <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> <?php echo $m; ?> </div>
+                    <div class="clear"></div>
+                  </div>
                 </div>
-              </div>
               <?php
 			  }
 			  ?>
-              <div class="clear"></div>
+                <div class="clear"></div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="box" style="margin-bottom:10px">
-          <h4><span>BHL</span> - TOP 20 PLAYERS</h4>
-          <div id="grid-top20" class="sub-box"></div>
-        </div>
-      </div>
-      <div class="f_right">
-        <div class="box disqus" style="margin-bottom:10px; line-height: 12px;">
-          <h4><span>BHL</span> - WALL COMMENTS</h4>
-          <div class="sub-box">
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-				  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-				  var disqus_shortname = 'bhleague'; // required: replace example with your forum shortname
-
-				  /* * * DON'T EDIT BELOW THIS LINE * * */
-				  (function() {
-					  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-					  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-					  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-				  })();
-			  </script>
-            <noscript>
-            Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-            </noscript>
-            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a> </div>
-        </div>
-        <div class="box" style="margin-bottom:10px">
-          <h4><span>BHL</span> - SCHEDULE <span><?php echo @$s['game_dayname']; ?></span> <?php echo @$s['game_date']; ?></h4>
-          <div id="grid-next_game" class="sub-box"></div>
-        </div>
-        <div class="clear"></div>
-      </div>
-      <br /><br />
-      <div class="content-bottom">
-        <div class="f_left">
-          <div class="box">
-            <h4><span>BHL</span> - HOTTEST PLAYERS  <span>* Previous two games</span></h4>
-            <div id="grid-top10" class="sub-box"></div>
           </div>
         </div>
         <div class="f_right">
           <div class="box">
-            <h3>HOTTEST TEAMS</h3>
-            <div class="sub-box">
-              <table class="greenbox">
-                <thead>
-                  <tr>
-                    <th>TEAM</th>
-                    <th>WIN %</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-				foreach ($g as $gk) {
-				?>
-                  <tr>
-                    <td><a href="teams.html?team_id=<?php echo $gk['team_id']; ?>" style="text-decoration:none; color:#FF0;"><?php echo $gk['team']; ?></a></td>
-                    <td><?php echo $gk['win_pct']; ?></td>
-                  </tr>
-                  <?php
-				}
-				?>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="2"><span style="color:#FFF;">* Past three games</span></td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
+            <h3>BHL BASKETBALL SCHEDULE</h3>
+            <h4><span><?php echo @$s['game_dayname']; ?></span> <?php echo @$s['game_date']; ?></h4>
+            <div id="grid-next_game" class="sub-box"></div>
           </div>
         </div>
         <div class="clear"></div>
       </div>
-      <br />
       <div class="content-bottom">
         <div class="f_left">
           <div class="box">
-            <h4><span>BHL</span> - BASKETBALL STANDINGS</h4>
+            <h3>BHL BASKETBALL STANDINGS</h3>
+            <h4><span>2012</span> - Night League</h4>
             <div id="grid-standings" class="sub-box"></div>
           </div>
         </div>
@@ -331,16 +237,16 @@ $db = NULL;
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
+                <?php
 				foreach ($r as $kk) {
 				$kk_sign = gmp_sign($kk['pts_diff']);
 				?>
                   <tr>
-                    <td><a href="teams.html?team_id=<?php echo $kk['team_id']; ?>" style="text-decoration:none; color:#FF0;"><?php echo $kk['team']; ?></a></td>
+                    <td><?php echo $kk['team']; ?></td>
                     <td><?php echo $kk['pts_diff']; ?></td>
                     <td><?php echo ($kk_sign == -1 or $kk_sign == 0) ? '<img src="images/down.png" />' : '<img src="images/up.png" />'; ?></td>
                   </tr>
-                  <?php
+                <?php
 				}
 				?>
                 </tbody>

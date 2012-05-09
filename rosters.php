@@ -9,20 +9,60 @@ require COMMON;
 $db = new DB_Connect(MYSQL_INTRANET, 1);
 if (!$db) die("Can't connect to database.");
 
+$action = NULL;
 extract($_REQUEST);
-
 $d = array();
 
-$sql = "select b.id as player_id, concat(b.player_fname, ' ', b.player_lname) as player_name, 
-	b.height, b.weight, (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
-	sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
-	sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
-	sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
-	sum(if(a.player_id=b.id, 1, 0)) as games_played
-from bhleague.players_stats a, bhleague.players b 
-where weekday(a.game_date) = '{$gameday}' 
-group by b.id 
-order by points desc, rebounds desc, assists desc;";
+switch ($action) {
+	case 'top20':
+		$sql = "select top.player_id, top.player_name, top.height, top.weight, top.position, top.points, top.rebounds, top.assists, top.games_played 
+		from (
+		  select b.id as player_id, concat(b.player_fname, ' ', b.player_lname) as player_name, 
+			  b.height, b.weight, (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
+			  sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
+			  sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
+			  sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
+			  sum(if(a.player_id=b.id, 1, 0)) as games_played
+		  from bhleague.players_stats a, bhleague.players b 
+		  where weekday(a.game_date) = '{$gameday}' 
+		  group by b.id 
+		  order by points desc, rebounds desc, assists desc
+		) as top 
+		order by top.points desc limit 20;";
+		break;
+	case 'top10':
+		$sql = "select top.player_id, top.player_name, top.height, top.weight, top.`position`, top.points, top.rebounds, top.assists, top.games_played 
+		from (
+		  select b.id as player_id, concat(b.player_fname, ' ', b.player_lname) as player_name, 
+			  b.height, b.weight, (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
+			  sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
+			  sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
+			  sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
+			  sum(if(a.player_id=b.id, 1, 0)) as games_played
+		  from bhleague.players_stats a, bhleague.players b 
+		  where a.game_date in (
+		  	select * from (
+				select game_date from bhleague.`players_stats` where game_date <= now() and weekday(game_date) = '{$gameday}' group by game_date desc limit 2
+			) as game_x
+		  )
+		  group by b.id 
+		  order by points desc, rebounds desc, assists desc
+		) as top 
+		order by top.points desc limit 10;";
+		break;
+	default:
+		$sql = "select b.id as player_id, concat(b.player_fname, ' ', b.player_lname) as player_name, 
+			b.height, b.weight, (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
+			sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
+			sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
+			sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
+			sum(if(a.player_id=b.id, 1, 0)) as games_played
+		from bhleague.players_stats a, bhleague.players b 
+		where weekday(a.game_date) = '{$gameday}' 
+		group by b.id 
+		order by points desc, rebounds desc, assists desc;";
+		break;
+}
 
 if ($rs = $db->query($sql)) {
 	$rs_cnt = $rs->num_rows;

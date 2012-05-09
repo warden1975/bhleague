@@ -163,33 +163,22 @@ span.playerInfoValuePlayerInfoBorders {color:#000000;font-family:Arial;font-weig
 .box.fl_right{float:right;width:461px;}
 
 /*4. NEW CSS */
-body{font-family: 'Coda',"Open Sans",'Arial';}
+body{font-family: 'Coda','Arial';}
 .box.disqus .sub-box{background:#D6E2EA;padding:10px;behavior:url(js/PIE.htc);}
-#disqus_thread{margin:0px !important;font-size:10px;line-height:11px;}
-#dsq-content #dsq-global-toolbar{margin:0px !important;}
+#disqus_thread{margin:0px;}
+#dsq-content #dsq-global-toolbar{margin-top:0px !important;}
 .dsq-reply{margin-top:5px !important;}
 #disqus_thread h3{
 	background:none;
 	border: 0px;
-	font-size: 14px;
-	line-height: 14px;
+	font-size: 18px;
+	line-height: 18px;
 	padding: 0px;
 	font-weight: bold;
 	color: #000;
 	zoom: 1;
-	margin-bottom:8px !important;
+	margin-bottom:5px !important;
 }
 #dsq-comments{max-height:225px;overflow:auto;}
 
 .dsq-brlink, #disqus_thread a{color:#0D2652;font-weight:bold;text-decoration:none !important;}
-.dsq-textarea-reply {margin-bottom:5px !important;}
-#dsq-content #dsq-global-toolbar .dsq-global-toolbar-left li ,#dsq-content #dsq-global-toolbar .dsq-global-toolbar-right li{margin-bottom:0px !important;}
-#dsq-content .dsq-comment {margin-bottom:5px !important;font-family:"Open Sans";}
-#dsq-content .dsq-comment-text{font-family:"Open Sans";}
-.dsq-comment-header {margin-bottom:5px !important;}
-.dsq-comment-message {margin-bottom:5px !important;}
-#dsq-content .dsq-comment-message .dsq-comment-text p {margin-bottom:5px !important;font-size:12px !important;}
-#dsq-content #dsq-footer {margin:4px 0px !important;}
-.dsq-commenter-name{font-family: 'Coda',"Open Sans",'Arial';font-size:11px;}
-.dsq-collapse-toggle{top:4px !important;}
-.dsq-comment-header{padding:5px 10px !important;}

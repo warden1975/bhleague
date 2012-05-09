@@ -58,6 +58,30 @@ Ext.onReady(function(){
 		{name: 'game_time'}
 	]);
 	
+	var reader_top20 = new Ext.data.ArrayReader({}, [
+		{name: 'player_id'},
+		{name: 'player'},
+		{name: 'height'},
+		{name: 'weight',},
+		{name: 'position'},
+		{name: 'ppg', type: 'float'},
+		{name: 'rpg', type: 'float'},
+		{name: 'apg', type: 'float'},
+		{name: 'games', type: 'float'}
+	]);
+	
+	var reader_top10 = new Ext.data.ArrayReader({}, [
+		{name: 'player_id'},
+		{name: 'player'},
+		{name: 'height'},
+		{name: 'weight',},
+		{name: 'position'},
+		{name: 'ppg', type: 'float'},
+		{name: 'rpg', type: 'float'},
+		{name: 'apg', type: 'float'},
+		{name: 'games', type: 'float'}
+	]);
+	
 	// get the data
     var proxy = new Ext.data.HttpProxy({
 		//where to retrieve data
@@ -68,6 +92,16 @@ Ext.onReady(function(){
 	var proxy_sched = new Ext.data.HttpProxy({
 		//where to retrieve data
 		url: 'next_game.php', //url to data object (server side script)
+		method: 'GET'
+	});
+	
+	var proxy_top20 = new Ext.data.HttpProxy({
+		url: 'rosters.php?action=top20', //url to data object (server side script)
+		method: 'GET'
+	});
+	
+	var proxy_top10 = new Ext.data.HttpProxy({
+		url: 'rosters.php?action=top10', //url to data object (server side script)
 		method: 'GET'
 	});
         
@@ -81,6 +115,16 @@ Ext.onReady(function(){
     	reader: reader_sched,
         proxy: proxy_sched
     });
+	
+	var store_top20 = new Ext.data.Store({
+    	reader: reader_top20,
+        proxy: proxy_top20
+    });
+	
+	var store_top10 = new Ext.data.Store({
+    	reader: reader_top10,
+        proxy: proxy_top10
+    });
 
     // create the Grid
     var grid = new Ext.grid.GridPanel({
@@ -91,7 +135,7 @@ Ext.onReady(function(){
                 header   : '', 
                 width    : 160, 
                 sortable : false, 
-				hidden : true,
+				hidden 	 : true,
                 dataIndex: 'team_id'
             },
             {
@@ -99,6 +143,7 @@ Ext.onReady(function(){
                 header   : 'Team', 
                 width    : 160, 
                 sortable : false, 
+				renderer : Ext.bhlcommondata.format_underline, 
                 dataIndex: 'team'
             },
             {
@@ -145,14 +190,14 @@ Ext.onReady(function(){
         stripeRows: true,
         autoExpandColumn: 'team',
 		listeners: {
-				cellclick: function(grid, rowIndex, columnIndex, e) {
-					var record = grid.getStore().getAt(rowIndex);  // Get the Record
-	
-					var data = record.get('team_id');
-					window.location.href='teams.html?team_id='+data;
-			
-				}
-			},
+			cellclick: function(grid, rowIndex, columnIndex, e) {
+				var record = grid.getStore().getAt(rowIndex);  // Get the Record
+
+				var data = record.get('team_id');
+				window.location.href='teams.html?team_id='+data;
+		
+			}
+		},
 		border: false,
 		autoHeight: true,
 		layout: 'fit',
@@ -170,6 +215,7 @@ Ext.onReady(function(){
                 width    : 150, 
                 sortable : false, 
                 dataIndex: 'playing',
+				renderer : Ext.bhlcommondata.format_underline,
 				align	 : 'left'
             },
             {
@@ -189,12 +235,199 @@ Ext.onReady(function(){
         stateId: 'grid'
     });
 	
+	var grid_top20 = new Ext.grid.GridPanel({
+        store: store_top20,
+        columns: [
+			{
+                id       : 'player_id',
+                header   : 'ID',
+                sortable : false, 
+                dataIndex: 'player_id', 
+				hidden	 : true
+            },
+            {
+                header   : 'Player', 
+                width    : 150, 
+                sortable : false,
+				renderer : Ext.bhlcommondata.format_underline,
+                dataIndex: 'player'
+            },
+			{
+                header   : 'Height', 
+                hidden	 : true, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'height',
+				align	 : 'left'
+            },
+			{
+                header   : 'Weight', 
+                hidden	 : true, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'weight',
+				align	 : 'center'
+            },
+			{
+                header   : 'Position', 
+                hidden	 : true, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'position',
+				align	 : 'center'
+            },
+			{
+                header   : 'PPG', 
+                width    : 90, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'ppg',
+				align	 : 'center'
+            },
+			{
+                header   : 'RPG', 
+                width    : 90, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'rpg',
+				align	 : 'center'
+            },
+			{
+                header   : 'APG', 
+                width    : 90, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'apg',
+				align	 : 'center'
+            },
+			{
+                header   : 'Games Played', 
+                width    : 90, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'games',
+				align	 : 'center'
+            }
+        ],
+        stripeRows: true,
+        //autoExpandColumn: 'player',
+		autoHeight: true,
+		border: false,
+		layout: 'fit',
+		listeners: {
+			cellclick: function(grid, rowIndex, columnIndex, e) {
+				var record = grid.getStore().getAt(rowIndex);
+				var data = record.get('player_id');
+				window.location.href='player.php?player='+data;
+			}
+		},
+        // config options for stateful behavior
+        stateful: true,
+        stateId: 'grid'
+    });
+	
+	var grid_top10 = new Ext.grid.GridPanel({
+        store: store_top10,
+        columns: [
+			{
+                id       : 'player_id',
+                header   : '',
+				width	 : 160, 
+                sortable : false, 
+                dataIndex: 'player_id', 
+				hidden	 : true
+            },
+            {
+                header   : 'Player', 
+                width    : 315, 
+                sortable : false,
+				renderer : Ext.bhlcommondata.format_underline,
+                dataIndex: 'player'
+            },
+			{
+                header   : 'Height', 
+                width    : 75, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'height',
+				align	 : 'left'
+            },
+			{
+                header   : 'Weight', 
+                hidden	 : true, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'weight',
+				align	 : 'center'
+            },
+			{
+                header   : 'Position', 
+                width    : 75, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'position',
+				align	 : 'center'
+            },
+			{
+                header   : 'PPG', 
+                width    : 75, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'ppg',
+				align	 : 'center'
+            },
+			{
+                header   : 'RPG', 
+                width    : 75, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'rpg',
+				align	 : 'center'
+            },
+			{
+                header   : 'APG', 
+                width    : 75, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'apg',
+				align	 : 'center'
+            },
+			{
+                header   : 'Games Played', 
+                hidden	 : true, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'games',
+				align	 : 'center'
+            }
+        ],
+        stripeRows: true,
+        //autoExpandColumn: 'player',
+		autoHeight: true,
+		border: false,
+		layout: 'fit',
+		listeners: {
+			cellclick: function(grid, rowIndex, columnIndex, e) {
+				var record = grid.getStore().getAt(rowIndex);
+				var data = record.get('player_id');
+				window.location.href='player.php?player='+data;
+			}
+		},
+        // config options for stateful behavior
+        stateful: true,
+        stateId: 'grid'
+    });
+	
 	store.load();
 	store_sched.load();
+	store_top20.load();
+	store_top10.load();
 
     // render the grid to the specified div in the page
     grid.render('grid-standings');
 	grid_sched.render('grid-next_game');
+	grid_top20.render('grid-top20');
+	grid_top10.render('grid-top10');
 	
 	//grid.getSelectionModel().selectFirstRow();
 });

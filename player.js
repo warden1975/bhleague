@@ -43,7 +43,7 @@ Ext.onReady(function(){
     }
 	
 	var store = new Ext.data.ArrayStore({
-		fields: ['season', 'team', 'games', 'ppg', 'rpg', 'apg'],
+		fields: ['season', 'team_id', 'team', 'games', 'ppg', 'rpg', 'apg'],
 		data: Ext.bhlcommondata.player_stats
 	});
 
@@ -58,11 +58,18 @@ Ext.onReady(function(){
                 sortable : false, 
                 dataIndex: 'season'
             },
+			{
+                id       :'team_id',
+                header   : 'Team', 
+                hidden   : true, 
+                sortable : false, 
+                dataIndex: 'season'
+            },
             {
                 header   : 'Team', 
                 width    : 190, 
                 sortable : false, 
-                renderer : change, 
+                renderer : Ext.bhlcommondata.format_underline,
                 dataIndex: 'team',
 				align	 : 'center'
             },
@@ -104,6 +111,15 @@ Ext.onReady(function(){
 		border: false,
 		autoHeight: true,
 		layout: 'fit',
+		listeners: {
+			cellclick: function(grid, rowIndex, columnIndex, e) {
+				var record = grid.getStore().getAt(rowIndex);  // Get the Record
+
+				var data = record.get('team_id');
+				window.location.href='teams.html?team_id='+data;
+		
+			}
+		},
         // config options for stateful behavior
         stateful: true,
         stateId: 'grid'

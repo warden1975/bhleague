@@ -89,34 +89,6 @@ if ($rs = $db->query($sql)) {
 	$rs->close();
 }
 
-$sql = "select b.team_name as team, b.id as team_id,
-	sum(if(a.game_winner=b.id,1,0)) as wins, 
-	sum(if(a.game_loser=b.id,1,0)) as losses
-from bhleague.games_stats a, bhleague.teams b 
-where a.game_date in (
-  select * from (
-	  select game_date from bhleague.`games_stats` where game_date <= now() and weekday(game_date) = '{$gameday}' group by game_date desc limit 3
-  ) as game_x
-)
-group by b.id having wins <> 0 
-order by wins desc, losses asc;";
-
-if ($rs = $db->query($sql)) {
-	$rs_cnt = $rs->num_rows;
-	if ($rs_cnt > 0) {
-		while ($row = $rs->fetch_object()) {
-			$team_id = $row->team_id;
-			$team = $row->team;
-			$wins = $row->wins;
-			$losses = $row->losses;
-			$win_pct = @round($wins / ($wins + $losses), 2) * 100;
-			
-			$g[] = array('team_id' => $team_id, 'team' => $team, 'win_pct' => $win_pct);
-		}
-	}
-	$rs->close();
-}
-
 $db->close();
 $db = NULL;
 ?>
@@ -236,7 +208,7 @@ $db = NULL;
             </div>
           </div>
         </div>
-        <div class="box" style="margin-bottom:10px">
+        <div class="box">
           <h4><span>BHL</span> - TOP 20 PLAYERS</h4>
           <div id="grid-top20" class="sub-box"></div>
         </div>
@@ -262,7 +234,7 @@ $db = NULL;
             </noscript>
             <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a> </div>
         </div>
-        <div class="box" style="margin-bottom:10px">
+        <div class="box">
           <h4><span>BHL</span> - SCHEDULE <span><?php echo @$s['game_dayname']; ?></span> <?php echo @$s['game_date']; ?></h4>
           <div id="grid-next_game" class="sub-box"></div>
         </div>
@@ -272,7 +244,7 @@ $db = NULL;
       <div class="content-bottom">
         <div class="f_left">
           <div class="box">
-            <h4><span>BHL</span> - HOTTEST PLAYERS  <span>* Previous two games</span></h4>
+            <h4><span>BHL</span> - HOTTEST PLAYERS</h4>
             <div id="grid-top10" class="sub-box"></div>
           </div>
         </div>
@@ -289,11 +261,12 @@ $db = NULL;
                 </thead>
                 <tbody>
                   <?php
-				foreach ($g as $gk) {
+				foreach ($r as $kk) {
+				$kk_sign = gmp_sign($kk['pts_diff']);
 				?>
                   <tr>
-                    <td><a href="teams.html?team_id=<?php echo $gk['team_id']; ?>" style="text-decoration:none; color:#FF0;"><?php echo $gk['team']; ?></a></td>
-                    <td><?php echo $gk['win_pct']; ?></td>
+                    <td><a href="teams.html?team_id=<?php echo $kk['team_id']; ?>" style="text-decoration:none; color:#FF0;"><?php echo $kk['team']; ?></a></td>
+                    <td><?php echo $kk['pts_diff']; ?></td>
                   </tr>
                   <?php
 				}
@@ -301,7 +274,7 @@ $db = NULL;
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="2"><span style="color:#FFF;">* Past three games</span></td>
+                    <td colspan="2">&nbsp;</td>
                   </tr>
                 </tfoot>
               </table>

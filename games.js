@@ -256,7 +256,7 @@ function getGame_Profile(team1,team2,gamedate,uri)
 		// create the Grid
 		var gridx = new Ext.grid.GridPanel({
 			store: storex,
-			title:'Previous Game Matchup',
+			title:'Game Stats',
 			viewConfig:{
 			emptyText:'No records to display'
 		},
@@ -326,7 +326,7 @@ function getGame_Profile(team1,team2,gamedate,uri)
 	{
 		//Ext.Ajax.request({
 //		params: {action: 'getteamname', team_id: idx},
-//		url: 'games.php',
+//		url: 'games_callback.php',
 //		success: function (resp,form,action) {
 //		
 //		//alert(resp.responseText) ;
@@ -334,16 +334,16 @@ function getGame_Profile(team1,team2,gamedate,uri)
 		//teamid,title,uri
 		//Ext.getCmp('teams').setValue(idx);
 		//titlex = resp.responseText + ' Game Stats';
-		urx ='games.php?action=get_game_stats&gamedate=' + idx + '&team1=' +tm1 + '&team2=' +tm2;
+		urx ='games_callback.php?action=get_game_stats&gamedate=' + idx + '&team1=' +tm1 + '&team2=' +tm2;
 		//alert(idx);
 		getGame_Profile(tm1,tm2,idx,urx )
 		
 		idz = idx
 		//titlez = resp.responseText + ' Player Stats';
-		urz ='games.php?action=get_game_player_roster&gamedate=' + idx + '&team1=' +tm1 + '&team2=' +tm2;
+		urz ='games_callback.php?action=get_game_player_roster&gamedate=' + idx + '&team1=' +tm1 + '&team2=' +tm2;
 		getGame_Player_Profile(tm1,tm2,idx,urz)
 		
-		urq ='games.php?action=get_previous_matchup&gamedate=' + idx + '&team1=' +tm1 + '&team2=' +tm2;
+		urq ='games_callback.php?action=get_previous_matchup&gamedate=' + idx + '&team1=' +tm1 + '&team2=' +tm2;
 		getGame_Revious_Match(tm1,tm2,idx,urq)
 	
 		//},
@@ -374,7 +374,7 @@ function getGame_Profile(team1,team2,gamedate,uri)
 	{
 		Ext.Ajax.request({
 		params: {action: 'get_Date'},
-		url: 'games.php',
+		url: 'games_callback.php',
 		success: function (resp,form,action) {
 		
 		//Ext.getCmp('season').setValue('1');
@@ -425,6 +425,7 @@ Ext.onReady(function(){
 		
 	//alert("ZZZZ");
 		var gamedate = document.getElementById('hid_game_date').value;
+		alert(gamedate);
 		var txm1 = document.getElementById('hid_team1').value;
 		var txm2 = document.getElementById('hid_team2').value;
 		
@@ -433,8 +434,8 @@ Ext.onReady(function(){
 	}
 	else
 	{
-		//alert("CCCC");
-		 getGames('2012-04-24',13,8)
+		alert('<?php echo $gamedate;?>');
+		 getGames('<?php echo $gamedate;?>',<?php echo $team1;?>,<?php echo $team2;?>)
 		//alert(leader)
 	//var tmx = document.getElementById('hid_team_id').value;
 //	var teamx = getteamname(tmx);

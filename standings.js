@@ -81,6 +81,7 @@ Ext.onReady(function(){
                 header   : 'Team', 
                 width    : 160, 
                 sortable : false, 
+				renderer : Ext.bhlcommondata.format_underline,
                 dataIndex: 'team'
             },
             {
