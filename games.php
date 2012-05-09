@@ -521,13 +521,13 @@ function getGame_Profile(team1,team2,gamedate,uri)
 					//var fieldName = grid.getColumnModel().getDataIndex(columnIndex); // Get field name
 					if(columnIndex==2)
 					{
-					alert(columnIndex);
+					//alert(columnIndex);
 					var data = record.get('team1x');
 					window.location.href='teams.html?team_id='+data;
 					}
 					else if(columnIndex==3)
 					{
-					alert(columnIndex);
+					//alert(columnIndex);
 					var data = record.get('team2x');
 					window.location.href='teams.html?team_id='+data;	
 					}

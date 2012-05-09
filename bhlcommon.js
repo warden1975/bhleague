@@ -185,10 +185,7 @@ Ext.onReady(function() {
 		interval: 30,
 		containerCls: 'marquee-container',
 		textCls: 'marquee-text',
-		text: [
-			'SAMPLE: The Chemists - 109 vs The Pugamaniacs - 100',
-			'SAMPLE: The Chemists - 89 vs Shoot to kill - 88',
-			'SAMPLE: Clubbers - 73 vs Purple Rain - 100']
+		text: Ext.bhlcommondata.month_games
 	});
 	marquee.init();
 });

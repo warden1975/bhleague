@@ -129,3 +129,8 @@
 [09-May-2012 07:58:12] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.js on line 444
 [09-May-2012 07:58:12] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.js on line 444
 [09-May-2012 09:25:04] PHP Notice:  Undefined variable: path in /home/bhleague/public_html/teams.php on line 257
+[09-May-2012 10:13:01] PHP Notice:  Undefined variable: path in /home/bhleague/public_html/teams.php on line 257
+[09-May-2012 10:15:59] PHP Notice:  Undefined variable: path in /home/bhleague/public_html/teams.php on line 257
+[09-May-2012 10:23:34] PHP Notice:  Undefined variable: gameday in /home/bhleague/public_html/bhlcommon.php on line 16
+[09-May-2012 10:23:34] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 34
+[09-May-2012 10:23:34] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 34

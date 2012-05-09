@@ -15,6 +15,8 @@ $pg = $r = array();
 
 extract($_REQUEST);
 
+$month_games = get_month_games();
+
 $m = strtoupper($m);
 
 switch ($m) {
@@ -176,6 +178,9 @@ $db = NULL;
 <!-- Overrides to base library -->
 <script type="text/javascript" src="index_main.js"></script>
 <script type="text/javascript" src="bhlcommon.js"></script>
+<script type="text/javascript">
+Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
+</script>
 </head>
 <body>
 <div id="header">
