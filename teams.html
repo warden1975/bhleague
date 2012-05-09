@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -133,7 +133,7 @@ function setteam_id()
 	document.getElementById('hid_team_id').value = team_id
 	
 	}
-</script>
+</script> 
 <script  type="text/javascript" src="teams.js"></script>
 <div id="header">
   <div class="wrap">
@@ -145,7 +145,10 @@ function setteam_id()
 </div>
 <div id="header2">
   <div class="wrap">
-  	<div id="game_league_id"><input type="text" id="local-gamedays" size="20"/><input type="hidden" id="hid_team_id" name="hid_team_id" value="" /></div>
+    <div id="game_league_id">
+      <input type="text" id="local-gamedays" size="20"/>
+      <input type="hidden" id="hid_team_id" name="hid_team_id" value="" />
+    </div>
     <div class="clear"></div>
   </div>
 </div>
@@ -153,18 +156,41 @@ function setteam_id()
   <div class="wrap1 bg-white">
     <div class="wrap">
       <div class="content-top">
+        <div class="f_left">
+          <div class="box bg1 auto-height">
+            <h3>Team Profile</h3>
+            <div class="sub-box">
+              <div class="tabs">
+                <div class="clear"></div>
+              </div>
+              <div class="people">
+                <div class="logo2">
+                  <div class="img"> <img src="images/logo/bh league logo-01.png" />
+                    <div class="the-info"> LOGO DESCRIPTION </div>
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="content-top">
         <div class="box">
           <h3>BHL TEAM PROFILE</h3>
           <h4><span>2012</span> Night League</h4>
-          <div class="sub-box">
-            <div id="grid-team-stats"></div>
-			 <h3>BHL TEAM PLAYER</h3>
-             <h4><span>2012</span> Night League</h4>
-			 <div id="grid-team-rosters"></div>
-			 <!--<div id="grid-team-stats-prev"></div>
-			 <div id="grid-team-rosters-prev"></div>-->
-          </div>
+          <div id="grid-team-stats"></div>
         </div>
+        <div class="clear"></div>
+      </div>
+      <div class="content-top">					
+		<div class="box">
+        	<h3>BHL TEAM PLAYER</h3>
+            <h4><span>2012</span> Night League</h4>
+            <div id="grid-team-rosters"></div>
+        </div>
+        <div class="clear"></div>
       </div>
     </div>
   </div>

@@ -57,3 +57,9 @@
 [07-May-2012 03:06:12] PHP Notice:  Undefined variable: action in /home/bhleague/public_html/teams.php on line 197
 [07-May-2012 03:06:12] PHP Notice:  Undefined variable: action in /home/bhleague/public_html/teams.php on line 220
 [07-May-2012 03:06:12] PHP Notice:  Undefined variable: action in /home/bhleague/public_html/teams.php on line 224
+[08-May-2012 23:06:29] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 194
+[08-May-2012 23:06:29] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 194
+[08-May-2012 23:06:29] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 211
+[08-May-2012 23:06:29] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 211
+[08-May-2012 23:06:29] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 212
+[08-May-2012 23:06:29] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 212

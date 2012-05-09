@@ -151,3 +151,13 @@ span.playerInfoValuePlayerInfoBorders {color:#000000;font-family:Arial;font-weig
 .box .sub-box .people .logo{float:left;width:306px;margin-left:28px;}
 .box .sub-box .people .logo .img{position:relative;width:306px;height:138px;text-align:center;}
 .box .sub-box .people .logo .img .the-info{position:absolute;bottom:-32px;padding:5px 5px 0px;text-align:right;width:296px;background:url(../images/trans1.png);color:#fff;border-top:1px solid #666;zoom:1;z-index:999;behavior:url(js/PIE.htc);-pie-png-fix:true;}
+
+/*3. NEW CSS*/
+.box .sub-box .people .logo2{float:none;margin:0px;padding-bottom:10px;}
+.box .sub-box .people .logo2 .img{width:auto;text-align:center;}
+.box .sub-box .people .logo2 .img img{margin-bottom:10px;}
+.box .sub-box .people .logo2 .img .the-info{position:relative;padding:5px 5px 0px;text-align:right;background:url(../images/trans1.png);color:#fff;border-top:1px solid #666;zoom:1;z-index:999;behavior:url(js/PIE.htc);-pie-png-fix:true;margin-bottom:10px;}
+.margin-bottom-10{margin-bottom:10px;}
+.auto-height{height:auto !important;}
+.box.fl_left{float:left;width:461px;}
+.box.fl_right{float:right;width:461px;}
