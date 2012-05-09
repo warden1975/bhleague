@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Team Profile</title>
+<title>Game Profile</title>
 <script language="javascript">
 <!--
 
@@ -127,14 +127,18 @@ FORM_DATA = createRequestObject();
 
 <body onload="createRequestObject();">
 <script>
-function setteam_id()
+function setgame_params()
 {
-	var team_id= FORM_DATA['team_id'];
-	document.getElementById('hid_team_id').value = team_id
+	var game_date= FORM_DATA['game_date'];
+	var tmx1 = FORM_DATA['team1'];
+	var tmx2 = FORM_DATA['team2'];
+	document.getElementById('hid_game_date').value = game_date;
+	document.getElementById('hid_team1').value = tmx1;
+	document.getElementById('hid_team2').value = tmx2;
 	
 	}
 </script>
-<script  type="text/javascript" src="teams.js"></script>
+<script  type="text/javascript" src="games.js"></script>
 <div id="header">
   <div class="wrap">
     <h1 class="logo"><a href="index.php"><img src="images/logo.png" /></a></h1>
@@ -145,7 +149,7 @@ function setteam_id()
 </div>
 <div id="header2">
   <div class="wrap">
-  	<div id="game_league_id"><input type="text" id="local-gamedays" size="20"/><input type="hidden" id="hid_team_id" name="hid_team_id" value="" /></div>
+  	<div id="game_league_id"><input type="text" id="local-gamedays" size="20"/><input type="hidden" id="hid_game_date" name="hid_game_date" value="" /><input type="hidden" id="hid_team1" name="hid_team1" value="" /><input type="hidden" id="hid_team2" name="hid_team2" value="" /></div>
     <div class="clear"></div>
   </div>
 </div>
@@ -153,14 +157,18 @@ function setteam_id()
   <div class="wrap1 bg-white">
     <div class="wrap">
       <div class="content-top">
-        <div class="box">
-          <h3>BHL TEAM PROFILE</h3>
+	  
+        <div class="box">		
+          <h3>BHL GAME PROFILE</h3>
           <h4><span>2012</span> Night League</h4>
           <div class="sub-box">
             <div id="grid-team-stats"></div>
-			 <h3>BHL TEAM PLAYER</h3>
+			 <h3>BHL GAME PLAYER</h3>
              <h4><span>2012</span> Night League</h4>
 			 <div id="grid-team-rosters"></div>
+			 <h3>BHL PREVIOUS GAME MATCHUP</h3>
+             <h4><span>2012</span> Night League</h4>
+			 <div id="grid-prev-games"></div>
 			 <!--<div id="grid-team-stats-prev"></div>
 			 <div id="grid-team-rosters-prev"></div>-->
           </div>
