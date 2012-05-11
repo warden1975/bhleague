@@ -134,3 +134,37 @@
 [09-May-2012 10:23:34] PHP Notice:  Undefined variable: gameday in /home/bhleague/public_html/bhlcommon.php on line 16
 [09-May-2012 10:23:34] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 34
 [09-May-2012 10:23:34] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 34
+[10-May-2012 00:04:19] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 195
+[10-May-2012 00:04:19] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 195
+[10-May-2012 00:04:19] PHP Notice:  Undefined variable: row2 in /home/bhleague/public_html/player.php on line 205
+[10-May-2012 00:04:19] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 205
+[10-May-2012 00:04:19] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 212
+[10-May-2012 00:04:19] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 212
+[10-May-2012 00:04:19] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 00:04:19] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 00:04:23] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[10-May-2012 00:04:23] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[10-May-2012 00:04:24] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
+[10-May-2012 00:04:24] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297
+[10-May-2012 00:04:29] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[10-May-2012 00:04:29] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[10-May-2012 00:04:29] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
+[10-May-2012 00:04:29] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297
+[10-May-2012 04:07:16] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 195
+[10-May-2012 04:07:16] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 195
+[10-May-2012 04:07:16] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 212
+[10-May-2012 04:07:16] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 212
+[10-May-2012 04:07:16] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 04:07:16] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 04:08:47] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 04:08:47] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 04:09:03] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 04:09:03] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 04:09:18] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 04:09:18] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 04:11:08] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 04:11:08] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 213
+[10-May-2012 16:23:06] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[10-May-2012 16:23:06] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[10-May-2012 16:23:06] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
+[10-May-2012 16:23:06] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297

@@ -270,6 +270,8 @@ function getTeam_Profile(teamid,title,uri,sz)
 				store: teamStore,
 				valueField:'id',
 				displayField:'team_name',
+				//itemSelector: 'div.search-item',
+//				tpl: new Ext.XTemplate('<tpl for="."><div class="search-item" style="background-image:url({logo})"><div class="team_name">{team_name}</div></div></tpl>'),	
 				typeAhead: true,
 				forceSelection:true,
 				querymode: 'local',

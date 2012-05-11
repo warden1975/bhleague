@@ -192,7 +192,7 @@ Ext.bhlcommondata.player_stats = <?php echo $player_store; ?>;
       <div class="content-top">
         <div class="f_left">
           <div class="box bg1">
-            <h3><?php echo $row->player_name;?></h3>
+            <h3><?php echo @$row->player_name;?></h3>
             <div class="sub-box">
               <div class="tabs">
                 <div class="clear"></div>
@@ -209,7 +209,7 @@ Ext.bhlcommondata.player_stats = <?php echo $player_store; ?>;
                 </div>
                 <div class="logo">
                   <div class="img">
-                    <div class="the-info"> <?php echo $row->position; ?> </div>
+                    <div class="the-info"> <?php echo @$row->position; ?> </div>
                     <img src="<?php echo ($row->logo <> NULL) ? $row->logo : 'images/no-profile.gif'; ?>" /> </div>
                 </div>
                 <div class="clear"></div>
