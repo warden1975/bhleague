@@ -17,42 +17,10 @@ extract($_REQUEST);
 
 $month_games = get_month_games();
 
-$m = strtoupper($m);
-
-switch ($m) {
-	default:
-	case 'PPG':
-		$m_sql = "sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0))";
-		$mm = 'Points';
-		$m_class = '<a href="index.php?m=PPG" class="on">POINTS</a> | <a href="index.php?m=RPG">REBOUND</a> | <a href="index.php?m=APG">ASSIST</a>';
-		break;
-	case 'APG':
-		$m_sql = "sum(if(a.player_id=b.id, game_assists, 0))";
-		$mm = 'Assists';
-		$m_class = '<a href="index.php?m=PPG">POINTS</a> | <a href="index.php?m=RPG">REBOUND</a> | <a href="index.php?m=APG" class="on">ASSIST</a>';
-		break;
-	case 'RPG':
-		$m_sql = "sum(if(a.player_id=b.id, game_rebounds, 0))";
-		$mm = 'Rebounds';
-		$m_class = '<a href="index.php?m=PPG">POINTS</a> | <a href="index.php?m=RPG" class="on">REBOUND</a> | <a href="index.php?m=APG">ASSIST</a>';
-		break;
-}
-
-/*$sql = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
+$sql_ppg = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
 select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
 	c.team_name, 
-	{$m_sql} as score, 
-	sum(if(a.player_id=b.id, 1, 0)) as games_played
-from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
-where b.team_id = c.id and weekday(a.game_date) = '{$gameday}'   
-group by b.id 
-order by score desc) as ave 
-order by pg desc limit 3;";*/
-
-$sql = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
-select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
-	c.team_name, 
-	{$m_sql} as score, 
+	sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as score, 
 	sum(if(a.player_id=b.id, 1, 0)) as games_played
 from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
 where 
@@ -66,11 +34,65 @@ group by b.id
 order by score desc) as ave 
 order by pg desc limit 3;";
 		
-if ($rs = $db->query($sql)) {
+if ($rs = $db->query($sql_ppg)) {
 	$rs_cnt = $rs->num_rows;
 	if ($rs_cnt > 0) {
 		while ($row = $rs->fetch_assoc()) {
-			$pg[] = $row;
+			$ppg[] = $row;
+		}
+	}
+	$rs->close();
+}
+
+$sql_rpg = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
+select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
+	c.team_name, 
+	sum(if(a.player_id=b.id, game_rebounds, 0)) as score, 
+	sum(if(a.player_id=b.id, 1, 0)) as games_played
+from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
+where 
+	(select case (weekday(a.game_date)) 
+	when '1' then b.team_id 
+	when '5' then b.team_id2 
+	when '6' then b.team_id3
+	end) = c.id 
+	and weekday(a.game_date) = '{$gameday}'   
+group by b.id 
+order by score desc) as ave 
+order by pg desc limit 3;";
+		
+if ($rs = $db->query($sql_rpg)) {
+	$rs_cnt = $rs->num_rows;
+	if ($rs_cnt > 0) {
+		while ($row = $rs->fetch_assoc()) {
+			$rpg[] = $row;
+		}
+	}
+	$rs->close();
+}
+
+$sql_apg = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
+select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
+	c.team_name, 
+	sum(if(a.player_id=b.id, game_assists, 0)) as score, 
+	sum(if(a.player_id=b.id, 1, 0)) as games_played
+from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
+where 
+	(select case (weekday(a.game_date)) 
+	when '1' then b.team_id 
+	when '5' then b.team_id2 
+	when '6' then b.team_id3
+	end) = c.id 
+	and weekday(a.game_date) = '{$gameday}'   
+group by b.id 
+order by score desc) as ave 
+order by pg desc limit 3;";
+		
+if ($rs = $db->query($sql_apg)) {
+	$rs_cnt = $rs->num_rows;
+	if ($rs_cnt > 0) {
+		while ($row = $rs->fetch_assoc()) {
+			$apg[] = $row;
 		}
 	}
 	$rs->close();
@@ -197,6 +219,36 @@ $db = NULL;
 <script type="text/javascript" src="bhlcommon.js"></script>
 <script type="text/javascript">
 Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
+function togglebox_leaders(box) {
+	var bp_el = Ext.get('box_point');
+	var br_el = Ext.get('box_rebound');
+	var ba_el = Ext.get('box_assist');
+	
+	switch (box) {
+		default:
+		case 1:
+			bp_el.show();
+			br_el.setVisibilityMode(Ext.Element.DISPLAY);
+			br_el.hide();
+			ba_el.setVisibilityMode(Ext.Element.DISPLAY);
+			ba_el.hide();
+			break;
+		case 2:
+			bp_el.setVisibilityMode(Ext.Element.DISPLAY);
+			bp_el.hide();
+			br_el.show();
+			ba_el.setVisibilityMode(Ext.Element.DISPLAY);
+			ba_el.hide();
+			break;
+		case 3:
+			bp_el.setVisibilityMode(Ext.Element.DISPLAY);
+			bp_el.hide();
+			br_el.setVisibilityMode(Ext.Element.DISPLAY);
+			br_el.hide();
+			ba_el.show();
+			break;
+	}
+}
 </script>
 </head>
 <body>
@@ -255,16 +307,16 @@ Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
 <div class="wrap">
   <div class="content-top">
     <div class="f_left">
-      <div class="box bg1" style="margin-bottom:10px">
+      <div id="box_point" class="box bg1" style="margin-bottom:10px;">
         <h3>BHL BASKETBALL LEADERS</h3>
         <div class="sub-box">
-          <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <?php echo $m_class; ?>
+          <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <a href="#" class="on">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
             <div class="clear"></div>
           </div>
           <div class="people">
             <?php
 			  $first = true;
-			  foreach ($pg as $k) {
+			  foreach ($ppg as $k) {
 			  if ($first) {
 			  ?>
             <div class="person first">
@@ -278,10 +330,11 @@ Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
               ?>
                 <div class="img">
                   <div class="the-info"> <?php echo $k['team_name']; ?> </div>
-                  <img src="images/no-profile.gif" /> </div>
+                  <img src="images/no-profile.gif" />
+                </div>
                 <div class="detail">
                   <div class="f_left"> <a href="player.php?player=<?php echo $k['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $k['player_name']; ?></a> </div>
-                  <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> <?php echo $m; ?> </div>
+                  <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> PPG </div>
                   <div class="clear"></div>
                 </div>
               </div>
@@ -292,6 +345,85 @@ Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
             </div>
           </div>
         </div>
+        
+        <div id="box_rebound" class="box bg1" style="margin-bottom:10px; display:none;">
+        <h3>BHL BASKETBALL LEADERS</h3>
+        <div class="sub-box">
+          <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" class="on">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
+            <div class="clear"></div>
+          </div>
+          <div class="people">
+            <?php
+			  $first = true;
+			  foreach ($rpg as $k) {
+			  if ($first) {
+			  ?>
+            <div class="person first">
+              <?php
+			  	$first = false;
+			  } else {
+              ?>
+              <div class="person">
+                <?php
+			  }
+              ?>
+                <div class="img">
+                  <div class="the-info"> <?php echo $k['team_name']; ?> </div>
+                  <img src="images/no-profile.gif" />
+                </div>
+                <div class="detail">
+                  <div class="f_left"> <a href="player.php?player=<?php echo $k['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $k['player_name']; ?></a> </div>
+                  <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> RPG </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <?php
+			  }
+			  ?>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="box_assist" class="box bg1" style="margin-bottom:10px; display:none;">
+        <h3>BHL BASKETBALL LEADERS</h3>
+        <div class="sub-box">
+          <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" class="on">ASSIST</a>
+            <div class="clear"></div>
+          </div>
+          <div class="people">
+            <?php
+			  $first = true;
+			  foreach ($apg as $k) {
+			  if ($first) {
+			  ?>
+            <div class="person first">
+              <?php
+			  	$first = false;
+			  } else {
+              ?>
+              <div class="person">
+                <?php
+			  }
+              ?>
+                <div class="img">
+                  <div class="the-info"> <?php echo $k['team_name']; ?> </div>
+                  <img src="images/no-profile.gif" />
+                </div>
+                <div class="detail">
+                  <div class="f_left"> <a href="player.php?player=<?php echo $k['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $k['player_name']; ?></a> </div>
+                  <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> APG </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <?php
+			  }
+			  ?>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        
       </div>
       <div class="f_right">
         <div class="box" style="margin-bottom:10px">
@@ -344,7 +476,39 @@ Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
         </div>
         <div class="clear"></div>
       </div>
-      <br /><br />
+      <br />
+      <div class="content-bottom">
+ 		<div class="f_left">
+          <div class="box" style="margin-bottom:10px">
+            <h4><span>BHL</span> - TOP 20 PLAYERS</h4>
+            <div id="grid-top20" class="sub-box"></div>
+          </div>
+        </div>
+        <!--div class="f_right">
+          <div class="box disqus" style="margin-bottom:10px; line-height: 12px;">
+            <h4><span>BHL</span> - WALL COMMENTS</h4>
+            <div class="sub-box">
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'bhleague'; // required: replace example with your forum shortname
+  
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+              <noscript>
+              Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+              </noscript>
+              <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a> </div>
+          </div>
+        </div-->
+		<div class="clear"></div>
+      </div>
+      <br />
       <div class="content-bottom">
         <div class="f_left">
           <div class="box">
@@ -387,37 +551,6 @@ Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
         <div class="clear"></div>
       </div>
       <br />
-      <div class="content-top">
- 		<div class="f_left">
-          <div class="box" style="margin-bottom:10px">
-            <h4><span>BHL</span> - TOP 20 PLAYERS</h4>
-            <div id="grid-top20" class="sub-box"></div>
-          </div>
-        </div>
-        <div class="f_right">
-          <div class="box disqus" style="margin-bottom:10px; line-height: 12px;">
-            <h4><span>BHL</span> - WALL COMMENTS</h4>
-            <div class="sub-box">
-              <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                    var disqus_shortname = 'bhleague'; // required: replace example with your forum shortname
-  
-                    /* * * DON'T EDIT BELOW THIS LINE * * */
-                    (function() {
-                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                    })();
-                </script>
-              <noscript>
-              Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-              </noscript>
-              <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a> </div>
-          </div>
-        </div>
-		<div class="clear"></div>
-      </div>
     </div>
   </div>
 </div>

@@ -60,14 +60,15 @@ switch ($action) {
 			sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
 			sum(if(a.player_id=b.id, 1, 0)) as games_played
 		from bhleague.players_stats a, bhleague.players b 
-		where weekday(a.game_date) = '{$gameday}' and b.team_id='$team_id' 
+		where weekday(a.game_date) = '{$gameday}' and 
+			(select case (weekday(a.game_date)) 
+			when '1' then b.team_id 
+			when '5' then b.team_id2 
+			when '6' then b.team_id3
+			end) = '$team_id' 
 		group by b.id 
 		order by points desc, rebounds desc, assists desc;";
-		
-		//echo $sql; exit;
-		break;
-		
-		
+		break;	
 }
 
 if ($rs = $db->query($sql)) {

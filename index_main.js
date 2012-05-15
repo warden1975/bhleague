@@ -96,12 +96,12 @@ Ext.onReady(function(){
 	});
 	
 	var proxy_top20 = new Ext.data.HttpProxy({
-		url: 'rosters.php?action=top20', //url to data object (server side script)
+		url: 'rosters_callback.php?action=top20', //url to data object (server side script)
 		method: 'GET'
 	});
 	
 	var proxy_top10 = new Ext.data.HttpProxy({
-		url: 'rosters.php?action=top10', //url to data object (server side script)
+		url: 'rosters_callback.php?action=top10', //url to data object (server side script)
 		method: 'GET'
 	});
         

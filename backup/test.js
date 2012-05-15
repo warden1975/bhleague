@@ -13,7 +13,21 @@
         return val;
     }
 	
-	
+	function myRenderer( val, meta, record, rowIndex, colIndex, store )
+	 {
+	    var rawscore = record.get("score");
+		var score = rawscore.split(" - ")
+		if(parseInt(score[0])> parseInt(score[1]))
+		{
+			return '<span style="color:green;">' + val + '%</span>';
+		}
+		else
+		{
+			return '<span style="color:red;">' + val + '%</span>';
+		}
+											 
+		
+	 }
 
     /**
      * Custom function used for column renderer
@@ -27,10 +41,9 @@
         }
         return val;
     }
- function getTeam_Player_Profile(teamid,title,uri)
+ function getTeam_Player_Profile(teamid)
 	{
 	var reader = new Ext.data.ArrayReader({}, [
-		{name: 'player_id',type: 'int'},									   
 		{name: 'player'},
 		{name: 'height'},
 		{name: 'weight',},
@@ -44,7 +57,7 @@
 	// get the data
     var proxy = new Ext.data.HttpProxy({
 		//where to retrieve data
-		url: uri , //url to data object (server side script)
+		url: 'teams.php?action=get_team_roster_current&team_id=' + teamid, //url to data object (server side script)
 		method: 'GET'
 	});
         
@@ -57,18 +70,15 @@
     // create the Grid
     var grid1 = new Ext.grid.GridPanel({
         store: store1,
-		title:title,
 		viewConfig:{
         emptyText:'No records to display'
     },
         columns: [
-
             {
                 id       :'player',
                 header   : 'Player', 
                 width    : 160, 
                 sortable : false, 
-				renderer : Ext.bhlcommondata.format_underline,
                 dataIndex: 'player'
             },
 			{
@@ -130,16 +140,8 @@
         ],
         stripeRows: true,
         autoExpandColumn: 'player',
-        listeners: {
-				cellclick: function(grid, rowIndex, columnIndex, e) {
-					var record = grid.getStore().getAt(rowIndex);  // Get the Record
-					//var fieldName = grid.getColumnModel().getDataIndex(columnIndex); // Get field name
-					var data = record.get('player_id');
-					//console.log('fieldName: '+fieldName+', data: '+data);
-					window.location.href='player.php?player='+data;
-				}
-			},
-        
+        /*height: 250,
+        width: 600,*/
 		autoHeight: true,
 		border: false,
 		layout: 'fit',
@@ -153,67 +155,163 @@
     grid1.render('grid-team-rosters');
 	grid1.getSelectionModel().selectFirstRow();
 	}
+	function getTeam_Player_Profile_Prev(teamid)
+	{
+	var reader = new Ext.data.ArrayReader({}, [
+		{name: 'player'},
+		{name: 'height'},
+		{name: 'weight',},
+		{name: 'position'},
+		{name: 'ppg', type: 'float'},
+		{name: 'rpg', type: 'float'},
+		{name: 'apg', type: 'float'},
+		{name: 'games', type: 'float'}
+	]);
+	
+	// get the data
+    var proxy = new Ext.data.HttpProxy({
+		//where to retrieve data
+		url: 'teams.php?action=get_team_roster_previous&team_id=' + teamid, //url to data object (server side script)
+		method: 'GET'
+	});
+        
+    // create the data store.
+    var store2 = new Ext.data.Store({
+    	reader: reader,
+        proxy: proxy
+    });
 
-function getTeam_Profile(teamid,title,uri,sz)
-{
-	var ds_model = Ext.data.Record.create([
-		{name: 'team1x', type:'int'},
-		{name: 'team2x', type:'int'},
-		{name: 'game_date'},
-		{name: 'game_time'},
+    // create the Grid
+    var grid2 = new Ext.grid.GridPanel({
+        store: store2,
+		viewConfig:{
+        emptyText:'No records to display'
+    },
+        columns: [
+            {
+                id       :'player',
+                header   : 'Player', 
+                width    : 160, 
+                sortable : false, 
+                dataIndex: 'player'
+            },
+			{
+                header   : 'Height', 
+                width    : 100, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'height',
+				align	 : 'left'
+            },
+			{
+                header   : 'Weight', 
+                width    : 100, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'weight',
+				align	 : 'center'
+            },
+			{
+                header   : 'Position', 
+                width    : 100, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'position',
+				align	 : 'center'
+            },
+			{
+                header   : 'PPG', 
+                width    : 100, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'ppg',
+				align	 : 'center'
+            },
+			{
+                header   : 'RPG', 
+                width    : 100, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'rpg',
+				align	 : 'center'
+            },
+			{
+                header   : 'APG', 
+                width    : 100, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'apg',
+				align	 : 'center'
+            },
+			{
+                header   : 'Games Played', 
+                width    : 100, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'games',
+				align	 : 'center'
+            }
+        ],
+        stripeRows: true,
+        autoExpandColumn: 'player',
+        /*height: 250,
+        width: 600,*/
+		autoHeight: true,
+		border: false,
+		layout: 'fit',
+        // config options for stateful behavior
+        stateful: true,
+        stateId: 'grid2'
+    });
+	
+	store2.load();
+
+    grid2.render('grid-team-rosters-prev');
+	grid2.getSelectionModel().selectFirstRow();
+	}
+function getTeam_Profile(teamid,title)
+	{
+	//var ds_model = Ext.data.Record.create([
+//		{name: 'game_date'},
+//		{name: 'game_time'},
+//		{name: 'team1',},
+//		{name: 'team2'},
+//		{name: 'score'}
+//	]);
+	var readerz = new Ext.data.ArrayReader({}, [
+		{name: 'game_date',type:'date'},
+		{name: 'game_time',type:'date'},
 		{name: 'team1',},
 		{name: 'team2'},
 		{name: 'score'}
 	]);
-	
 	// get the data
-		
-   		store = new Ext.data.Store({
-			url: uri ,
-			reader: new Ext.data.JsonReader({
-				root:'rows',
-				totalProperty: 'results',
-				id:'id'
-			}, ds_model)
-	    });
-	
+  // store = new Ext.data.Store({
+//			url: 'teams.php?action=get_team_stats_current&team_id=' + teamid,
+//			reader: new Ext.data.JsonReader({
+//				root:'rows',
+//				totalProperty: 'results',
+//				id:'id'
+//			}, ds_model)
+//	    });
+	var proxyz = new Ext.data.HttpProxy({
+		//where to retrieve data
+		url: 'teams.php?action=get_team_stats_current&team_id=' + teamid, //url to data object (server side script)
+		method: 'GET'
+	});
+        
+    // create the data store.
+    var store = new Ext.data.Store({
+    	reader: readerz,
+        proxy: proxyz
+    });
 		var teamStore = new Ext.data.JsonStore({
 		url: 'teams.php',
-		autoLoad: true,
 		baseParams:{action: 'getAllTeam'},
 		root:'teams',
-		listeners: {
-                load: {
-                        fn: function() {
-								console.log(teamid);
-                                Ext.getCmp('teams').setValue(teamid);
-                        }
-                }
-        },
-		fields:['id','team_name'],
-		
-		
-		
+		fields:['id','team_name']
 	
 		});
-		//teamStore.load();
-		//Ext.getCmp('teams').setValue(teamid);
-		
-		 
-          var seasonStore = new Ext.data.SimpleStore({
-            fields: ['id','description'],
-            data: [
-              ["1","Current Season"],["2","Previous Season"]               
-                  ]
-			//listeners: {
-//                load: {
-//                        fn: function() {
-//                                Ext.getCmp('season').setValue(sz);
-//                        }
-//                }
-//        },
-			
-        });
 	
     // create the Grid
     var grid = new Ext.grid.GridPanel({
@@ -243,16 +341,16 @@ function getTeam_Profile(teamid,title,uri,sz)
                 width    : 160, 
                 sortable : false, 
                 dataIndex: 'team1',
-				renderer : Ext.bhlcommondata.format_underline,
-				align	 : 'left'
+				//renderer :  myRenderer,
+				align	 : 'center'
             },
 			{
                 header   : 'Team 2', 
                 width    : 160, 
                 sortable : false, 
                 dataIndex: 'team2',
-				renderer : Ext.bhlcommondata.format_underline,
-				align	 : 'left'
+				//renderer : myRenderer,
+				align	 : 'center'
             },
 			{
                 header   : 'Score', 
@@ -265,154 +363,43 @@ function getTeam_Profile(teamid,title,uri,sz)
         ],
 		tbar: [{
 				xtype: 'combo',
-				ref:'teams',
 				id:'teams',
-				fieldLabel: 'Select Team Profile',
 				triggerAction: 'all',
 				store: teamStore,
 				valueField:'id',
 				displayField:'team_name',
-				//itemSelector: 'div.search-item',
-//				tpl: new Ext.XTemplate('<tpl for="."><div class="search-item" style="background-image:url({logo})"><div class="team_name">{team_name}</div></div></tpl>'),	
 				typeAhead: true,
 				forceSelection:true,
-				querymode: 'local',
+				mode: 'remote',
 				emptyText:'Select Team Profile',
 				width:160,
-				//float: false,
+				float: false,
 				listeners: {
 					
 					select: function(combo, record, index) {
 						
 						document.getElementById('grid-team-stats').innerHTML ="";
 						document.getElementById('grid-team-rosters').innerHTML ="";
-						var idx = Ext.getCmp('season').value;
-						var teamidz = combo.getValue();
-						var title = combo.getRawValue()
+						document.getElementById('grid-team-stats-prev').innerHTML ="";
+						document.getElementById('grid-team-rosters-prev').innerHTML ="";
+						titlex = combo.getRawValue();
+						getTeam_Profile(combo.getValue(),combo.getRawValue() +' (Current Season) ')
+						getTeam_Player_Profile(combo.getValue())
+						getTeam_Profile_Prev(combo.getValue(),titlex +' (Previous Season) ')
+						getTeam_Player_Profile_Prev(combo.getValue() )
 						
-						if(idx=='1')
-						{
-							
-//							
-//							alert(idx);
-//							
-							title_teamx = title  + ':( Game Stats Current Season ) ';
-							//alert(title_teamx);
-							title_player = title + ':( Player Stats Current Season) ';
-//
-							urx ='teams.php?action=get_team_stats_current&team_id=' + teamidz
-							urz ='teams.php?action=get_team_roster_current&team_id=' + teamidz
-							//sx =idx
-							getTeam_Profile(teamidz,title_teamx,urx,idx )
-							getTeam_Player_Profile(teamidz,title_player,urz)
-							//combo.setValue(teamidz)
-							
-						}
-						else if(idx=='2')
-						{
-							//teamidz = combo.getValue()
-							//alert(idx);
-							title_teamx = title+ ':( Game Stats Previous Season ) ';
-							title_player = title + ':( Player Stats Previous Season) ';
-							urx ='teams.php?action=get_team_stats_previous&team_id=' + teamidz
-							urz ='teams.php?action=get_team_roster_previous&team_id=' + teamidz
-							//sx =idx
-							getTeam_Profile(teamidz,title_teamx,urx,idx )
-							getTeam_Player_Profile(teamidz,title_player,urz)
-							//combo.setValue(teamidz)
-							
-						}
-
+						
+						
+						
 					}
 					
 				}
     
-			},'-',{
-				xtype: 'combo',
-				ref:'season',
-				id:'season',
-				store: seasonStore,
-				fieldLabel: 'Select Season',
-				displayField: 'description',
-				valueField: 'id',
-				selectOnFocus: true,
-				mode: 'local',
-				typeAhead: true,
-				editable: false,
-				triggerAction: 'all',
-				value:sz,
-				listeners: {
-					
-					select: function(combo, record, index) 
-					{
-						
-							document.getElementById('grid-team-stats').innerHTML ="";
-							document.getElementById('grid-team-rosters').innerHTML ="";
-							var titlev = Ext.getCmp('teams').getRawValue();
-							var idx = Ext.getCmp('teams').value;
-							var sx = combo.getValue()
-							
-							if(sx=='1')
-							{
-								
-								titlex = Ext.getCmp('teams').getRawValue() + ' (Game Stats: Current Season)';
-								
-								urx ='teams.php?action=get_team_stats_current&team_id=' + idx;
-								
-								getTeam_Profile(idx,titlex,urx,sx )
-								
-								idz = idx
-								titlez = titlev + ' (Player Stats: Current Season)';
-								urz ='teams.php?action=get_team_roster_current&team_id=' + idx;
-								getTeam_Player_Profile(idz,titlez,urz )
-								combo.setValue(sx)
-							}
-	
-							else if(sx=='2')
-							{
-								//var titlev = Ext.getCmp('teams').getRawValue();
-//								var idx = Ext.getCmp('teams').value;
-								titlex = titlev + ' (Game Stats: Previous Season)';
-								//alert(titlev);
-								urx ='teams.php?action=get_team_stats_previous&team_id=' + idx;
-								//alert(idx);
-								getTeam_Profile(idx,titlex,urx,sx )
-								
-								idz = idx
-								titlez = titlev + ' (Player Stats: Previous Season)';
-								urz ='teams.php?action=get_team_roster_previous&team_id=' + idx;
-								getTeam_Player_Profile(idz,titlez,urz )
-								combo.setValue(sx)
-							}
-		
-						}
-	
-					}
-					
-				}],
-    
-			
+			}],
         stripeRows: true,
         autoExpandColumn: 'game_date',
-        listeners: {
-				cellclick: function(grid, rowIndex, columnIndex, e) {
-					var record = grid.getStore().getAt(rowIndex);  // Get the Record
-					
-					//alert(columnIndex);
-					//var fieldName = grid.getColumnModel().getDataIndex(columnIndex); // Get field name
-					if(columnIndex==2)
-					{
-					var data = record.get('team1x');
-					window.location.href='teams.html?team_id='+data;
-					}
-					else if(columnIndex==3)
-					{
-					var data = record.get('team2x');
-					window.location.href='teams.html?team_id='+data;	
-					}
-					//window.location.href='teams.html?team_id='+data2;
-				}
-			},
+        /*height: 250,
+        width: 600,*/
 		autoHeight: true,
 		border: false,
 		layout: 'fit',
@@ -428,37 +415,113 @@ function getTeam_Profile(teamid,title,uri,sz)
 	grid.getSelectionModel().selectFirstRow();
 	
 	}
-
-	function getteamname(idx,si)
+	function getTeam_Profile_Prev(teamid,title)
 	{
-		if(si==null)
-		{
-			si='1';
-		}
+	var ds_model = Ext.data.Record.create([
+		{name: 'game_date'},
+		{name: 'game_time'},
+		{name: 'team1',},
+		{name: 'team2'},
+		{name: 'score'}
+	]);
+	
+	// get the data
+   store4 = new Ext.data.Store({
+			url: 'teams.php?action=get_team_stats_previous&team_id=' + teamid,
+			reader: new Ext.data.JsonReader({
+				root:'rows',
+				totalProperty: 'results',
+				id:'id'
+			}, ds_model)
+	    });
+	
+		var teamStore = new Ext.data.JsonStore({
+		url: 'teams.php',
+		baseParams:{action: 'getAllTeam'},
+		root:'teams',
+		fields:['id','team_name']
+	
+		});
+	
+    // create the Grid
+    var grid4 = new Ext.grid.GridPanel({
+        store: store4,
+		title:title,
+		viewConfig:{
+        emptyText:'No records to display'
+    },
+        columns: [
+            {
+                id       :'game_date',
+                header   : 'Game Date', 
+                width    : 140, 
+                sortable : false, 
+				align	 : 'center',
+                dataIndex: 'game_date'
+            },
+			{
+                header   : 'Time', 
+                width    : 160, 
+                sortable : false, 
+                dataIndex: 'game_time',
+				align	 : 'center'
+            },
+			{
+                header   : 'Team 1', 
+                width    : 160, 
+                sortable : false, 
+                dataIndex: 'team1',
+				align	 : 'center'
+            },
+			{
+                header   : 'Team 2', 
+                width    : 160, 
+                sortable : false, 
+                dataIndex: 'team2',
+				align	 : 'center'
+            },
+			{
+                header   : 'Score', 
+                width    : 140, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'score',
+				align	 : 'center'
+            }
+        ],
+		
+        stripeRows: true,
+        autoExpandColumn: 'game_date',
+        /*height: 250,
+        width: 600,*/
+		autoHeight: true,
+		border: false,
+		layout: 'fit',
+        // config options for stateful behavior
+
+        stateful: true,
+        stateId: 'grid'
+    });
+	
+	store4.load();
+
+    grid4.render('grid-team-stats-prev');
+	grid4.getSelectionModel().selectFirstRow();
+	
+	}
+	function getteamname(idx)
+	{
 		Ext.Ajax.request({
 		params: {action: 'getteamname', team_id: idx},
 		url: 'teams.php',
 		success: function (resp,form,action) {
 		
 		//alert(resp.responseText) ;
-		//titlex = resp.responseText;
-		//teamid,title,uri
-		//Ext.getCmp('teams').setValue(idx);
-		titlex = resp.responseText + ' (Game Stats: Current Season)';
-		urx ='teams.php?action=get_team_stats_current&team_id=' + idx;
-		//alert(idx);
-		getTeam_Profile(idx,titlex,urx,si )
-		
-		idz = idx
-		titlez = resp.responseText + ' (Player Stats: Current Season)';
-		urz ='teams.php?action=get_team_roster_current&team_id=' + idx;
-		getTeam_Player_Profile(idz,titlez,urz )
-		//}
-//		else if(seasonx=='2')
-//		{
-		//getTeam_Player_Profile(idx,titlex + ' (Player Stats: Current Season)','teams.php?action=get_team_roster_current')		
-		//}
-		//getTeam_Player_Profile_Prev(idx)
+		titlex = resp.responseText;
+		getTeam_Profile(idx,titlex + ' (Current Season)')
+		getTeam_Profile_Prev(idx,titlex + ' (Previous Season)')
+		getTeam_Player_Profile(idx)
+		getTeam_Player_Profile_Prev(idx)
 		//team_id.setValue(team_id.getStore().getAt(resp.responseText).get(cb.valueField));
 			 
 		},
@@ -487,8 +550,8 @@ function getTeam_Profile(teamid,title,uri,sz)
 		url: 'teams.php',
 		success: function (resp,form,action) {
 		
-		//Ext.getCmp('season').setValue('1');
-		getteamname(resp.responseText,'1')
+		//alert(resp.responseText) ;
+		getteamname(resp.responseText)
 		//team_id.setValue(team_id.getStore().getAt(resp.responseText).get(cb.valueField));
 			 
 		},
@@ -553,24 +616,5 @@ Ext.onReady(function(){
 	
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	
-	// Get Team Logo image path - WG
-	var bhl_tid = document.getElementById('hid_team_id').value;
-	var bhl_img_url = 'teams.php?action=getteam_logo&team_id=' + bhl_tid; 
-	
-	var bhl_store = new Ext.data.JsonStore ({
-		url: bhl_img_url,
-		root: 'logo',
-		fields: ['team', 'path']
-	});
-	bhl_store.load({
-		callback: function(records, operation, success) {
-        	var path = records[0].get('path');
-			var team = records[0].get('team');
-			console.log('url: '+bhl_img_url+', img_path: '+path+', team: '+team);
-			Ext.get('bhlogo_img').dom.src = path;
-			Ext.fly('bhlogo_team').update(team);
-    	}
-	});
-	//
 	
 });

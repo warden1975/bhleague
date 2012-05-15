@@ -174,10 +174,8 @@ Ext.onReady(function(){
 	
 	var len=teams.length;
 	for(var i=0; i<len; i++) {
-		
 		showplayerRosterByTeam(teams[i],teams_container[i])
-	
-}
+	}
 
     /**
      * Custom function used for column renderer
