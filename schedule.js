@@ -44,6 +44,7 @@ Ext.onReady(function() {
         {name: 'date',  mapping: 'date',type:'int',sortype:Ext.data.SortTypes.asInt},
         {name: 'game_time',type: 'string'},
         {name: 'teams',   mapping: 'teams'},
+		{name: 'winner',   mapping: 'winner'},
         {name: 'score', mapping: 'score'},
         
     ]);
@@ -69,7 +70,7 @@ Ext.onReady(function() {
         measure   : 'score',
         
         viewConfig: {
-            title: 'Schedule'
+            title: 'Schedule&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Winner'
         },
         renderer  : function(score) {
 	
@@ -87,12 +88,12 @@ Ext.onReady(function() {
 
         leftAxis: [
             {
-                width: 80,
+                width: 85,
                 dataIndex: 'month',
 				
             },
             {
-                width: 90,
+                width: 20,
                 dataIndex: 'date',
 				
             },
@@ -100,11 +101,17 @@ Ext.onReady(function() {
                 width: 190,
                 dataIndex: 'teams'
             }
+			,
+			{
+                width: 100,
+				fieldLabel: 'Winner',
+                dataIndex: 'winner'
+            }
         ],
         
         topAxis: [
             {
-				width:100,
+				width:85,
                 dataIndex: 'game_time',
 				align: 'center'
             }

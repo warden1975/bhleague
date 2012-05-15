@@ -167,6 +167,7 @@ function getTeam_Profile(teamid,title,uri,sz)
 	]);
 	
 	// get the data
+		
    		store = new Ext.data.Store({
 			url: uri ,
 			reader: new Ext.data.JsonReader({
@@ -184,6 +185,7 @@ function getTeam_Profile(teamid,title,uri,sz)
 		listeners: {
                 load: {
                         fn: function() {
+								//alert(teamid);
                                 Ext.getCmp('teams').setValue(teamid);
                         }
                 }
@@ -286,28 +288,34 @@ function getTeam_Profile(teamid,title,uri,sz)
 						document.getElementById('grid-team-rosters').innerHTML ="";
 						var idx = Ext.getCmp('season').value;
 						
-						if(idx=='1')
+						if(idx==1)
 						{
 							teamidz = combo.getValue()
-							title_teamx = combo.getRawValue() + +':( Game Stats Current Season) ';
-							title_player = combo.getRawValue() + +':( Player Stats Current Season) ';
+							
+							title_teamx = combo.getRawValue() + ':( Game Stats Current Season ) ';
+							//alert(title_teamx);
+							title_player = combo.getRawValue() + ':( Player Stats Current Season) ';
+
 							urx ='teams.php?action=get_team_stats_current&team_id=' + teamidz
 							urz ='teams.php?action=get_team_roster_current&team_id=' + teamidz
 							sx =idx
-							getTeam_Profile(idx,title_teamx,urx,sx )
-							getTeam_Profile(idx,title_player,urz,sx)
+							getTeam_Profile(teamidz,title_teamx,urx,sx )
+							getTeam_Player_Profile(teamidz,title_player,urz)
+							combo.setValue(teamidz)
 							
 						}
-						else if(idx=='2')
+						else if(idx==2)
 						{
 							teamidz = combo.getValue()
-							title_teamx = combo.getRawValue() + +':( Game Stats Previous Season ) ';
-							title_player = combo.getRawValue() + +':( Player Stats Previous Season) ';
-							urx ='teams.php?action=get_team_stats_current&team_id=' + teamidz
-							urz ='teams.php?action=get_team_roster_current&team_id=' + teamidz
+							alert(idx);
+							title_teamx = combo.getRawValue() + ':( Game Stats Previous Season ) ';
+							title_player = combo.getRawValue() + ':( Player Stats Previous Season) ';
+							urx ='teams.php?action=get_team_stats_previous&team_id=' + teamidz
+							urz ='teams.php?action=get_team_roster_previous&team_id=' + teamidz
 							sx =idx
-							getTeam_Profile(idx,title_teamx,urx,sx )
-							getTeam_Profile(idx,title_player,urz,sx)
+							getTeam_Profile(teamidz,title_teamx,urx,sx )
+							getTeam_Player_Profile(teamidz,title_player,urz)
+							combo.setValue(teamidz)
 							
 						}
 
@@ -342,17 +350,18 @@ function getTeam_Profile(teamid,title,uri,sz)
 							if(sx=='1')
 							{
 								var titlev = Ext.getCmp('teams').getRawValue();
+								//alert(titlev);
 								var idx = Ext.getCmp('teams').value;
-								titlex = titlev + ' (Game Stats: Current Season)';
+								titlex = Ext.getCmp('teams').getRawValue() + ' (Game Stats: Current Season)';
 								
 								urx ='teams.php?action=get_team_stats_current&team_id=' + idx;
-								//alert(idx);
-								getTeam_Profile(idx,titlev,urx,sx )
+								
+								getTeam_Profile(idx,titlex,urx,sx )
 								
 								idz = idx
 								titlez = titlev + ' (Player Stats: Current Season)';
 								urz ='teams.php?action=get_team_roster_current&team_id=' + idx;
-								getTeam_Player_Profile(idz,titlez,urz,sx )
+								getTeam_Player_Profile(idz,titlez,urz )
 								combo.setValue(sx)
 							}
 	
@@ -360,16 +369,16 @@ function getTeam_Profile(teamid,title,uri,sz)
 							{
 								var titlev = Ext.getCmp('teams').getRawValue();
 								var idx = Ext.getCmp('teams').value;
-								titlex = titlev + ' (Game Stats: Current Season)';
-								
+								titlex = Ext.getCmp('teams').getRawValue() + ' (Game Stats: Previous Season)';
+								//alert(titlev);
 								urx ='teams.php?action=get_team_stats_previous&team_id=' + idx;
 								//alert(idx);
 								getTeam_Profile(idx,titlev,urx,sx )
 								
 								idz = idx
-								titlez = titlev + ' (Player Stats: Current Season)';
+								titlez = titlev + ' (Player Stats: Previous Season)';
 								urz ='teams.php?action=get_team_roster_previous&team_id=' + idx;
-								getTeam_Player_Profile(idz,titlez,urz,sx )
+								getTeam_Player_Profile(idz,titlez,urz )
 								combo.setValue(sx)
 							}
 		
@@ -435,7 +444,7 @@ function getTeam_Profile(teamid,title,uri,sz)
 		titlex = resp.responseText + ' (Game Stats: Current Season)';
 		urx ='teams.php?action=get_team_stats_current&team_id=' + idx;
 		//alert(idx);
-		getTeam_Profile(idx,titlex,urx,si )
+		getTeam_Profile(idx,titlex,urx )
 		
 		idz = idx
 		titlez = resp.responseText + ' (Player Stats: Current Season)';

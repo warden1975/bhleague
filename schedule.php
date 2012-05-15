@@ -35,7 +35,7 @@ $append = ($lastNumber == '1' && $lastTwo != 11) ? 'st' : (($lastNumber == '2' &
 return $number . $append;
 }
 
-$sql = "SELECT id,game_date,MONTHNAME(game_date) as `monthname`,MONTH(game_date) as `month`, day(game_date) as date,game_time,CONCAT(team1,' vs. ', team2) as teams,CONCAT(team1_score,' - ',team2_score) as score,team1_score,team2_score,team1,team2 FROM `bhleague`.`schedule` WHERE WEEKDAY(game_date) = '{$gameday}' order by month(game_date),day(game_date);";
+$sql = "SELECT id,game_date,MONTHNAME(game_date) as `monthname`,MONTH(game_date) as `month`, day(game_date) as date,game_time,CONCAT(team1,' vs. ', team2) as teams,CONCAT(team1_score,' - ',team2_score) as score,team1_score,team2_score,team1,team2 FROM `bhleague`.`schedule`  order by month(game_date),day(game_date);";
 //$sql = "SELECT id,game_date,MONTH(game_date) as `month`, day(game_date) as date,game_time,CONCAT(team1,' vs. ', team2) as teams,CONCAT(team1_score,' - ',team2_score) as score,team1,team2 FROM `bhleague`.`schedule` order by month(game_date),day(game_date);";
 
 if ($rs = $db->query($sql)) {
@@ -45,11 +45,13 @@ if ($rs = $db->query($sql)) {
 	while($obj = $rs->fetch_assoc()){
 		if(@$obj['team1_score']>@$obj['team2_score'])
 		{
-		@$obj['teams'] = "<a href='http://www.bhleague.com/games.php?gamedate=".$obj['game_date']."&team1=".$obj['team1']."&team2=".$obj['team2']."' target='_self'><font color='green'>".$myarr[$obj['team1']]."</font> vs. <font color='red'>".$myarr[$obj['team2']]."</font></a>";
+		@$obj['teams'] = "<a href='http://www.bhleague.com/games.php?gamedate=".$obj['game_date']."&team1=".$obj['team1']."&team2=".$obj['team2']."' target='_self'>".$myarr[$obj['team1']]." vs. ".$myarr[$obj['team2']]."</a>";
+		@$obj['winner'] = @$myarr[@$obj['team1']];
 		}
 		else if(@$obj['team1_score']<@$obj['team2_score'])
 		{
-		@$obj['teams'] = "<a href='http://www.bhleague.com/games.php?gamedate=".$obj['game_date']."&team1=".$obj['team1']."&team2=".$obj['team2']."' target='_self'><font color='red'>".$myarr[$obj['team1']]."</font> vs. <font color='green'>".$myarr[$obj['team2']]."</font></a>";
+		@$obj['teams'] = "<a href='http://www.bhleague.com/games.php?gamedate=".$obj['game_date']."&team1=".$obj['team1']."&team2=".$obj['team2']."' target='_self'>".$myarr[$obj['team1']]." vs. ".$myarr[$obj['team2']]."</a>";
+		@$obj['winner'] = $myarr[$obj['team2']];
 		}
 		else
 		{

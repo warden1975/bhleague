@@ -38,13 +38,30 @@ switch ($m) {
 		break;
 }
 
-$sql = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
+/*$sql = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
 select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
 	c.team_name, 
 	{$m_sql} as score, 
 	sum(if(a.player_id=b.id, 1, 0)) as games_played
 from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
 where b.team_id = c.id and weekday(a.game_date) = '{$gameday}'   
+group by b.id 
+order by score desc) as ave 
+order by pg desc limit 3;";*/
+
+$sql = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
+select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
+	c.team_name, 
+	{$m_sql} as score, 
+	sum(if(a.player_id=b.id, 1, 0)) as games_played
+from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
+where 
+	(select case (weekday(a.game_date)) 
+	when '1' then b.team_id 
+	when '5' then b.team_id2 
+	when '6' then b.team_id3
+	end) = c.id 
+	and weekday(a.game_date) = '{$gameday}'   
 group by b.id 
 order by score desc) as ave 
 order by pg desc limit 3;";
@@ -183,16 +200,50 @@ Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
 </script>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '300544373362639', // App ID
+      channelUrl : '//www.bhleague.com/fbchannel.php', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+
+    // Additional initialization code here
+  };
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+   
+  (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=300544373362639";
+	fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
 <div id="header">
   <div class="wrap">
     <h1 class="logo"><a href="index.php"><img src="images/logo.png" /></a></h1>
-    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a> <a href="rosters.html" class="last">ROSTERS</a>
+    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a> <a href="rosters.php">ROSTERS</a> <a href="payments.html" class="last">PAYMENTS</a>
       <div class="clear"></div>
     </div>
   </div>
 </div>
 <div id="header2">
   <div class="wrap">
+	<div class="f_right">
+    	<div class="fb-like" data-href="http://www.bhleague.com/" data-send="false" data-width="250" data-colorscheme="dark" data-show-faces="false" data-font="lucida grande"></div>
+	</div>
     <div id="game_league_id">
       <input type="text" id="local-gamedays" size="20"/>
     </div>
@@ -241,35 +292,55 @@ Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
             </div>
           </div>
         </div>
-        <div class="box" style="margin-bottom:10px">
-          <h4><span>BHL</span> - TOP 20 PLAYERS</h4>
-          <div id="grid-top20" class="sub-box"></div>
-        </div>
       </div>
       <div class="f_right">
-        <div class="box disqus" style="margin-bottom:10px; line-height: 12px;">
-          <h4><span>BHL</span> - WALL COMMENTS</h4>
-          <div class="sub-box">
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-				  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-				  var disqus_shortname = 'bhleague'; // required: replace example with your forum shortname
-
-				  /* * * DON'T EDIT BELOW THIS LINE * * */
-				  (function() {
-					  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-					  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-					  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-				  })();
-			  </script>
-            <noscript>
-            Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-            </noscript>
-            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a> </div>
-        </div>
         <div class="box" style="margin-bottom:10px">
           <h4><span>BHL</span> - SCHEDULE <span><?php echo @$s['game_dayname']; ?></span> <?php echo @$s['game_date']; ?></h4>
           <div id="grid-next_game" class="sub-box"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="content-bottom">
+        <div class="f_left">
+          <div class="box">
+            <h4><span>BHL</span> - BASKETBALL STANDINGS</h4>
+            <div id="grid-standings" class="sub-box"></div>
+          </div>
+        </div>
+        <div class="f_right">
+          <div class="box">
+            <h3>POWER RANKINGS</h3>
+            <div class="sub-box">
+              <table class="greenbox">
+                <thead>
+                  <tr>
+                    <th>TEAM</th>
+                    <th>RANK</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+				foreach ($r as $kk) {
+				$kk_sign = gmp_sign($kk['pts_diff']);
+				?>
+                  <tr>
+                    <td><a href="teams.html?team_id=<?php echo $kk['team_id']; ?>" style="text-decoration:none; color:#FF0;"><?php echo $kk['team']; ?></a></td>
+                    <td><?php echo $kk['pts_diff']; ?></td>
+                    <td><?php echo ($kk_sign == -1 or $kk_sign == 0) ? '<img src="images/down.png" />' : '<img src="images/up.png" />'; ?></td>
+                  </tr>
+                  <?php
+				}
+				?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3"><a href="standings.html">View complete rankings</a></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
         </div>
         <div class="clear"></div>
       </div>
@@ -316,49 +387,36 @@ Ext.bhlcommondata.month_games = <?php echo $month_games; ?>;
         <div class="clear"></div>
       </div>
       <br />
-      <div class="content-bottom">
-        <div class="f_left">
-          <div class="box">
-            <h4><span>BHL</span> - BASKETBALL STANDINGS</h4>
-            <div id="grid-standings" class="sub-box"></div>
+      <div class="content-top">
+ 		<div class="f_left">
+          <div class="box" style="margin-bottom:10px">
+            <h4><span>BHL</span> - TOP 20 PLAYERS</h4>
+            <div id="grid-top20" class="sub-box"></div>
           </div>
         </div>
         <div class="f_right">
-          <div class="box">
-            <h3>POWER RANKINGS</h3>
+          <div class="box disqus" style="margin-bottom:10px; line-height: 12px;">
+            <h4><span>BHL</span> - WALL COMMENTS</h4>
             <div class="sub-box">
-              <table class="greenbox">
-                <thead>
-                  <tr>
-                    <th>TEAM</th>
-                    <th>RANK</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-				foreach ($r as $kk) {
-				$kk_sign = gmp_sign($kk['pts_diff']);
-				?>
-                  <tr>
-                    <td><a href="teams.html?team_id=<?php echo $kk['team_id']; ?>" style="text-decoration:none; color:#FF0;"><?php echo $kk['team']; ?></a></td>
-                    <td><?php echo $kk['pts_diff']; ?></td>
-                    <td><?php echo ($kk_sign == -1 or $kk_sign == 0) ? '<img src="images/down.png" />' : '<img src="images/up.png" />'; ?></td>
-                  </tr>
-                  <?php
-				}
-				?>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="3"><a href="standings.html">View complete rankings</a></td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'bhleague'; // required: replace example with your forum shortname
+  
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+              <noscript>
+              Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+              </noscript>
+              <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a> </div>
           </div>
         </div>
-        <div class="clear"></div>
+		<div class="clear"></div>
       </div>
     </div>
   </div>

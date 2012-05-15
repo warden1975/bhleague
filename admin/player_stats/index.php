@@ -63,6 +63,10 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 	  <script type="text/javascript" src="./js/Ext.ux.Toast.js"></script>
 	  <script type="text/javascript" src="./js/Ext.ux.grid.Search.js"></script>
 	  <script type="text/javascript" src="./js/Ext.ux.grid.RowActions.js"></script>
+	  <script type="text/javascript" src="./jsjs/swfupload.js"></script>
+    <script type="text/javascript" src="./jsjs/swfupload.queue.js"></script>
+    <script type="text/javascript" src="js/swfupload.cookies.js"></script>
+
 	<style>
 		.cTextAlign{
     text-align: right;

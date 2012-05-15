@@ -187,5 +187,5 @@ Ext.onReady(function() {
 		textCls: 'marquee-text',
 		text: Ext.bhlcommondata.month_games
 	});
-	marquee.init();
+	//marquee.init();
 });

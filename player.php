@@ -21,7 +21,13 @@ $sql1 = "select concat(year(a.game_date), '-', month(a.game_date)) as season, co
 	sum(if(a.player_id=b.id, 1, 0)) as games_played, 
 	c.team_name, c.id as team_id 
 from bhleague.players_stats a, bhleague.players b , bhleague.teams c  
-where b.team_id = c.id and weekday(a.game_date) = '{$gameday}' and b.id = '{$player}'  
+where 
+	(select case (weekday(a.game_date)) 
+	when '1' then b.team_id 
+	when '5' then b.team_id2 
+	when '6' then b.team_id3
+	end) = c.id 
+	and weekday(a.game_date) = '{$gameday}' and b.id = '{$player}'  
 group by month(a.game_date), b.id 
 order by points desc, rebounds desc, assists desc;";
 
@@ -69,7 +75,12 @@ select concat(b.player_fname, ' ', b.player_lname) as player_name,
 	sum(if(a.player_id=b.id, 1, 0)) as games_played, 
 	c.logo 
 from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
-where b.team_id = c.id and weekday(a.game_date) = '{$gameday}' and a.player_id = '{$player}'  
+where (select case (weekday(a.game_date)) 
+	when '1' then b.team_id 
+	when '5' then b.team_id2 
+	when '6' then b.team_id3
+	end) = c.id 
+	and weekday(a.game_date) = '{$gameday}' and a.player_id = '{$player}'  
 group by b.id 
 order by points desc
 ) as ave 
@@ -173,7 +184,7 @@ Ext.bhlcommondata.player_stats = <?php echo $player_store; ?>;
 <div id="header">
   <div class="wrap">
     <h1 class="logo"><a href="index.php"><img src="images/logo.png" /></a></h1>
-    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a> <a href="rosters.html" class="last">ROSTERS</a>
+    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a> <a href="rosters.html">ROSTERS</a> <a href="payments.html" class="last">PAYMENTS</a>
       <div class="clear"></div>
     </div>
   </div>
@@ -245,7 +256,7 @@ Ext.bhlcommondata.player_stats = <?php echo $player_store; ?>;
       <br />
       <div class="content-bottom">
         <div class="box">
-          <h4><span>BHL</span> - PLAYER STATS BY SEASON</h4>
+          <h4><span>BHL</span> - PLAYER SEASON STATS BY MONTH</h4>
           <div id="grid-player_stats" class="sub-box"></div>
         </div>
         <div class="clear"></div>

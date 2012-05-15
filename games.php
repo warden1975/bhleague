@@ -236,7 +236,7 @@ $db = NULL;
     // create the Grid
     var grid1 = new Ext.grid.GridPanel({
         store: store1,
-		title:'Player Stats',
+		//title:'Player Stats',
 		viewConfig:{
         emptyText:'No records to display'
     },
@@ -357,7 +357,7 @@ function getGame_Profile(team1,team2,gamedate,uri)
     // create the Grid
     var grid = new Ext.grid.GridPanel({
         store: store,
-		title:'Game Stats',
+		//title:'Game Stats',
 		viewConfig:{
         emptyText:'No records to display'
     },
@@ -465,7 +465,7 @@ function getGame_Profile(team1,team2,gamedate,uri)
 		// create the Grid
 		var gridx = new Ext.grid.GridPanel({
 			store: storex,
-			title:'Game Stats',
+			//title:'Game Stats',
 			viewConfig:{
 			emptyText:'No records to display'
 		},
@@ -666,7 +666,7 @@ Ext.onReady(function(){
 <div id="header">
   <div class="wrap">
     <h1 class="logo"><a href="index.php"><img src="images/logo.png" /></a></h1>
-    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a> <a href="rosters.html" class="last">ROSTERS</a>
+    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a> <a href="rosters.php">ROSTERS</a> <a href="payments.html" class="last">PAYMENTS</a>
       <div class="clear"></div>
     </div>
   </div>
@@ -681,10 +681,10 @@ Ext.onReady(function(){
   <div class="wrap1 bg-white">
     <div class="wrap">
       <div class="content-top">
-        <div class="f_left">
-          <div class="box bg1">
+          <div class="box bg1 same-width">
             <h3>BHL GAME LEADERS</h3>
-            <div class="sub-box">
+			<div class="f_left2">
+            	<div class="sub-box">
               <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <?php echo $m_class; ?>
                 <div class="clear"></div>
               </div>
@@ -718,13 +718,9 @@ Ext.onReady(function(){
                 <div class="clear"></div>
               </div>
             </div>
-          </div>
-    <!--    </div>-->
-		<div class="clear"></div>
-		<div class="clear"></div>
-		 <div class="box bg1">
-<!--            <h3>BHL BASKETBALL LEADERS</h3>-->
-            <div class="sub-box">
+			</div>
+			<div class="f_right2">
+            	<div class="sub-box">
               <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <?php echo $m_class; ?>
                 <div class="clear"></div>
               </div>
@@ -758,20 +754,35 @@ Ext.onReady(function(){
                 <div class="clear"></div>
               </div>
             </div>
+			</div>
+			<div class="clear"></div>
           </div>
-        </div>
+
 		 <div class="clear"></div>
          <div class="box">		
        <!--   <h3>BHL GAME PROFILE</h3>-->
-          <h4><span>BHL GAME PROFILE</span></h4>
-          <div class="sub-box">
-            <div id="grid-team-stats"></div>
-			<!-- <h3>BHL GAME PLAYER</h3>-->
-             <h4><span>BHL GAME PLAYERS</span></h4>
-			 <div id="grid-team-rosters"></div>
-			<!--<h3>BHL PREVIOUS GAME MATCHUP</h3>-->
-             <h4><span>BHL PREVIOUS GAME MATCHUP</span></h4>
-			 <div id="grid-prev-games"></div>
+          		<h4><span>BHL GAME PROFILE</span></h4>
+	          <div class="sub-box">
+	            <div id="grid-team-stats"></div>
+			  </div>
+		  </div>
+         <div class="box">		
+       <!--   <h3>BHL GAME PROFILE</h3>-->
+          		<h4><span>BHL GAME PLAYERS</span></h4>
+	          <div class="sub-box">
+	            <div id="grid-team-rosters"></div>
+			  </div>
+		  </div>
+         <div class="box">		
+       <!--   <h3>BHL GAME PROFILE</h3>-->
+          		<h4><span>BHL PREVIOUS GAME MATCHUP</span></h4>
+	          <div class="sub-box">
+	            <div id="grid-prev-games"></div>
+			  </div>
+		  </div>
+
+			
+			 
           </div>
         </div>
           </div>

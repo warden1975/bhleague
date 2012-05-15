@@ -168,3 +168,77 @@
 [10-May-2012 16:23:06] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
 [10-May-2012 16:23:06] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
 [10-May-2012 16:23:06] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297
+[10-May-2012 22:47:46] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[10-May-2012 22:47:46] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[10-May-2012 22:47:46] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
+[10-May-2012 22:47:46] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297
+[11-May-2012 17:43:19] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[11-May-2012 17:43:19] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[11-May-2012 17:43:19] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
+[11-May-2012 17:43:19] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297
+[11-May-2012 19:37:15] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[11-May-2012 19:37:15] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[11-May-2012 19:37:15] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
+[11-May-2012 19:37:15] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297
+[12-May-2012 20:04:51] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[12-May-2012 20:04:51] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[12-May-2012 20:04:51] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
+[12-May-2012 20:04:51] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297
+[12-May-2012 21:10:31] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[12-May-2012 21:10:31] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[12-May-2012 21:10:31] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
+[12-May-2012 21:10:31] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297
+[13-May-2012 20:10:52] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[13-May-2012 20:10:52] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[13-May-2012 20:10:52] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 297
+[13-May-2012 20:10:52] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 297
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: gamedate in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: gamedate in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: gamedate in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: gamedate in /home/bhleague/public_html/games.php on line 46
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 49
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: gamedate in /home/bhleague/public_html/games.php on line 69
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 72
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: gamedate in /home/bhleague/public_html/games.php on line 637
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 638
+[14-May-2012 03:07:26] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 639
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 26
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 49
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 72
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team1 in /home/bhleague/public_html/games.php on line 638
+[14-May-2012 03:07:32] PHP Notice:  Undefined variable: team2 in /home/bhleague/public_html/games.php on line 639
+[14-May-2012 04:18:59] PHP Parse error:  syntax error, unexpected '[' in /home/bhleague/public_html/schedule.php on line 49
+[14-May-2012 04:19:15] PHP Parse error:  syntax error, unexpected '[' in /home/bhleague/public_html/schedule.php on line 49
+[14-May-2012 04:21:18] PHP Parse error:  syntax error, unexpected '[' in /home/bhleague/public_html/schedule.php on line 49
+[14-May-2012 05:09:10] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 224
+[14-May-2012 05:09:10] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 224
+[14-May-2012 06:43:07] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 224
+[14-May-2012 06:43:07] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 224
+[14-May-2012 07:30:09] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home/bhleague/public_html/rosters_test.php on line 86
+[14-May-2012 07:30:24] PHP Notice:  Undefined index:  0 in /home/bhleague/public_html/rosters_test.php on line 85
+[14-May-2012 08:33:45] PHP Parse error:  syntax error, unexpected '<' in /home/bhleague/public_html/rosters_test.php on line 3
+[14-May-2012 08:40:44] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:44] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:45] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:45] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:45] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:45] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:45] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:45] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:45] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:45] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:46] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:46] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:46] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65
+[14-May-2012 08:40:46] PHP Notice:  Undefined variable: team_id in /home/bhleague/public_html/rosters_callback.php on line 65

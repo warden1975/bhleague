@@ -193,3 +193,10 @@ body{font-family: 'Coda',"Open Sans",'Arial';}
 .dsq-commenter-name{font-family: 'Coda',"Open Sans",'Arial';font-size:11px;}
 .dsq-collapse-toggle{top:4px !important;}
 .dsq-comment-header{padding:5px 10px !important;}
+
+.box.bg1.same-width .f_left2{width:461px !important;float:left;}
+.box.bg1.same-width .f_right2{width:465px !important;float:right;}
+.box.bg1.same-width .sub-box .people {padding:0px;}
+.box.bg1.same-width .sub-box .people .person{margin-left:13px;}
+
+.box{margin-bottom:10px;}
