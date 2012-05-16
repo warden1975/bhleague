@@ -24,10 +24,20 @@ $myarr[$row['id']] = $row['player'];
 
 }
 
-if($action=='get_player_points')
+if(@$action=='get_player_points')
 {
   //$sql = "SELECT CONCAT(player_fname,' ',player_lname) as player, AVG(game_points_1 + game_points_2 + game_points_3) as points FROM `bhleague`.`players_stats` a INNER JOIN `bhleague`.`players` b  WHERE a.player_id <> 0 GROUP by player_id order by points DESC, a.player_id";
-  $sql ="SELECT a.player_id, CONCAT(player_fname,' ',player_lname) as player, AVG(game_points_1 + game_points_2 + game_points_3) as points FROM `bhleague`.`players_stats` a INNER JOIN `bhleague`.`players` b ON a.player_id = b.id  WHERE a.player_id <> 0 AND WEEKDAY(a.game_date) = '{$gameday}' GROUP by player_id order by points DESC, player";
+ // $sql ="SELECT a.player_id, CONCAT(player_fname,' ',player_lname) as player, AVG(game_points_1 + game_points_2 + game_points_3) as points FROM `bhleague`.`players_stats` a INNER JOIN `bhleague`.`players` b ON a.player_id = b.id  WHERE a.player_id <> 0 AND WEEKDAY(a.game_date) = '{$gameday}' GROUP by player_id order by points DESC, player";
+  
+  $sql = "select ave.player_id, ave.player, round((ave.score / ave.games_played), 2) as ppg from (
+select b.id as player_id, concat(b.player_fname, ' ', b.player_lname) as player, 
+	sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as score, 
+	sum(if(a.player_id=b.id, 1, 0)) as games_played
+from bhleague.players_stats a, bhleague.players b 
+where weekday(a.game_date) = '{$gameday}'   
+group by b.id 
+order by score desc) as ave 
+order by ppg desc";
 
 	if ($rs = $db->query($sql)) 
 	{
@@ -38,9 +48,10 @@ if($action=='get_player_points')
 		{
 			//$arr[] = $obj;
 			//@$obj['player_id'] = $myarr[$obj['player_id']];
-			@$obj['points'] = number_format(@$obj['points'],2);
+			//@$obj['points'] = number_format(@$obj['points'],2);
 			//@$obj['month'] = date( 'F', mktime(0, 0, 0, $obj['month']) );
 			//@$obj['date'] = numberToPlace($obj['date']);
+			@$obj['ppg'] = (is_null($obj['ppg']) ? '0.00' : $obj['ppg']);
 			array_push($arr,$obj);
 		}
 	
@@ -48,10 +59,20 @@ if($action=='get_player_points')
 		}
 	}
 }
-if($action=='get_player_rebounds')
+if(@$action=='get_player_rebounds')
 {
   //$sql = "SELECT player_id, AVG(game_rebounds) as rebounds FROM `bhleague`.`players_stats` WHERE player_id <> 0 GROUP by player_id order by rebounds DESC, player_id";
-  $sql ="SELECT a.player_id, CONCAT(player_fname,' ',player_lname) as player, AVG(game_rebounds) as rebounds FROM `bhleague`.`players_stats` a INNER JOIN `bhleague`.`players` b ON a.player_id = b.`id` WHERE a.player_id <> 0 AND WEEKDAY(a.game_date) = '{$gameday}' GROUP by player_id order by rebounds DESC, player";
+  //$sql ="SELECT a.player_id, CONCAT(player_fname,' ',player_lname) as player, AVG(game_rebounds) as rebounds FROM `bhleague`.`players_stats` a INNER JOIN `bhleague`.`players` b ON a.player_id = b.`id` WHERE a.player_id <> 0 AND WEEKDAY(a.game_date) = '{$gameday}' GROUP by player_id order by rebounds DESC, player";
+  
+  	$sql = "select ave.player_id, ave.player, round((ave.score / ave.games_played), 2) as rpg from (
+select b.id as player_id, concat(b.player_fname, ' ', b.player_lname) as player, 
+	sum(if(a.player_id=b.id, game_rebounds, 0)) as score, 
+	sum(if(a.player_id=b.id, 1, 0)) as games_played
+from bhleague.players_stats a, bhleague.players b 
+where weekday(a.game_date) = '{$gameday}'   
+group by b.id 
+order by score desc) as ave 
+order by rpg desc";
 
 	if ($rs1 = $db->query($sql)) 
 	{
@@ -62,9 +83,10 @@ if($action=='get_player_rebounds')
 		{
 			//$arr[] = $obj;
 			//@$obj1['player_id'] = $myarr[$obj1['player_id']];
-			@$obj1['rebounds'] = number_format(@$obj1['rebounds'],2);
+			//@$obj1['rebounds'] = number_format(@$obj1['rebounds'],2);
 			//@$obj['month'] = date( 'F', mktime(0, 0, 0, $obj['month']) );
 			//@$obj['date'] = numberToPlace($obj['date']);
+			@$obj1['rpg'] = (is_null($obj1['rpg']) ? '0.00' : $obj1['rpg']);
 			array_push($arr1,$obj1);
 		}
 	
@@ -72,10 +94,20 @@ if($action=='get_player_rebounds')
 		}
 	}
 }
-if($action=='get_player_assists')
+if(@$action=='get_player_assists')
 {
   //$sql = "SELECT player_id, AVG(game_assists) as assists FROM `bhleague`.`players_stats` WHERE player_id <> 0 GROUP by player_id order by assists DESC, player_id";
-  $sql = "SELECT a.player_id, CONCAT(player_fname,' ',player_lname) as player, AVG(game_assists) as assists FROM `bhleague`.`players_stats` a INNER JOIN `bhleague`.`players` b ON a.player_id = b.`id` WHERE player_id <> 0 AND WEEKDAY(a.game_date) = '{$gameday}' GROUP by player_id order by assists DESC, player";
+ // $sql = "SELECT a.player_id, CONCAT(player_fname,' ',player_lname) as player, AVG(game_assists) as assists FROM `bhleague`.`players_stats` a INNER JOIN `bhleague`.`players` b ON a.player_id = b.`id` WHERE player_id <> 0 AND WEEKDAY(a.game_date) = '{$gameday}' GROUP by player_id order by assists DESC, player";
+ 	
+	$sql = "select ave.player_id, ave.player, round((ave.score / ave.games_played), 2) as apg from (
+select b.id as player_id, concat(b.player_fname, ' ', b.player_lname) as player, 
+	sum(if(a.player_id=b.id, game_assists, 0)) as score, 
+	sum(if(a.player_id=b.id, 1, 0)) as games_played
+from bhleague.players_stats a, bhleague.players b 
+where weekday(a.game_date) = '{$gameday}'   
+group by b.id 
+order by score desc) as ave 
+order by apg desc";
 
 	if ($rs2 = $db->query($sql)) 
 	{
@@ -86,9 +118,10 @@ if($action=='get_player_assists')
 		{
 			//$arr[] = $obj;
 			//@$obj2['player_id'] = $myarr[$obj2['player_id']];
-			@$obj2['assists'] = number_format(@$obj2['assists'],2);
+			//@$obj2['assists'] = number_format(@$obj2['assists'],2);
 			//@$obj['month'] = date( 'F', mktime(0, 0, 0, $obj['month']) );
 			//@$obj['date'] = numberToPlace($obj['date']);
+			@$obj2['apg'] = (is_null($obj2['apg']) ? '0.00' : $obj2['apg']);
 			array_push($arr2,$obj2);
 		}
 	

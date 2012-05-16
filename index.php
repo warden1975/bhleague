@@ -11,7 +11,8 @@ if (!$db) die("Can't connect to database.");
 
 $m = 'ppg';
 $mm = 'Points';
-$pg = $r = array();
+$pg = $r = $g = array();
+$ppg = $apg = $rpg = array();
 
 extract($_REQUEST);
 

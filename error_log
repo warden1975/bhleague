@@ -13,3 +13,123 @@
 [15-May-2012 04:17:56] PHP Notice:  Undefined variable: rs in /home/bhleague/public_html/admin/class/db.cls.php on line 154
 [15-May-2012 04:17:56] PHP Notice:  Undefined variable: ppg in /home/bhleague/public_html/index.php on line 319
 [15-May-2012 04:17:56] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 04:45:07] PHP Notice:  Undefined variable: action in /home/bhleague/public_html/league_leaders.php on line 27
+[15-May-2012 04:45:07] PHP Notice:  Undefined variable: action in /home/bhleague/public_html/league_leaders.php on line 51
+[15-May-2012 04:45:07] PHP Notice:  Undefined variable: action in /home/bhleague/public_html/league_leaders.php on line 75
+[15-May-2012 05:00:08] PHP Notice:  Undefined variable: row2 in /home/bhleague/public_html/player.php on line 216
+[15-May-2012 05:00:08] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 216
+[15-May-2012 05:00:08] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 224
+[15-May-2012 05:00:08] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 224
+[15-May-2012 05:00:11] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[15-May-2012 05:00:11] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[15-May-2012 05:00:11] PHP Notice:  Undefined variable: ppg in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 05:00:11] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 05:00:11] PHP Notice:  Undefined variable: rpg in /home/bhleague/public_html/index.php on line 358
+[15-May-2012 05:00:11] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 358
+[15-May-2012 05:00:11] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/index.php on line 397
+[15-May-2012 05:00:11] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 397
+[15-May-2012 05:00:11] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 532
+[15-May-2012 05:00:11] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 532
+[15-May-2012 05:00:32] PHP Notice:  Undefined variable: d in /home/bhleague/public_html/bhlcommon.php on line 37
+[15-May-2012 05:00:32] PHP Warning:  implode() [<a href='function.implode'>function.implode</a>]: Invalid arguments passed in /home/bhleague/public_html/bhlcommon.php on line 37
+[15-May-2012 05:00:32] PHP Notice:  Undefined variable: ppg in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 05:00:32] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 05:00:32] PHP Notice:  Undefined variable: rpg in /home/bhleague/public_html/index.php on line 358
+[15-May-2012 05:00:32] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 358
+[15-May-2012 05:00:32] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/index.php on line 397
+[15-May-2012 05:00:32] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 397
+[15-May-2012 05:00:32] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 532
+[15-May-2012 05:00:32] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 532
+[15-May-2012 05:01:50] PHP Notice:  Undefined variable: ppg in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 05:01:50] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 05:01:50] PHP Notice:  Undefined variable: rpg in /home/bhleague/public_html/index.php on line 358
+[15-May-2012 05:01:50] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 358
+[15-May-2012 05:01:50] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/index.php on line 397
+[15-May-2012 05:01:50] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 397
+[15-May-2012 05:01:50] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 532
+[15-May-2012 05:01:50] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 532
+[15-May-2012 05:03:40] PHP Notice:  Undefined variable: ppg in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 05:03:40] PHP Notice:  Undefined variable: ppg in /home/bhleague/public_html/index.php on line 324
+[15-May-2012 05:03:40] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 324
+[15-May-2012 05:03:40] PHP Notice:  Undefined variable: rpg in /home/bhleague/public_html/index.php on line 363
+[15-May-2012 05:03:40] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 363
+[15-May-2012 05:03:40] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/index.php on line 402
+[15-May-2012 05:03:40] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 402
+[15-May-2012 05:03:40] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 537
+[15-May-2012 05:03:40] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 537
+[15-May-2012 05:04:29] PHP Notice:  Undefined variable: ppg in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 05:04:29] PHP Notice:  Undefined variable: rpg in /home/bhleague/public_html/index.php on line 364
+[15-May-2012 05:04:29] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 364
+[15-May-2012 05:04:29] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/index.php on line 403
+[15-May-2012 05:04:29] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 403
+[15-May-2012 05:04:29] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 538
+[15-May-2012 05:04:29] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 538
+[15-May-2012 05:05:16] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 539
+[15-May-2012 05:05:16] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 539
+[15-May-2012 05:05:53] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 533
+[15-May-2012 05:05:53] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 533
+[15-May-2012 05:52:18] PHP Notice:  Undefined variable: row2 in /home/bhleague/public_html/player.php on line 216
+[15-May-2012 05:52:18] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 216
+[15-May-2012 05:52:18] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 224
+[15-May-2012 05:52:18] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 224
+[15-May-2012 07:04:00] PHP Notice:  Undefined variable: m_class in /home/bhleague/public_html/games_test.php on line 841
+[15-May-2012 07:04:00] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/games_test.php on line 885
+[15-May-2012 07:04:00] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 885
+[15-May-2012 07:04:00] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/games_test.php on line 925
+[15-May-2012 07:04:00] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 925
+[15-May-2012 07:04:00] PHP Notice:  Undefined variable: m_class in /home/bhleague/public_html/games_test.php on line 959
+[15-May-2012 07:04:00] PHP Notice:  Undefined variable: lg in /home/bhleague/public_html/games_test.php on line 965
+[15-May-2012 07:04:00] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 965
+[15-May-2012 07:04:00] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/games_test.php on line 1004
+[15-May-2012 07:04:00] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 1004
+[15-May-2012 07:25:12] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/games_test.php on line 885
+[15-May-2012 07:25:12] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 885
+[15-May-2012 07:25:12] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/games_test.php on line 925
+[15-May-2012 07:25:12] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 925
+[15-May-2012 07:25:12] PHP Notice:  Undefined variable: m_class in /home/bhleague/public_html/games_test.php on line 959
+[15-May-2012 07:25:12] PHP Notice:  Undefined variable: lg in /home/bhleague/public_html/games_test.php on line 965
+[15-May-2012 07:25:12] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 965
+[15-May-2012 07:25:12] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/games_test.php on line 1004
+[15-May-2012 07:25:12] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 1004
+[15-May-2012 07:26:14] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/games_test.php on line 885
+[15-May-2012 07:26:14] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 885
+[15-May-2012 07:26:14] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/games_test.php on line 925
+[15-May-2012 07:26:14] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 925
+[15-May-2012 07:26:14] PHP Notice:  Undefined variable: lg in /home/bhleague/public_html/games_test.php on line 965
+[15-May-2012 07:26:14] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 965
+[15-May-2012 07:26:14] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/games_test.php on line 1004
+[15-May-2012 07:26:14] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 1004
+[15-May-2012 07:29:41] PHP Notice:  Undefined variable: m_class in /home/bhleague/public_html/games_test.php on line 840
+[15-May-2012 07:29:41] PHP Notice:  Undefined variable: m_class in /home/bhleague/public_html/games_test.php on line 876
+[15-May-2012 07:29:41] PHP Notice:  Undefined variable: lg in /home/bhleague/public_html/games_test.php on line 882
+[15-May-2012 07:29:41] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 882
+[15-May-2012 08:59:14] PHP Notice:  Undefined variable: row2 in /home/bhleague/public_html/player.php on line 216
+[15-May-2012 08:59:14] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 216
+[15-May-2012 08:59:14] PHP Notice:  Undefined variable: row in /home/bhleague/public_html/player.php on line 224
+[15-May-2012 08:59:14] PHP Notice:  Trying to get property of non-object in /home/bhleague/public_html/player.php on line 224
+[15-May-2012 10:46:26] PHP Notice:  Undefined variable: pg in /home/bhleague/public_html/games_test.php on line 803
+[15-May-2012 10:46:26] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 803
+[15-May-2012 10:46:26] PHP Notice:  Undefined variable: lg in /home/bhleague/public_html/games_test.php on line 839
+[15-May-2012 10:46:26] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/games_test.php on line 839
+[15-May-2012 11:10:14] PHP Notice:  Constant DIR already defined in /home/bhleague/public_html/games_test.php on line 861
+[15-May-2012 11:10:14] PHP Notice:  Constant DB_CLS already defined in /home/bhleague/public_html/games_test.php on line 862
+[15-May-2012 11:10:14] PHP Notice:  Constant COMMON already defined in /home/bhleague/public_html/games_test.php on line 863
+[15-May-2012 11:10:14] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Cannot redeclare class db_connect in /home/bhleague/public_html/games_test.php on line 865
+[15-May-2012 22:34:50] PHP Notice:  Undefined variable: ppg in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 22:34:50] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 319
+[15-May-2012 22:34:50] PHP Notice:  Undefined variable: rpg in /home/bhleague/public_html/index.php on line 358
+[15-May-2012 22:34:50] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 358
+[15-May-2012 22:34:50] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/index.php on line 397
+[15-May-2012 22:34:50] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 397
+[15-May-2012 22:34:50] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 532
+[15-May-2012 22:34:50] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 532
+[16-May-2012 00:35:24] PHP Notice:  Undefined variable: ppg in /home/bhleague/public_html/index.php on line 319
+[16-May-2012 00:35:24] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 319
+[16-May-2012 00:35:24] PHP Notice:  Undefined variable: rpg in /home/bhleague/public_html/index.php on line 358
+[16-May-2012 00:35:24] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 358
+[16-May-2012 00:35:24] PHP Notice:  Undefined variable: apg in /home/bhleague/public_html/index.php on line 397
+[16-May-2012 00:35:24] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 397
+[16-May-2012 00:35:24] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 532
+[16-May-2012 00:35:24] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 532
+[16-May-2012 00:36:30] PHP Notice:  Undefined variable: g in /home/bhleague/public_html/index.php on line 533
+[16-May-2012 00:36:30] PHP Warning:  Invalid argument supplied for foreach() in /home/bhleague/public_html/index.php on line 533

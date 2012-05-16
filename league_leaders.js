@@ -21,14 +21,14 @@ Ext.onReady(function() {
 		var colModel = new Ext.grid.ColumnModel([
 		{header: "ID", dataIndex: 'player_id', width:0,sortable:false,align:'left',hidden:true},
 		{header: "Player", dataIndex: 'player', width:100,sortable:false,renderer : Ext.bhlcommondata.format_underline,align:'left'},
-		{header: "Points", dataIndex: 'points', width:180,sortable:false,align:'right'},
+		{header: "PPG", dataIndex: 'ppg', width:180,sortable:false,align:'right'},
 	
 	 ]);
 
         var ds_model = Ext.data.Record.create([	
 			{ name: 'player_id' },		
 		    { name: 'player'},			
-			{ name: 'points', sortType: Ext.data.SortTypes.asFloat }
+			{ name: 'ppg', sortType: Ext.data.SortTypes.asFloat }
 		]);
     
 	 myStore = new Ext.data.Store({
@@ -81,7 +81,7 @@ Ext.onReady(function() {
      var ds_model2 = Ext.data.Record.create([	
 	 		{name:'player_id'},		
 		    { name: 'player'},			
-			{ name: 'rebounds', sortType: Ext.data.SortTypes.asFloat }
+			{ name: 'rpg', sortType: Ext.data.SortTypes.asFloat }
 	]);
      myStore2 = new Ext.data.Store({
         url: 'league_leaders.php?action=get_player_rebounds',
@@ -111,7 +111,7 @@ Ext.onReady(function() {
 	        columns: [
 				{header: "ID", dataIndex: 'player_id', width:0,sortable:false,align:'left',hidden:true},
 				{header: "Player", dataIndex: 'player', width:100,sortable:false,renderer : Ext.bhlcommondata.format_underline,align:'left'},
-				{header: "Rebounds", dataIndex: 'rebounds', width:190,sortable:false,align:'right'}
+				{header: "RPG", dataIndex: 'rpg', width:190,sortable:false,align:'right'}
 				
 	        ],
 			listeners: {
@@ -134,7 +134,7 @@ Ext.onReady(function() {
     var ds_model3 = Ext.data.Record.create([
 			{name:'player_id'},			
 		    { name: 'player'},			
-			{ name: 'assists', sortType: Ext.data.SortTypes.asFloat }
+			{ name: 'apg', sortType: Ext.data.SortTypes.asFloat }
 		]);
 	   myStore3 = new Ext.data.Store({
         url: 'league_leaders.php?action=get_player_assists',
@@ -165,7 +165,7 @@ Ext.onReady(function() {
 	        columns: [
 				{header: "ID", dataIndex: 'player_id', width:0,sortable:false,align:'left',hidden:true},
 				{header: "Player", dataIndex: 'player', width:100,sortable:false,renderer : Ext.bhlcommondata.format_underline,align:'left'},
-				{header: "Assists", dataIndex: 'assists', width:170,sortable:false,align:'right'}
+				{header: "APG", dataIndex: 'apg', width:170,sortable:false,align:'right'}
 				
 	        ],
 			listeners: {

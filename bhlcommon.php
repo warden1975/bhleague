@@ -10,6 +10,8 @@ $db = NULL;
 function get_month_games() {
 	global $db, $gameday;
 	
+	$d = array();
+	
 	$sql = "select date_format(game_date, '%M %D') as game_date, (select team_name from bhleague.teams where id = a.game_winner) as team_winner, a.winner_score, 
 		(select team_name from bhleague.teams where id = a.game_loser) as team_loser, a.loser_score 
 	from bhleague.games_stats a 

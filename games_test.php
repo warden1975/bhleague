@@ -673,7 +673,6 @@ function getGame_Profile(team1,team2,gamedate,uri)
 			break;
 		case 3:
 			bp_el.style.display ="none";
-
 			br_el.style.display ="none";			
 			ba_el.style.display ="";
 			break;

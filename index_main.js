@@ -247,7 +247,7 @@ Ext.onReady(function(){
             },
             {
                 header   : 'Player', 
-                width    : 150, 
+                width    : 315, 
                 sortable : false,
 				renderer : Ext.bhlcommondata.format_underline,
                 dataIndex: 'player'
@@ -278,7 +278,7 @@ Ext.onReady(function(){
             },
 			{
                 header   : 'PPG', 
-                width    : 90, 
+                width    : 95, 
                 sortable : false, 
                 renderer : change, 
                 dataIndex: 'ppg',
@@ -286,7 +286,7 @@ Ext.onReady(function(){
             },
 			{
                 header   : 'RPG', 
-                width    : 90, 
+                width    : 95, 
                 sortable : false, 
                 renderer : change, 
                 dataIndex: 'rpg',
@@ -294,7 +294,7 @@ Ext.onReady(function(){
             },
 			{
                 header   : 'APG', 
-                width    : 90, 
+                width    : 95, 
                 sortable : false, 
                 renderer : change, 
                 dataIndex: 'apg',
@@ -302,7 +302,7 @@ Ext.onReady(function(){
             },
 			{
                 header   : 'Games Played', 
-                width    : 90, 
+                width    : 95, 
                 sortable : false, 
                 renderer : change, 
                 dataIndex: 'games',
@@ -386,7 +386,7 @@ Ext.onReady(function(){
             },
 			{
                 header   : 'APG', 
-                width    : 75, 
+                width    : 80, 
                 sortable : false, 
                 renderer : change, 
                 dataIndex: 'apg',
