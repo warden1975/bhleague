@@ -1,0 +1,9 @@
+request --> code=bad90837c59249d0e1bcc6b0caa07ea193868e73ccdcb760fc
+
+request --> bhlOGL={\"id\":1,\"value\":\"Tuesday League\"}
+
+ result2 --> {"user_id":668534,"access_token":"4e21db27ab620abf94394e64585895bf8a7382b09793f78243adc78a4f1a50eb","token_type":"BEARER"}
+
+key --> user_id=>668534
+key --> access_token=>4e21db27ab620abf94394e64585895bf8a7382b09793f78243adc78a4f1a50eb
+key --> token_type=>BEARER

@@ -31,6 +31,7 @@
 	
 	// tell the store how to process the data
 	var reader = new Ext.data.ArrayReader({}, [
+		{name: 'cnt'},
 		{name: 'player_id'},
 		{name: 'player'},
 		{name: 'height'},
@@ -60,9 +61,14 @@
         store: store,
         columns: [
 			{
+				header   : '',
+				width    : 30, 
+				sortable : false,
+				dataIndex: 'cnt'
+			},
+			{
                 id       : 'player_id',
                 header   : 'ID', 
-                width    : 0, 
                 sortable : false, 
                 dataIndex: 'player_id', 
 				hidden	 : true
@@ -140,7 +146,7 @@
 			cellclick: function(grid, rowIndex, columnIndex, e) {
 				var record = grid.getStore().getAt(rowIndex);
 				var data = record.get('player_id');
-				window.location.href='player.php?player='+data;
+				window.location.href='player_v2.php?player='+data;
 
 			}
 		},

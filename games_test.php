@@ -673,6 +673,8 @@ function getGame_Profile(team1,team2,gamedate,uri)
 			break;
 		case 3:
 			bp_el.style.display ="none";
+
+
 			br_el.style.display ="none";			
 			ba_el.style.display ="";
 			break;
@@ -884,7 +886,7 @@ Ext.onReady(function(){
                     <img src="images/no-profile.gif" /> </div>
                   <div class="detail">
                     <div class="f_left"> <a href="player.php?player=<?php echo $k['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $k['player_name']; ?></a> </div>
-                    <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> <?php echo $m; ?> </div>
+                    <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> rpg </div>
                     <div class="clear"></div>
                   </div>
                 </div>
@@ -920,7 +922,7 @@ Ext.onReady(function(){
                     <img src="images/no-profile.gif" /> </div>
                   <div class="detail">
                     <div class="f_left"> <a href="player.php?player=<?php echo $kg['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $kg['player_name']; ?></a> </div>
-                    <div class="f_right"> <?php echo @number_format($kg['pg'], 1); ?> <?php echo $m; ?> </div>
+                    <div class="f_right"> <?php echo @number_format($kg['pg'], 1); ?> rpg </div>
                     <div class="clear"></div>
                   </div>
                 </div>
@@ -935,6 +937,26 @@ Ext.onReady(function(){
           </div>
 
 		 <div class="clear"></div>
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
 		 <div class="box bg1 same-width" id="assistsx" style="margin-bottom:10px; display:none;">
             <h3>BHL GAME LEADERS</h3>
 			<div class="f_left2">
@@ -945,8 +967,11 @@ Ext.onReady(function(){
               <div class="people">
               <?php
 			  $first = true;
-			  foreach ($ppg1 as $k) {
+			  foreach ($apg1 as $ka) {
+			  @$count++;
+			  if(@$count==4) break;
 			  if ($first) {
+			  
 			  ?>
                 <div class="person first">
               <?php
@@ -958,11 +983,11 @@ Ext.onReady(function(){
 			  }
               ?>
                   <div class="img">
-                    <div class="the-info"> <?php echo $k['team_name']; ?> </div>
+                    <div class="the-info"> <?php echo $ka['team_name']; ?> </div>
                     <img src="images/no-profile.gif" /> </div>
                   <div class="detail">
-                    <div class="f_left"> <a href="player.php?player=<?php echo $k['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $k['player_name']; ?></a> </div>
-                    <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> <?php echo $m; ?> </div>
+                    <div class="f_left"> <a href="player.php?player=<?php echo $ka['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $ka['player_name']; ?></a> </div>
+                    <div class="f_right"> <?php echo @number_format($ka['pg'], 1); ?> apg </div>
                     <div class="clear"></div>
                   </div>
                 </div>
@@ -981,7 +1006,7 @@ Ext.onReady(function(){
               <div class="people">
               <?php
 			  $first = true;
-			  foreach ($ppg2 as $kg) {
+			  foreach ($apg2 as $kg) {
 			  if ($first) {
 			  ?>
                 <div class="person first">
@@ -998,7 +1023,7 @@ Ext.onReady(function(){
                     <img src="images/no-profile.gif" /> </div>
                   <div class="detail">
                     <div class="f_left"> <a href="player.php?player=<?php echo $kg['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $kg['player_name']; ?></a> </div>
-                    <div class="f_right"> <?php echo @number_format($kg['pg'], 1); ?> <?php echo $m; ?> </div>
+                    <div class="f_right"> <?php echo @number_format($kg['pg'], 1); ?> apg </div>
                     <div class="clear"></div>
                   </div>
                 </div>
@@ -1045,6 +1070,8 @@ Ext.onReady(function(){
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 <div id="footer">
   <div class="wrap">

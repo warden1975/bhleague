@@ -21,8 +21,13 @@ c.team_name,
 sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as score, 
 sum(if(a.player_id=b.id, 1, 0)) as games_played
 from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
-where b.team_id = c.id and a.game_date = '$gamedate' and b.team_id = $team1  
-group by b.id 
+		where weekday(a.game_date) IN('1','5','6') and 
+			(select case (weekday(a.game_date)) 
+			when '1' then b.team_id 
+			when '5' then b.team_id2 
+			when '6' then b.team_id3
+			end) = '$team1' and c.id = '$team1' and a.game_date ='$gamedate'
+		group by b.id 
 order by score desc) as ave 
 order by pg desc limit 3";
 
@@ -42,8 +47,13 @@ c.team_name,
 sum(if(a.player_id=b.id, game_rebounds, 0)) as score, 
 sum(if(a.player_id=b.id, 1, 0)) as games_played
 from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
-where b.team_id = c.id and a.game_date = '$gamedate' and b.team_id = $team1   
-group by b.id 
+		where weekday(a.game_date) IN('1','5','6') and 
+			(select case (weekday(a.game_date)) 
+			when '1' then b.team_id 
+			when '5' then b.team_id2 
+			when '6' then b.team_id3
+			end) = '$team1' and c.id = '$team1' and a.game_date ='$gamedate'
+		group by b.id 
 order by score desc) as ave 
 order by pg desc limit 3";
 
@@ -60,11 +70,16 @@ if ($rs = $db->query($sql_rpg1)) {
 $sql_apg1 = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
 select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
 c.team_name, 
-sum(if(a.player_id=b.id, game_assists, 0)) as score, 
+sum(if(a.player_id=b.id, game_assists, 0)) as score,
 sum(if(a.player_id=b.id, 1, 0)) as games_played
 from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
-where b.team_id = c.id and a.game_date = '$gamedate' and b.team_id = $team1 
-group by b.id 
+		where weekday(a.game_date) IN('1','5','6') and 
+			(select case (weekday(a.game_date)) 
+			when '1' then b.team_id 
+			when '5' then b.team_id2 
+			when '6' then b.team_id3
+			end) = '$team1' and c.id = '$team1' and a.game_date ='$gamedate'
+		group by b.id 
 order by score desc) as ave 
 order by pg desc limit 3";
 
@@ -84,8 +99,13 @@ c.team_name,
 sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as score, 
 sum(if(a.player_id=b.id, 1, 0)) as games_played
 from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
-where b.team_id = c.id and a.game_date = '$gamedate' and b.team_id = $team2  
-group by b.id 
+		where weekday(a.game_date) IN('1','5','6') and 
+			(select case (weekday(a.game_date)) 
+			when '1' then b.team_id 
+			when '5' then b.team_id2 
+			when '6' then b.team_id3
+			end) = '$team2' and c.id = '$team2' and a.game_date ='$gamedate'
+		group by b.id 
 order by score desc) as ave 
 order by pg desc limit 3";
 
@@ -105,8 +125,13 @@ c.team_name,
 sum(if(a.player_id=b.id, game_rebounds, 0)) as score, 
 sum(if(a.player_id=b.id, 1, 0)) as games_played
 from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
-where b.team_id = c.id and a.game_date = '$gamedate' and b.team_id = $team2   
-group by b.id 
+		where weekday(a.game_date) IN('1','5','6') and 
+			(select case (weekday(a.game_date)) 
+			when '1' then b.team_id 
+			when '5' then b.team_id2 
+			when '6' then b.team_id3
+			end) = '$team2' and c.id = '$team2' and a.game_date ='$gamedate'
+		group by b.id 
 order by score desc) as ave 
 order by pg desc limit 3";
 
@@ -120,35 +145,40 @@ if ($rs = $db->query($sql_rpg2)) {
 		$rs->close();
 	}
 
-$sql_apg1 = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
-select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
-c.team_name, 
-sum(if(a.player_id=b.id, game_assists, 0)) as score, 
-sum(if(a.player_id=b.id, 1, 0)) as games_played
-from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
-where b.team_id = c.id and a.game_date = '$gamedate' and b.team_id = $team2   
-group by b.id 
-order by score desc) as ave 
-order by pg desc limit 3";
-		
-if ($rs = $db->query($sql_apg1)) {
-		$rs_cnt = $rs->num_rows;
-		if ($rs_cnt > 0) {
-			while ($row = $rs->fetch_assoc()) {
-				$apg1[] = $row;
-			}
-		}
-		$rs->close();
-	}	
+//$sql_apg1 = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
+//select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
+//c.team_name, 
+//sum(if(a.player_id=b.id, game_assists, 0)) as score, 
+//sum(if(a.player_id=b.id, 1, 0)) as games_played
+//from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
+//where b.team_id = c.id and a.game_date = '$gamedate' and b.team_id = $team2   
+//group by b.id 
+//order by score desc) as ave 
+//order by pg desc limit 3";
+//		
+//if ($rs = $db->query($sql_apg1)) {
+//		$rs_cnt = $rs->num_rows;
+//		if ($rs_cnt > 0) {
+//			while ($row = $rs->fetch_assoc()) {
+//				$apg1[] = $row;
+//			}
+//		}
+//		$rs->close();
+//	}	
 
 $sql_apg2 = "select ave.player_id, ave.player_name, ave.team_name, ave.score, round((ave.score / ave.games_played), 2) as pg from (
 select b.id as player_id, upper(concat(substr(b.player_fname,1,1), '. ', b.player_lname)) as player_name, 
 c.team_name, 
-sum(if(a.player_id=b.id, game_assists, 0)) as score, 
+sum(if(a.player_id=b.id, game_assists, 0)) as score,
 sum(if(a.player_id=b.id, 1, 0)) as games_played
 from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
-where b.team_id = c.id and a.game_date = '$gamedate' and b.team_id = $team2   
-group by b.id 
+		where weekday(a.game_date) IN('1','5','6') and 
+			(select case (weekday(a.game_date)) 
+			when '1' then b.team_id 
+			when '5' then b.team_id2 
+			when '6' then b.team_id3
+			end) = '$team2' and c.id = '$team2' and a.game_date ='$gamedate'
+		group by b.id 
 order by score desc) as ave 
 order by pg desc limit 3";
 		
@@ -294,13 +324,13 @@ $db = NULL;
 	var reader = new Ext.data.ArrayReader({}, [
 		{name: 'player_id',type: 'int'},
 		{name: 'player'},
-		{name: 'height'},
-		{name: 'weight',},
+		//{name: 'height'},
+//		{name: 'weight',},
 		{name: 'position'},
 		{name: 'ppg', type: 'float'},
 		{name: 'rpg', type: 'float'},
 		{name: 'apg', type: 'float'},
-		{name: 'games', type: 'float'}
+		//{name: 'games', type: 'float'}
 	]);
 	
 	// get the data
@@ -332,22 +362,22 @@ $db = NULL;
 				renderer : Ext.bhlcommondata.format_underline,
                 dataIndex: 'player'
             },
-			{
-                header   : 'Height', 
-                width    : 100, 
-                sortable : false, 
-                renderer : change, 
-                dataIndex: 'height',
-				align	 : 'left'
-            },
-			{
-                header   : 'Weight', 
-                width    : 100, 
-                sortable : false, 
-                renderer : change, 
-                dataIndex: 'weight',
-				align	 : 'center'
-            },
+			//{
+//                header   : 'Height', 
+//                width    : 100, 
+//                sortable : false, 
+//                renderer : change, 
+//                dataIndex: 'height',
+//				align	 : 'left'
+//            },
+//			{
+//                header   : 'Weight', 
+//                width    : 100, 
+//                sortable : false, 
+//                renderer : change, 
+//                dataIndex: 'weight',
+//				align	 : 'center'
+//            },
 			{
                 header   : 'Position', 
                 width    : 100, 
@@ -357,7 +387,7 @@ $db = NULL;
 				align	 : 'center'
             },
 			{
-                header   : 'PPG', 
+                header   : 'Points', 
                 width    : 100, 
                 sortable : false, 
                 renderer : change, 
@@ -365,7 +395,7 @@ $db = NULL;
 				align	 : 'center'
             },
 			{
-                header   : 'RPG', 
+                header   : 'Rebounds', 
                 width    : 100, 
                 sortable : false, 
                 renderer : change, 
@@ -373,21 +403,21 @@ $db = NULL;
 				align	 : 'center'
             },
 			{
-                header   : 'APG', 
+                header   : 'Assists', 
                 width    : 100, 
                 sortable : false, 
                 renderer : change, 
                 dataIndex: 'apg',
 				align	 : 'center'
-            },
-			{
-                header   : 'Games Played', 
-                width    : 100, 
-                sortable : false, 
-                renderer : change, 
-                dataIndex: 'games',
-				align	 : 'center'
-            }
+            }//,
+//			{
+//                header   : 'Games Played', 
+//                width    : 100, 
+//                sortable : false, 
+//                renderer : change, 
+//                dataIndex: 'games',
+//				align	 : 'center'
+//            }
         ],
         stripeRows: true,
         autoExpandColumn: 'player',
@@ -498,15 +528,17 @@ function getGame_Profile(team1,team2,gamedate,uri)
 					{
 					//alert(columnIndex);
 					var data = record.get('team1x');
-					window.location.href='teams.html?team_id='+data;
+					window.location.href='teams.php?team_id='+data;
+					//alert(window.location.hash);
 					}
 					else if(columnIndex==3)
 					{
 					//alert(columnIndex);
 					var data = record.get('team2x');
-					window.location.href='teams.html?team_id='+data;	
+					window.location.href='teams.php?team_id='+data;	
+					//alert(window.location.hash);
 					}
-					//window.location.href='teams.html?team_id='+data2;
+					//window.location.href='teams.php?team_id='+data2;
 				}
 			},
 		autoHeight: true,
@@ -606,15 +638,17 @@ function getGame_Profile(team1,team2,gamedate,uri)
 					{
 					//alert(columnIndex);
 					var data = record.get('team1x');
-					window.location.href='teams.html?team_id='+data;
+					window.location.href='teams.php?team_id='+data;
+					//alert(window.location.hash);
 					}
 					else if(columnIndex==3)
 					{
 					//alert(columnIndex);
 					var data = record.get('team2x');
-					window.location.href='teams.html?team_id='+data;	
+					window.location.href='teams.php?team_id='+data;
+					//alert(window.location.hash);	
 					}
-					//window.location.href='teams.html?team_id='+data2;
+					//window.location.href='teams.php?team_id='+data2;
 				}
 			},
 			autoHeight: true,
@@ -673,6 +707,8 @@ function getGame_Profile(team1,team2,gamedate,uri)
 			break;
 		case 3:
 			bp_el.style.display ="none";
+
+
 
 			br_el.style.display ="none";			
 			ba_el.style.display ="";
@@ -784,7 +820,7 @@ Ext.onReady(function(){
             <h3>BHL GAME LEADERS</h3>
 			<div class="f_left2">
             	<div class="sub-box">
-              <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <a href="#" class="on">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
+              <div class="tabs"> <a href="rosters.php" class="f_right">VIEW SCORE</a> <a href="#" class="on">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
                 <div class="clear"></div>
               </div>
               <div class="people">
@@ -820,7 +856,7 @@ Ext.onReady(function(){
 			</div>
 			<div class="f_right2">
             	<div class="sub-box">
-              <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <a href="#" class="on">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
+              <div class="tabs"> <a href="rosters.php" class="f_right">VIEW SCORE</a> <a href="#" class="on">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
                 <div class="clear"></div>
               </div>
               <div class="people">
@@ -862,7 +898,7 @@ Ext.onReady(function(){
             <h3>BHL GAME LEADERS</h3>
 			<div class="f_left2">
             	<div class="sub-box">
-              <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" class="on">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
+              <div class="tabs"> <a href="rosters.php" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" class="on">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
                 <div class="clear"></div>
               </div>
               <div class="people">
@@ -885,7 +921,7 @@ Ext.onReady(function(){
                     <img src="images/no-profile.gif" /> </div>
                   <div class="detail">
                     <div class="f_left"> <a href="player.php?player=<?php echo $k['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $k['player_name']; ?></a> </div>
-                    <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> <?php echo $m; ?> </div>
+                    <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> rpg </div>
                     <div class="clear"></div>
                   </div>
                 </div>
@@ -898,7 +934,7 @@ Ext.onReady(function(){
 			</div>
 			<div class="f_right2">
             	<div class="sub-box">
-              <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" class="on">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
+              <div class="tabs"> <a href="rosters.php" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" class="on">REBOUND</a> | <a href="#" onclick="togglebox_leaders(3);">ASSIST</a>
                 <div class="clear"></div>
               </div>
               <div class="people">
@@ -921,7 +957,7 @@ Ext.onReady(function(){
                     <img src="images/no-profile.gif" /> </div>
                   <div class="detail">
                     <div class="f_left"> <a href="player.php?player=<?php echo $kg['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $kg['player_name']; ?></a> </div>
-                    <div class="f_right"> <?php echo @number_format($kg['pg'], 1); ?> <?php echo $m; ?> </div>
+                    <div class="f_right"> <?php echo @number_format($kg['pg'], 1); ?> rpg </div>
                     <div class="clear"></div>
                   </div>
                 </div>
@@ -936,18 +972,22 @@ Ext.onReady(function(){
           </div>
 
 		 <div class="clear"></div>
+
 		 <div class="box bg1 same-width" id="assistsx" style="margin-bottom:10px; display:none;">
             <h3>BHL GAME LEADERS</h3>
 			<div class="f_left2">
             	<div class="sub-box">
-              <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" class="on">ASSIST</a>
+              <div class="tabs"> <a href="rosters.php" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" class="on">ASSIST</a>
                 <div class="clear"></div>
               </div>
               <div class="people">
               <?php
 			  $first = true;
-			  foreach ($ppg1 as $k) {
+			  foreach ($apg1 as $ka) {
+			  @$count++;
+			  if(@$count==4) break;
 			  if ($first) {
+			  
 			  ?>
                 <div class="person first">
               <?php
@@ -959,11 +999,11 @@ Ext.onReady(function(){
 			  }
               ?>
                   <div class="img">
-                    <div class="the-info"> <?php echo $k['team_name']; ?> </div>
+                    <div class="the-info"> <?php echo $ka['team_name']; ?> </div>
                     <img src="images/no-profile.gif" /> </div>
                   <div class="detail">
-                    <div class="f_left"> <a href="player.php?player=<?php echo $k['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $k['player_name']; ?></a> </div>
-                    <div class="f_right"> <?php echo @number_format($k['pg'], 1); ?> <?php echo $m; ?> </div>
+                    <div class="f_left"> <a href="player.php?player=<?php echo $ka['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $ka['player_name']; ?></a> </div>
+                    <div class="f_right"> <?php echo @number_format($ka['pg'], 1); ?> apg </div>
                     <div class="clear"></div>
                   </div>
                 </div>
@@ -976,13 +1016,13 @@ Ext.onReady(function(){
 			</div>
 			<div class="f_right2">
             	<div class="sub-box">
-              <div class="tabs"> <a href="rosters.html" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" class="on">ASSIST</a>
+              <div class="tabs"> <a href="rosters.php" class="f_right">VIEW SCORE</a> <a href="#" onclick="togglebox_leaders(1);">POINTS</a> | <a href="#" onclick="togglebox_leaders(2);">REBOUND</a> | <a href="#" class="on">ASSIST</a>
                 <div class="clear"></div>
               </div>
               <div class="people">
               <?php
 			  $first = true;
-			  foreach ($ppg2 as $kg) {
+			  foreach ($apg2 as $kg) {
 			  if ($first) {
 			  ?>
                 <div class="person first">
@@ -999,7 +1039,7 @@ Ext.onReady(function(){
                     <img src="images/no-profile.gif" /> </div>
                   <div class="detail">
                     <div class="f_left"> <a href="player.php?player=<?php echo $kg['player_id']; ?>" class="f_left" style="text-decoration:none; color:#FFF"><?php echo $kg['player_name']; ?></a> </div>
-                    <div class="f_right"> <?php echo @number_format($kg['pg'], 1); ?> <?php echo $m; ?> </div>
+                    <div class="f_right"> <?php echo @number_format($kg['pg'], 1); ?> apg </div>
                     <div class="clear"></div>
                   </div>
                 </div>
@@ -1046,6 +1086,8 @@ Ext.onReady(function(){
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 <div id="footer">
   <div class="wrap">

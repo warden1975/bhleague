@@ -39,7 +39,7 @@ Ext.bhlcommondata.app = function() {
 				applyTo: 'local-gamedays',
 				listeners: {
 					select: function(combo, record, index) {
-						console.log('check: '+combo.getValue()+', '+record.data.gameday+', '+index);
+						//console.log('check: '+combo.getValue()+', '+record.data.gameday+', '+index);
 						var bhlOGL = new Object();
 						bhlOGL['id'] = combo.getValue();
 						bhlOGL['value'] = record.data.gameday;

@@ -55,7 +55,7 @@ order by ppg desc";
 			array_push($arr,$obj);
 		}
 	
-		echo '{results:'.$record_count.',rows:'.json_encode($arr).'}';
+		echo '{"results":'.$record_count.',"rows":'.json_encode($arr).'}';
 		}
 	}
 }
@@ -90,7 +90,7 @@ order by rpg desc";
 			array_push($arr1,$obj1);
 		}
 	
-		echo '{results1:'.$record_count1.',rows1:'.json_encode($arr1).'}';
+		echo '{"results1":'.$record_count1.',"rows1":'.json_encode($arr1).'}';
 		}
 	}
 }
@@ -125,7 +125,7 @@ order by apg desc";
 			array_push($arr2,$obj2);
 		}
 	
-		echo '{results2:'.$record_count2.',rows2:'.json_encode($arr2).'}';
+		echo '{"results2":'.$record_count2.',"rows2":'.json_encode($arr2).'}';
 		}
 	}
 }

@@ -17,11 +17,12 @@ Ext.onReady(function() {
 		var myStore;
 		var myStore2;
 		var myStore3;
+		var grid;
 		
 		var colModel = new Ext.grid.ColumnModel([
 		{header: "ID", dataIndex: 'player_id', width:0,sortable:false,align:'left',hidden:true},
 		{header: "Player", dataIndex: 'player', width:100,sortable:false,renderer : Ext.bhlcommondata.format_underline,align:'left'},
-		{header: "PPG", dataIndex: 'ppg', width:180,sortable:false,align:'right'},
+		{header: "PPG", dataIndex: 'ppg', width:180,sortable:false,align:'right'}
 	
 	 ]);
 
@@ -36,7 +37,7 @@ Ext.onReady(function() {
 			reader: new Ext.data.JsonReader({
 				root:'rows',
 				totalProperty: 'results',	
-				id: 'id'
+				id: 'player_id'
 			}, ds_model)
 	    });
 	 
@@ -88,13 +89,13 @@ Ext.onReady(function() {
         autoLoad: true,
         reader: new Ext.data.JsonReader({
             root: 'rows1',
-            id: 'id',
+            idProperty: 'player_id',
 			totalProperty: 'results1'
         }, ds_model2)
     });
     
 	myStore2.load()
-    grid2 = new Ext.grid.EditorGridPanel({
+    var grid2 = new Ext.grid.EditorGridPanel({
 		 	viewConfig: {
 				emptyText: 'No records found'
 			},
@@ -141,14 +142,14 @@ Ext.onReady(function() {
         autoLoad: true,
         reader: new Ext.data.JsonReader({
             root: 'rows2',
-            id: 'id',
+            idProperty: 'player_id',
 			totalProperty: 'results2'
         }, ds_model3)
     });
 	   
 	   myStore3.load()
 	  
-	   grid3 = new Ext.grid.EditorGridPanel({
+	   var grid3 = new Ext.grid.EditorGridPanel({
 		 	viewConfig: {
 				emptyText: 'No records found'
 			},

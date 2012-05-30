@@ -59,7 +59,7 @@ Ext.onReady(function() {
     });
     
     var pivotGrid = new Ext.grid.PivotGrid({
-        title     : 'BH League Game Schedule',
+        //title     : 'BH League Game Schedule',
         /*width     : 800*/
 		layout: 'fit',
         autoHeight: true,

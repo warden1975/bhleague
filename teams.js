@@ -178,7 +178,7 @@ function getTeam_Profile(teamid,title,uri,sz)
 	    });
 	
 		var teamStore = new Ext.data.JsonStore({
-		url: 'teams.php',
+		url: 'teams_callback.php',
 		autoLoad: true,
 		baseParams:{action: 'getAllTeam'},
 		root:'teams',
@@ -268,15 +268,15 @@ function getTeam_Profile(teamid,title,uri,sz)
 				ref:'teams',
 				id:'teams',
 				fieldLabel: 'Select Team Profile',
-				triggerAction: 'all',
+				//triggerAction: 'all',
 				store: teamStore,
 				valueField:'id',
 				displayField:'team_name',
 				//itemSelector: 'div.search-item',
 //				tpl: new Ext.XTemplate('<tpl for="."><div class="search-item" style="background-image:url({logo})"><div class="team_name">{team_name}</div></div></tpl>'),	
-				typeAhead: true,
-				forceSelection:true,
-				querymode: 'local',
+				//typeAhead: true,
+				//forceSelection:true,
+				//querymode: 'local',
 				emptyText:'Select Team Profile',
 				width:160,
 				//float: false,
@@ -300,11 +300,12 @@ function getTeam_Profile(teamid,title,uri,sz)
 							//alert(title_teamx);
 							title_player = title + ':( Player Stats Current Season) ';
 //
-							urx ='teams.php?action=get_team_stats_current&team_id=' + teamidz
-							urz ='teams.php?action=get_team_roster_current&team_id=' + teamidz
+							urx ='teams_callback.php?action=get_team_stats_current&team_id=' + teamidz
+							urz ='teams_callback.php?action=get_team_roster_current&team_id=' + teamidz
 							//sx =idx
 							getTeam_Profile(teamidz,title_teamx,urx,idx )
 							getTeam_Player_Profile(teamidz,title_player,urz)
+							getTeamLogo(teamidz)
 							//combo.setValue(teamidz)
 							
 						}
@@ -314,11 +315,12 @@ function getTeam_Profile(teamid,title,uri,sz)
 							//alert(idx);
 							title_teamx = title+ ':( Game Stats Previous Season ) ';
 							title_player = title + ':( Player Stats Previous Season) ';
-							urx ='teams.php?action=get_team_stats_previous&team_id=' + teamidz
-							urz ='teams.php?action=get_team_roster_previous&team_id=' + teamidz
+							urx ='teams_callback.php?action=get_team_stats_previous&team_id=' + teamidz
+							urz ='teams_callback.php?action=get_team_roster_previous&team_id=' + teamidz
 							//sx =idx
 							getTeam_Profile(teamidz,title_teamx,urx,idx )
 							getTeam_Player_Profile(teamidz,title_player,urz)
+							getTeamLogo(teamidz)
 							//combo.setValue(teamidz)
 							
 						}
@@ -357,13 +359,13 @@ function getTeam_Profile(teamid,title,uri,sz)
 								
 								titlex = Ext.getCmp('teams').getRawValue() + ' (Game Stats: Current Season)';
 								
-								urx ='teams.php?action=get_team_stats_current&team_id=' + idx;
+								urx ='teams_callback.php?action=get_team_stats_current&team_id=' + idx;
 								
 								getTeam_Profile(idx,titlex,urx,sx )
 								
 								idz = idx
 								titlez = titlev + ' (Player Stats: Current Season)';
-								urz ='teams.php?action=get_team_roster_current&team_id=' + idx;
+								urz ='teams_callback.php?action=get_team_roster_current&team_id=' + idx;
 								getTeam_Player_Profile(idz,titlez,urz )
 								combo.setValue(sx)
 							}
@@ -374,13 +376,13 @@ function getTeam_Profile(teamid,title,uri,sz)
 //								var idx = Ext.getCmp('teams').value;
 								titlex = titlev + ' (Game Stats: Previous Season)';
 								//alert(titlev);
-								urx ='teams.php?action=get_team_stats_previous&team_id=' + idx;
+								urx ='teams_callback.php?action=get_team_stats_previous&team_id=' + idx;
 								//alert(idx);
 								getTeam_Profile(idx,titlex,urx,sx )
 								
 								idz = idx
 								titlez = titlev + ' (Player Stats: Previous Season)';
-								urz ='teams.php?action=get_team_roster_previous&team_id=' + idx;
+								urz ='teams_callback.php?action=get_team_roster_previous&team_id=' + idx;
 								getTeam_Player_Profile(idz,titlez,urz )
 								combo.setValue(sx)
 							}
@@ -437,7 +439,7 @@ function getTeam_Profile(teamid,title,uri,sz)
 		}
 		Ext.Ajax.request({
 		params: {action: 'getteamname', team_id: idx},
-		url: 'teams.php',
+		url: 'teams_callback.php',
 		success: function (resp,form,action) {
 		
 		//alert(resp.responseText) ;
@@ -445,18 +447,18 @@ function getTeam_Profile(teamid,title,uri,sz)
 		//teamid,title,uri
 		//Ext.getCmp('teams').setValue(idx);
 		titlex = resp.responseText + ' (Game Stats: Current Season)';
-		urx ='teams.php?action=get_team_stats_current&team_id=' + idx;
+		urx ='teams_callback.php?action=get_team_stats_current&team_id=' + idx;
 		//alert(idx);
 		getTeam_Profile(idx,titlex,urx,si )
 		
 		idz = idx
 		titlez = resp.responseText + ' (Player Stats: Current Season)';
-		urz ='teams.php?action=get_team_roster_current&team_id=' + idx;
+		urz ='teams_callback.php?action=get_team_roster_current&team_id=' + idx;
 		getTeam_Player_Profile(idz,titlez,urz )
 		//}
 //		else if(seasonx=='2')
 //		{
-		//getTeam_Player_Profile(idx,titlex + ' (Player Stats: Current Season)','teams.php?action=get_team_roster_current')		
+		//getTeam_Player_Profile(idx,titlex + ' (Player Stats: Current Season)','teams_callback.php?action=get_team_roster_current')		
 		//}
 		//getTeam_Player_Profile_Prev(idx)
 		//team_id.setValue(team_id.getStore().getAt(resp.responseText).get(cb.valueField));
@@ -480,11 +482,30 @@ function getTeam_Profile(teamid,title,uri,sz)
 		}
 	});
 	}
+	function getTeamLogo(teamid)
+	{
+		var bhl_img_url = 'teams_callback.php?action=getteam_logo&team_id=' + teamid; 
+	
+	var bhl_store = new Ext.data.JsonStore ({
+		url: bhl_img_url,
+		root: 'logo',
+		fields: ['team', 'path']
+	});
+	bhl_store.load({
+		callback: function(records, operation, success) {
+        	var path = records[0].get('path');
+			var team = records[0].get('team');
+			console.log('url: '+bhl_img_url+', img_path: '+path+', team: '+team);
+			Ext.get('bhlogo_img').dom.src = path;
+			Ext.fly('bhlogo_team').update(team);
+    	}
+	});
+	}
 	function getteam_leader()
 	{
 		Ext.Ajax.request({
 		params: {action: 'getteam_leader'},
-		url: 'teams.php',
+		url: 'teams_callback.php',
 		success: function (resp,form,action) {
 		
 		//Ext.getCmp('season').setValue('1');
@@ -548,14 +569,14 @@ Ext.onReady(function(){
 	//alert("XXXX");
 //	alert(tmx);
 	
-	//var titlex = "Team Profile: " + teamx;
+	
 	
 	
 	//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	
 	// Get Team Logo image path - WG
 	var bhl_tid = document.getElementById('hid_team_id').value;
-	var bhl_img_url = 'teams.php?action=getteam_logo&team_id=' + bhl_tid; 
+	var bhl_img_url = 'teams_callback.php?action=getteam_logo&team_id=' + bhl_tid; 
 	
 	var bhl_store = new Ext.data.JsonStore ({
 		url: bhl_img_url,

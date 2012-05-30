@@ -74,6 +74,7 @@ switch ($action) {
 if ($rs = $db->query($sql)) {
 	$rs_cnt = $rs->num_rows;
 	if ($rs_cnt > 0) {
+		$cnt = 1;
 		while ($row = $rs->fetch_object()) {
 			$player_id = $row->player_id;
 			$player = $row->player_name;
@@ -88,7 +89,8 @@ if ($rs = $db->query($sql)) {
 			$rpg = number_format(@round($rebounds / $games, 2), 1);
 			$apg = number_format(@round($assists / $games, 2), 1);
 			
-			$d[] = "['{$player_id}', '{$player}', '{$height}', '{$weight}', '{$position}', {$ppg}, {$rpg}, {$apg}, {$games}]";
+			$d[] = "['#$cnt', '{$player_id}', '{$player}', '{$height}', '{$weight}', '{$position}', {$ppg}, {$rpg}, {$apg}, {$games}]";
+			$cnt++;
 		}
 	}
 	$rs->close();

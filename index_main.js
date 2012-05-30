@@ -59,6 +59,7 @@ Ext.onReady(function(){
 	]);
 	
 	var reader_top20 = new Ext.data.ArrayReader({}, [
+		{name: 'cnt'},
 		{name: 'player_id'},
 		{name: 'player'},
 		{name: 'height'},
@@ -71,6 +72,7 @@ Ext.onReady(function(){
 	]);
 	
 	var reader_top10 = new Ext.data.ArrayReader({}, [
+		{name: 'cnt'},
 		{name: 'player_id'},
 		{name: 'player'},
 		{name: 'height'},
@@ -194,7 +196,7 @@ Ext.onReady(function(){
 				var record = grid.getStore().getAt(rowIndex);  // Get the Record
 
 				var data = record.get('team_id');
-				window.location.href='teams.html?team_id='+data;
+				window.location.href='teams.php?team_id='+data;
 		
 			}
 		},
@@ -215,7 +217,6 @@ Ext.onReady(function(){
                 width    : 150, 
                 sortable : false, 
                 dataIndex: 'playing',
-				renderer : Ext.bhlcommondata.format_underline,
 				align	 : 'left'
             },
             {
@@ -239,6 +240,12 @@ Ext.onReady(function(){
         store: store_top20,
         columns: [
 			{
+				header   : '',
+				width    : 30, 
+				sortable : false,
+				dataIndex: 'cnt'
+			},
+			{
                 id       : 'player_id',
                 header   : 'ID',
                 sortable : false, 
@@ -247,7 +254,7 @@ Ext.onReady(function(){
             },
             {
                 header   : 'Player', 
-                width    : 315, 
+                width    : 290, 
                 sortable : false,
 				renderer : Ext.bhlcommondata.format_underline,
                 dataIndex: 'player'
@@ -302,7 +309,7 @@ Ext.onReady(function(){
             },
 			{
                 header   : 'Games Played', 
-                width    : 95, 
+                width    : 88, 
                 sortable : false, 
                 renderer : change, 
                 dataIndex: 'games',
@@ -329,7 +336,7 @@ Ext.onReady(function(){
 	var grid_top10 = new Ext.grid.GridPanel({
         store: store_top10,
         columns: [
-			{
+			/*{
                 id       : 'player_id',
                 header   : '',
 				width	 : 160, 
@@ -395,6 +402,82 @@ Ext.onReady(function(){
 			{
                 header   : 'Games Played', 
                 hidden	 : true, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'games',
+				align	 : 'center'
+            }*/
+			{
+				header   : '',
+				width    : 30, 
+				sortable : false,
+				dataIndex: 'cnt'
+			},
+			{
+                id       : 'player_id',
+                header   : 'ID',
+                sortable : false, 
+                dataIndex: 'player_id', 
+				hidden	 : true
+            },
+            {
+                header   : 'Player', 
+                width    : 290, 
+                sortable : false,
+				renderer : Ext.bhlcommondata.format_underline,
+                dataIndex: 'player'
+            },
+			{
+                header   : 'Height', 
+                hidden	 : true, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'height',
+				align	 : 'left'
+            },
+			{
+                header   : 'Weight', 
+                hidden	 : true, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'weight',
+				align	 : 'center'
+            },
+			{
+                header   : 'Position', 
+                hidden	 : true, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'position',
+				align	 : 'center'
+            },
+			{
+                header   : 'PPG', 
+                width    : 95, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'ppg',
+				align	 : 'center'
+            },
+			{
+                header   : 'RPG', 
+                width    : 95, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'rpg',
+				align	 : 'center'
+            },
+			{
+                header   : 'APG', 
+                width    : 95, 
+                sortable : false, 
+                renderer : change, 
+                dataIndex: 'apg',
+				align	 : 'center'
+            },
+			{
+                header   : 'Games Played', 
+                width    : 88, 
                 sortable : false, 
                 renderer : change, 
                 dataIndex: 'games',

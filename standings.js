@@ -136,14 +136,14 @@ Ext.onReady(function(){
 					//if(columnIndex==2)
 //					{
 					var data = record.get('team_id');
-					window.location.href='teams.html?team_id='+data;
+					window.location.href='teams.php?team_id='+data;
 					//}
 //					else if(columnIndex==3)
 //					{
 //					var data = record.get('team2x');
-//					window.location.href='teams.html?team_id='+data;	
+//					window.location.href='teams.php?team_id='+data;	
 //					}
-					//window.location.href='teams.html?team_id='+data2;
+					//window.location.href='teams.php?team_id='+data2;
 				}
 			},
 		border: false,

@@ -31,13 +31,13 @@
 	{
 	var reader = new Ext.data.ArrayReader({}, [
 		{name: 'player'},
-		{name: 'height'},
-		{name: 'weight',},
+		//{name: 'height'},
+		//{name: 'weight',},
 		{name: 'position'},
 		{name: 'ppg', type: 'float'},
 		{name: 'rpg', type: 'float'},
 		{name: 'apg', type: 'float'},
-		{name: 'games', type: 'float'}
+		//{name: 'games', type: 'float'}
 	]);
 	
 	// get the data
@@ -68,22 +68,22 @@
                 sortable : false, 
                 dataIndex: 'player'
             },
-			{
-                header   : 'Height', 
-                width    : 100, 
-                sortable : false, 
-                renderer : change, 
-                dataIndex: 'height',
-				align	 : 'left'
-            },
-			{
-                header   : 'Weight', 
-                width    : 100, 
-                sortable : false, 
-                renderer : change, 
-                dataIndex: 'weight',
-				align	 : 'center'
-            },
+			//{
+//                header   : 'Height', 
+//                width    : 100, 
+//                sortable : false, 
+//                renderer : change, 
+//                dataIndex: 'height',
+//				align	 : 'left'
+//            },
+			//{
+//                header   : 'Weight', 
+//                width    : 100, 
+//                sortable : false, 
+//                renderer : change, 
+//                dataIndex: 'weight',
+//				align	 : 'center'
+//            },
 			{
                 header   : 'Position', 
                 width    : 100, 
@@ -93,7 +93,7 @@
 				align	 : 'center'
             },
 			{
-                header   : 'PPG', 
+                header   : 'Points', 
                 width    : 100, 
                 sortable : false, 
                 renderer : change, 
@@ -101,7 +101,7 @@
 				align	 : 'center'
             },
 			{
-                header   : 'RPG', 
+                header   : 'Rebounds', 
                 width    : 100, 
                 sortable : false, 
                 renderer : change, 
@@ -109,21 +109,21 @@
 				align	 : 'center'
             },
 			{
-                header   : 'APG', 
+                header   : 'Assists', 
                 width    : 100, 
                 sortable : false, 
                 renderer : change, 
                 dataIndex: 'apg',
 				align	 : 'center'
-            },
-			{
-                header   : 'Games Played', 
-                width    : 100, 
-                sortable : false, 
-                renderer : change, 
-                dataIndex: 'games',
-				align	 : 'center'
-            }
+            }//,
+//			{
+//                header   : 'Games Played', 
+//                width    : 100, 
+//                sortable : false, 
+//                renderer : change, 
+//                dataIndex: 'games',
+//				align	 : 'center'
+//            }
         ],
         stripeRows: true,
         autoExpandColumn: 'player',

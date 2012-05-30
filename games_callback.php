@@ -79,18 +79,35 @@
 		}
 		$d = array();
 
-	$sql = "select distinct b.team_id,concat(b.player_fname, ' ', b.player_lname) as player_name,b.id as player_id, 
-		b.height, b.weight, (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
+	//$sql = "select distinct b.team_id,concat(b.player_fname, ' ', b.player_lname) as player_name,b.id as player_id, 
+//		b.height, b.weight, (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
+//		sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
+//		sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
+//		sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
+//		sum(if(a.player_id=b.id, 1, 0)) as games_played
+//	from bhleague.players_stats a, bhleague.players b where b.team_id IN($team1,$team2) and a.game_date ='$gamedate'
+//	group by b.team_id,b.id 
+//	order by b.team_id, points desc, rebounds desc, assists desc;";
+	//$sql="select distinct b.team_id,concat(b.player_fname, ' ', b.player_lname) as player_name,b.id as player_id, 
+//		b.height, b.weight, (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
+//		sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
+//		sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
+//		sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
+//		sum(if(a.player_id=b.id, 1, 0)) as games_played
+//	from bhleague.players_stats a, bhleague.players b where ((b.team_id IN($team1,$team2))OR (b.team_id2 IN($team1,$team2)) OR (b.team_id3 IN($team1,$team2)))  and a.game_date ='$gamedate'
+//	group by b.team_id,b.id 
+//	order by b.team_id, points desc, rebounds desc, assists desc;";
+	//echo $sql;exit;
+  $sql ="select distinct b.id,concat(b.player_fname, ' ', b.player_lname) as player_name,b.id as player_id,a.team_id,
+ (select position_abbv from bhleague.positions where id = b.position_id) as `position`, 
 		sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
 		sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
-		sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
-		sum(if(a.player_id=b.id, 1, 0)) as games_played
-	from bhleague.players_stats a, bhleague.players b where b.team_id IN($team1,$team2) and a.game_date ='$gamedate'
-	group by b.team_id,b.id 
-	order by b.team_id, points desc, rebounds desc, assists desc;";
+		sum(if(a.player_id=b.id, game_assists, 0)) as assists
+	from bhleague.players_stats a INNER JOIN bhleague.players b ON a.player_id = b.id where a.team_id IN($team1,$team2)  and a.game_date ='$gamedate'
+group by b.id 
+	order by  points desc, rebounds desc, assists desc;";
 	
 	//echo $sql;exit;
-
 	if ($rs = $db->query($sql)) 
 	{
 		$rs_cnt = $rs->num_rows;
@@ -100,19 +117,19 @@
 			{
 				$player_id = $row->player_id;
 				$player = $row->player_name;
-				$height = htmlentities($row->height, ENT_QUOTES);
-				$weight = @$row->weight;
+				//$height = htmlentities($row->height, ENT_QUOTES);
+//				$weight = @$row->weight;
 				$position = @$row->position;
-				$points = $row->points;
-				$rebounds = $row->rebounds;
-				$assists = $row->assists;
-				$games = $row->games_played;
-				$ppg = number_format(@round($points / $games, 2), 1);
-				$rpg = number_format(@round($rebounds / $games, 2), 1);
-				$apg = number_format(@round($assists / $games, 2), 1);
+				$points = @$row->points;
+				$rebounds = @$row->rebounds;
+				$assists = @$row->assists;
+				//$games = $row->games_played;
+				$ppg = number_format(@round($points, 2), 1);
+				$rpg = number_format(@round($rebounds, 2), 1);
+				$apg = number_format(@round($assists, 2), 1);
 				
 				/*$d[] = "['{$player}', {$points}, {$rebounds}, {$assists}, {$games}, {$ppg}, {$rpg}, {$apg}]";*/
-				$d[] = "['{$player_id}','{$player}', '{$height}', '{$weight}', '{$position}', {$ppg}, {$rpg}, {$apg}, {$games}]";
+				$d[] = "['{$player_id}','{$player}',  '{$position}', {$ppg}, {$rpg}, {$apg}]";
 			}
 		}
 		$rs->close();

@@ -30,6 +30,22 @@ where
 	and weekday(a.game_date) = '{$gameday}' and b.id = '{$player}'  
 group by month(a.game_date), b.id 
 order by points desc, rebounds desc, assists desc;";
+//$sql1 = "select concat(year(a.game_date), '-', month(a.game_date)) as season, concat(b.player_fname, ' ', b.player_lname) as player_name, 
+//	sum(if(a.player_id=b.id, ((game_points_1*1) + (game_points_2*2) + (game_points_3*3)), 0)) as points, 
+//	sum(if(a.player_id=b.id, game_rebounds, 0)) as rebounds, 
+//	sum(if(a.player_id=b.id, game_assists, 0)) as assists, 
+//	sum(if(a.player_id=b.id, 1, 0)) as games_played, 
+//	c.team_name, c.id as team_id 
+//from bhleague.players_stats a, bhleague.players b , bhleague.teams c  
+//where 
+//	(select case (weekday(a.game_date)) 
+//	when '1' then b.team_id 
+//	when '5' then b.team_id2 
+//	when '6' then b.team_id3
+//	end) = c.id 
+//	and weekday(a.game_date) IN ('1','5','6') and b.id = '{$player}'  
+//group by month(a.game_date), b.id 
+//order by points desc, rebounds desc, assists desc;";
 
 if ($rs1 = $db->query($sql1)) {
 	$rs1_cnt = $rs1->num_rows;
@@ -85,6 +101,35 @@ group by b.id
 order by points desc
 ) as ave 
 limit 1";
+//$sql = "select ave.player_name, ave.team_name, ave.logo, 
+//(select position_name from bhleague.positions where id = ave.player_position) as `position`, 
+//ave.points, ave.assists, ave.rebounds, ave.player_email, 
+//round((ave.points / ave.games_played), 2) as ppg, 
+//round((ave.assists / ave.games_played), 2) as apg, 
+//round((ave.rebounds / ave.games_played), 2) as rpg, 
+//ave.games_played, ave.player_height, ave.player_weight  
+//from (
+//select concat(b.player_fname, ' ', b.player_lname) as player_name, 
+//	c.team_name, (if(a.player_id=b.id, b.position_id, 0)) as player_position, 
+//	(if(a.player_id=b.id, b.email, 0)) as player_email, 
+//	(if(a.player_id=b.id, b.height, 0)) as player_height, 
+//	(if(a.player_id=b.id, b.weight, 0)) as player_weight, 
+//	sum(if(a.player_id=b.id, ((a.game_points_1*1) + (a.game_points_2*2) + (a.game_points_3*3)), 0)) as points, 
+//	sum(if(a.player_id=b.id, a.game_assists, 0)) as assists, 
+//	sum(if(a.player_id=b.id, a.game_rebounds, 0)) as rebounds, 
+//	sum(if(a.player_id=b.id, 1, 0)) as games_played, 
+//	c.logo 
+//from bhleague.players_stats a, bhleague.players b, bhleague.teams c 
+//where (select case (weekday(a.game_date)) 
+//	when '1' then b.team_id 
+//	when '5' then b.team_id2 
+//	when '6' then b.team_id3
+//	end) = c.id 
+//	and weekday(a.game_date) IN ('1','5','6') and a.player_id = '{$player}'  
+//group by b.id 
+//order by points desc
+//) as ave 
+//limit 1";
 
 if ($rs = $db->query($sql)) {
 	$rs_cnt = $rs->num_rows;
@@ -96,13 +141,26 @@ if ($rs = $db->query($sql)) {
 
 $sql3 = "set @rank:=0;";
 $rs3 = $db->query($sql3);
+//$sql2 = "select rank, r.points, r.player_id from (
+//  select @rank:=@rank+1 as rank, pt.points, pt.player_id  
+//	from (
+//		select b.id as player_id, 
+//			sum(if(a.player_id=b.id, ((a.game_points_1*1) + (a.game_points_2*2) + (a.game_points_3*3)), 0)) as points 
+//		from bhleague.players_stats a, bhleague.players b  
+//		where weekday(a.game_date) = '{$gameday}'  
+//		group by b.id 
+//		order by points desc
+//	) as pt 
+//group by pt.player_id  
+//order by pt.points desc ) as r 
+//where r.player_id = '{$player}';";
 $sql2 = "select rank, r.points, r.player_id from (
   select @rank:=@rank+1 as rank, pt.points, pt.player_id  
 	from (
 		select b.id as player_id, 
 			sum(if(a.player_id=b.id, ((a.game_points_1*1) + (a.game_points_2*2) + (a.game_points_3*3)), 0)) as points 
 		from bhleague.players_stats a, bhleague.players b  
-		where weekday(a.game_date) = '{$gameday}'  
+		where weekday(a.game_date) IN ('1','5','6')  
 		group by b.id 
 		order by points desc
 	) as pt 
@@ -184,7 +242,7 @@ Ext.bhlcommondata.player_stats = <?php echo $player_store; ?>;
 <div id="header">
   <div class="wrap">
     <h1 class="logo"><a href="index.php"><img src="images/logo.png" /></a></h1>
-    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a> <a href="rosters.html">ROSTERS</a> <a href="payments.html" class="last">PAYMENTS</a>
+    <div class="menu"><a href="index.php" class="first">HOME</a> <a href="standings.html">STANDINGS</a> <a href="schedule.html">SCHEDULES</a> <a href="league_leaders.html">LEAGUE LEADERS</a> <a href="rosters.php">ROSTERS</a> <a href="payments.html" class="last">PAYMENTS</a>
       <div class="clear"></div>
     </div>
   </div>

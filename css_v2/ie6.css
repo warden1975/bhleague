@@ -1,0 +1,7 @@
+img{position:relative;behavior:url(js/PIE.htc);-pie-png-fix:true;}
+#header .logo {position:relative;z-index:99;top:-10px;}
+#header .menu {zoom:1;position:relative;}
+#content .col h2.title2 {zoom:1;}
+#header .menu .menu-link{padding-bottom:13px;}
+#content .people, #content .people ul {width:490px;position:relative;zoom:1;}
+#content .people a{position:relative;zoom:1;}
