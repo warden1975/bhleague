@@ -1,5 +1,6 @@
 <?php
 require_once('/home/bhleague/public_html/admin/class/db.cls.php');
+require_once('wepay_config.php');
 $db = new DB_Connect(MYSQL_INTRANET, true);
 //extract($_REQUEST);
 $array = array();
@@ -44,7 +45,8 @@ $opt_pos .= "</select>";
 		<link rel="stylesheet" href="css_v2/roboto/stylesheet.css" type="text/css"  charset="utf-8" />	
 		
 		<link rel="stylesheet" href="css_v2/reset.css" type="text/css" media="screen" title="style" charset="utf-8" />
-		<link rel="stylesheet" href="css_v2/style.css" type="text/css" media="screen" title="style" charset="utf-8" />
+		<!--<link rel="stylesheet" href="css_v2/style.css" type="text/css" media="screen" title="style" charset="utf-8" />-->
+        <link rel="stylesheet" href="css_v2/signup.css" type="text/css" media="screen" title="style" charset="utf-8" />
 		
 		<!--[if IE 6]>
 		<link rel="stylesheet" href="css_v2/ie6.css" type="text/css" media="screen" title="style" charset="utf-8" />
@@ -68,79 +70,31 @@ $opt_pos .= "</select>";
 		<script type="text/javascript" src="extjs/adapter/ext/ext-base.js"></script>
 		<!-- ExtJS library: all widgets -->
 		<script type="text/javascript" src="extjs/ext-all.js"></script>    
-	<!--	<script type="text/javascript" src="index_main_v2.js"></script>-->
 		<script type="text/javascript" src="bhlcommon.js"></script>
 	<script type="text/javascript">
 		Ext.namespace('Ext.bhl');
 		Ext.Element.prototype.setClass = function(cls,add_class){
 		  add_class ? this.addClass(cls) : this.removeClass(cls)
 		}	
+		Ext.bhl.wepay_link = "<?php echo WEPAY_DOMAIN.WEPAY_AUTHORIZE_URI.WEPAY_AUTHORIZE_PARAM.WEPAY_REDIRECT_URI; ?>";
 		function toggle_wepay(box) {
-		//alert(box);
-			//var b_tue_el = Ext.get('div_wepay_tue');
-			//var b_sat_el = Ext.get('div_wepay_sat');
-			//var b_sun_el = Ext.get('div_wepay_sun');
-			
-			/*document.getElementById('div_wepay_tue').style.display = 'none';
-			document.getElementById('div_wepay_sat').style.display = 'none';
-			document.getElementById('div_wepay_sun').style.display = 'none';*/				
-			
 			try{
 				switch (box) {
 					
 					case '1':
-						//Ext.get('a_box_point').addClass('on');
-						//Ext.get('a_box_rebound').removeClass('on');
-						//Ext.get('a_box_assist').removeClass('on');										
-						/*b_tue_el.show();
-						b_sat_el.setVisibilityMode(Ext.Element.DISPLAY);
-						b_sat_el.hide();
-						b_sun_el.setVisibilityMode(Ext.Element.DISPLAY);
-						b_sun_el.hide();*/
-						
 						Ext.get('div_wepay_tue').setStyle('display', 'inline');
 						Ext.get('div_wepay_sat').setStyle('display', 'none');
 						Ext.get('div_wepay_sun').setStyle('display', 'none');
-						/*document.getElementById('div_wepay_tue').style.display = 'inline';
-						document.getElementById('div_wepay_sat').style.display = 'none';
-						document.getElementById('div_wepay_sun').style.display = 'none';*/												
 						break;
 					case '5':
-						//Ext.get('a_box_point').removeClass('on');
-						//Ext.get('a_box_rebound').addClass('on');
-						//Ext.get('a_box_assist').removeClass('on');					
-						/*b_tue_el.setVisibilityMode(Ext.Element.DISPLAY);
-						b_tue_el.hide();
-						b_sat_el.show();
-						b_sun_el.setVisibilityMode(Ext.Element.DISPLAY);
-						b_sun_el.hide();*/
-						
 						Ext.get('div_wepay_tue').setStyle('display', 'none');
 						Ext.get('div_wepay_sat').setStyle('display', 'inline');
 						Ext.get('div_wepay_sun').setStyle('display', 'none');
-						
-						/*document.getElementById('div_wepay_tue').style.display = 'none';
-						document.getElementById('div_wepay_sat').style.display = 'inline';
-						document.getElementById('div_wepay_sun').style.display = 'none';*/						
-						
 						break;
 					case '6':
-						//Ext.get('a_box_point').removeClass('on');
-						//Ext.get('a_box_rebound').removeClass('on');
-						//Ext.get('a_box_assist').addClass('on');					
-						/*b_tue_el.setVisibilityMode(Ext.Element.DISPLAY);
-						b_tue_el.hide();
-						b_sat_el.setVisibilityMode(Ext.Element.DISPLAY);
-						b_sat_el.hide();
-						b_sun_el.show();*/
-						
 						Ext.get('div_wepay_tue').setStyle('display', 'none');
 						Ext.get('div_wepay_sat').setStyle('display', 'none');
 						Ext.get('div_wepay_sun').setStyle('display', 'inline');						
-						
-						/*document.getElementById('div_wepay_tue').style.display = 'none';
-						document.getElementById('div_wepay_sat').style.display = 'none';
-						document.getElementById('div_wepay_sun').style.display = 'inline';	*/					
 						break;
 				}
 			}catch(e){
@@ -149,6 +103,27 @@ $opt_pos .= "</select>";
 		}	
 		Ext.bhl.proc = function(){
 				//alert(frmaaddNotification.getForm().getValues());
+			
+				//var frmItem = ['fname','lname','email','height','weight','league','jersey_size','jersey_no','phone','referrer','occupation']; 
+				var frmItem = ['fname','lname','email','league'];// for testing
+				var ItemErr = {"fname" : "First Name is Blank.", "lname" : "Last Name is Blank.", "email" : "Email is Blank.", "league" : "Please select a League."};
+				
+				
+				for(var i=0; i<frmItem.length; i++) {
+					var item = frmItem[i];
+					 if(item == 'league'){
+						if(Ext.get(item).getValue() == "0"){
+							alert(ItemErr['league']);
+							return;
+							break;
+						}
+					 }else if(Ext.get(item).getValue().trim() == ''){
+						alert(ItemErr[item]);
+						return;
+						break;
+					 }
+				}		
+
 				Ext.Ajax.request({
 		
 					url: 'signup_callback.php?action=insert',
@@ -160,9 +135,10 @@ $opt_pos .= "</select>";
 						var result = response.responseText;
 						alert(result);
 						var jsonData = Ext.util.JSON.decode(result);
-						if(jsonData.status == "success")
+						if(jsonData.status == "success"){
 							alert(jsonData.status+" <--> "+jsonData.id);
-						else
+							window.location = Ext.bhl.wepay_link+"&pid="+jsonData.id;
+						}else
 							alert(jsonData.status+" <--> "+jsonData.error);
 						//Ext.setValues('grid-next_game') = result;
 		
@@ -180,8 +156,8 @@ $opt_pos .= "</select>";
 		.title_profile{background:#00A9D3;font-size:18px;font-family:"Arvo",'Arial';font-weight:bold;color:white;letter-spacing:-1px;padding:0px 10px;text-shadow:0px -1px 1px #000;}			
 
 		.widget-title {
-		color:#333333 !important;
-		text-decoration:underline !important;
+		/*color:#333333 !important;
+		text-decoration:underline !important;*/
 		}
 		</style>
 	</head>
@@ -311,13 +287,13 @@ $opt_pos .= "</select>";
                         </div>
 
                         <div id="div_wepay_tue" style="float:left;display:none;position:inherit;margin-top:20px;margin-left:20px">
-							<a class="wepay-widget" href="https://stage.wepay.com/events/view/83508?widget_type=tickets&widget_ticket_id=83508&widget_auth_token=10983bc2506d465146dc3e778a93106c1980fba1&widget_show_description=1&widget_show_tickets=1">Buy Tickets for BH League BasketBall Tournament<script id="wepay-widget_script" type="text/javascript" src="https://stage.wepay.com//js/widget.wepay.js"></script></a>
+							<!--<a class="wepay-widget" href="https://stage.wepay.com/events/view/83508?widget_type=tickets&widget_ticket_id=83508&widget_auth_token=10983bc2506d465146dc3e778a93106c1980fba1&widget_show_description=1&widget_show_tickets=1">Buy Tickets for BH League BasketBall Tournament<script id="wepay-widget_script" type="text/javascript" src="https://stage.wepay.com//js/widget.wepay.js"></script></a>-->
                         </div>
                         <div id="div_wepay_sat" style="float:left;display:none;position:inherit;margin-top:20px;margin-left:20px">
                         	saturday
                         </div>      
                         <div id="div_wepay_sun" style="float:left;display:none;position:inherit;margin-top:20px;margin-left:20px">
-							<a class="wepay-widget" href="https://stage.wepay.com/events/view/83508?widget_type=tickets&widget_ticket_id=83508&widget_auth_token=10983bc2506d465146dc3e778a93106c1980fba1&widget_show_description=1&widget_show_tickets=1">Buy Tickets for BH League BasketBall Tournament<script id="wepay-widget_script" type="text/javascript" src="https://stage.wepay.com//js/widget.wepay.js"></script></a>
+							<!--<a class="wepay-widget" href="https://stage.wepay.com/events/view/83508?widget_type=tickets&widget_ticket_id=83508&widget_auth_token=10983bc2506d465146dc3e778a93106c1980fba1&widget_show_description=1&widget_show_tickets=1">Buy Tickets for BH League BasketBall Tournament<script id="wepay-widget_script" type="text/javascript" src="https://stage.wepay.com//js/widget.wepay.js"></script></a>-->
                         </div>    
                         <div style="clear:both;"></div>                                            
 					</div>

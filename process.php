@@ -1,7 +1,7 @@
 <?php
 	require_once('wepay_config.php');
 
-	$fp3 = fopen('log.txt','a+');
+	$fp3 = fopen('log.txt','a+');		###### REMOVE THIS AFTER DEBUG ######
 		
 	$code = $user_id = $access_token = $token_type = '';
 	$code = (isset($_REQUEST['code']))?trim($_REQUEST['code']):'';
@@ -14,7 +14,7 @@
 	
 	if(isset($code) && trim($code) != '' ){
 
-		$url = WEPAY_ACCESSTOKEN_URI."?client_id=".WEPAY_CLIENT_ID."&redirect_uri=".WEPAY_REDIRECT_URI."&client_secret=".WEPAY_CLIENT_SECRET."&code=".$code;
+		$url = WEPAY_DOMAIN.WEPAY_ACCESSTOKEN_URI."?client_id=".WEPAY_CLIENT_ID."&redirect_uri=".WEPAY_REDIRECT_URI."&client_secret=".WEPAY_CLIENT_SECRET."&code=".$code;
 	
 		/*
 		###### NOT WORKING ON CURL ######
@@ -34,15 +34,15 @@
 	
 		$jsonraw = file_get_contents($url);
 		$jsonReturn = json_decode($jsonraw);
-		
-		fwrite($fp3, " result2 --> " . $jsonraw ."\n\n");
-		
-		foreach($jsonReturn as $key => $value)
-		{
-			fwrite($fp3, "key --> " . $key . "=>" . $value ."\n");	
-		}			
-		
+
+		###### REMOVE THIS AFTER DEBUG ######		
+			fwrite($fp3, " result2 --> " . $jsonraw ."\n\n");
+			foreach($jsonReturn as $key => $value)
+			{
+				fwrite($fp3, "key --> " . $key . "=>" . $value ."\n");	
+			}			
+		###### REMOVE THIS AFTER DEBUG ######		
 	}
 
-	fclose($fp3);
+	fclose($fp3);		###### REMOVE THIS AFTER DEBUG ######
 ?>
