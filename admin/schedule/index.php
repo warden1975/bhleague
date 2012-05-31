@@ -22,47 +22,44 @@ $z = ' [' . implode(', ', $array) . ']';
 
 //echo $z;
 ?>
-
 <html>
-<head>
-    <title>BH League :: Game Schedule </title>
-    <!--<link rel="stylesheet" type="text/css" href="/lib/extjs/resources/css/ext-all.css" />
+	<head>
+	<title>BH League :: Game Schedule</title>
+	<!--<link rel="stylesheet" type="text/css" href="/lib/extjs/resources/css/ext-all.css" />
  	<script type="text/javascript" src="/lib/extjs/adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="/lib/extjs/ext-all.js"></script>-->
 	<link rel="stylesheet" type="text/css" href="SuperBoxSelect/superboxselect.css" />
 	<link rel="stylesheet" type="text/css" href="../extjs/resources/css/ext-all.css" />
 	<link rel="stylesheet" type="text/css" href="./css/icons.css">
-  <link rel="stylesheet" type="text/css" href="./css/Ext.ux.grid.RowActions.css">
-  <link rel="stylesheet" type="text/css" href="./css/empty.css" id="theme">
-  <link rel="stylesheet" type="text/css" href="./css/webpage.css">
-  <link rel="stylesheet" type="text/css" href="./css/gridsearch.css">
- 	<script type="text/javascript" src="../extjs/adapter/ext/ext-base.js"></script>
-    <script type="text/javascript" src="../extjs/ext-all.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/Ext.ux.grid.RowActions.css">
+	<link rel="stylesheet" type="text/css" href="./css/empty.css" id="theme">
+	<link rel="stylesheet" type="text/css" href="./css/webpage.css">
+	<link rel="stylesheet" type="text/css" href="./css/gridsearch.css">
+	<script type="text/javascript" src="../extjs/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../extjs/ext-all.js"></script>
 	<script src="Exporter-all.js" type="text/javascript"></script>
 	<script type="text/javascript" src="SuperBoxSelect/SuperBoxSelect.js"></script>
-	 <script type="text/javascript" src="./js/WebPage.js"></script>
-	  <script type="text/javascript" src="./js/Ext.ux.ThemeCombo.js"></script>
-	  <script type="text/javascript" src="./js/Ext.ux.IconMenu.js"></script>
-	  <script type="text/javascript" src="./js/Ext.ux.Toast.js"></script>
-	  <script type="text/javascript" src="./js/Ext.ux.grid.Search.js"></script>
-	  <script type="text/javascript" src="./js/Ext.ux.grid.RowActions.js"></script>
+	<script type="text/javascript" src="./js/WebPage.js"></script>
+	<script type="text/javascript" src="./js/Ext.ux.ThemeCombo.js"></script>
+	<script type="text/javascript" src="./js/Ext.ux.IconMenu.js"></script>
+	<script type="text/javascript" src="./js/Ext.ux.Toast.js"></script>
+	<script type="text/javascript" src="./js/Ext.ux.grid.Search.js"></script>
+	<script type="text/javascript" src="./js/Ext.ux.grid.RowActions.js"></script>
 	<style>
-		.cTextAlign{
-    text-align: right;
+.cTextAlign {
+	text-align: right;
 	width:165px;
-
-   }
-	.x-grid3-col {
-    border-left:  1px solid #EEEEEE;
-    border-right: 1px solid #D2D2D2;
 }
- 
+.x-grid3-col {
+	border-left:  1px solid #EEEEEE;
+	border-right: 1px solid #D2D2D2;
+}
 /* Also remove padding from table data (to compensate for added grid lines) */
 .x-grid3-row td, .x-grid3-summary-row td {
-    padding-left: 0px;
-    padding-right: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
-	</style>
+</style>
 	<script>
 	var winLogin;
 	var formLogin;
@@ -86,17 +83,10 @@ $z = ' [' . implode(', ', $array) . ']';
 	} 
 	function fnSave()
 	{
-		
-		//var employeex = Ext.getCmp('employee').getValue();
 		var datex = document.getElementById('game_date').value;
 		var timex = document.getElementById('game_time').value;
 		var team1x = Ext.getCmp('team1').value;
 		var team2x = Ext.getCmp('team2').value;
-		//var releasedx = Ext.getCmp('released').value;
-//		var genrex = Ext.getCmp('genre').value;
-//		var taglinex = document.getElementById('tagline').value;
-		//$date     = date('h:i:s', strtotime($today . " +9 hours"));;
-
 
 		if(team1x==team2x)
 		{
@@ -111,8 +101,6 @@ $z = ' [' . implode(', ', $array) . ']';
 		params: {action: 'insert', game_date: datex,game_time:timex,team1:team1x,team2:team2x},
 		url: 'callback.php',
 		success: function (resp,form,action) {
-			//var data;
-			//data = Ext.decode(resp.responseText);
 			if (resp.responseText == '{success:true}') {
 				mask.hide();
 				Ext.MessageBox.alert('Message', 'Record successfully inserted');
@@ -157,7 +145,6 @@ $z = ' [' . implode(', ', $array) . ']';
 	}
 	function refreshPlayer()
 	{
-		//window.location.href ="index.php";
 		store.reload();
 		grid.getstore();
 		grid.getView().refresh();
@@ -169,13 +156,7 @@ $z = ' [' . implode(', ', $array) . ']';
 		var idx = document.getElementById('id').value;
 		var player_fnamex = document.getElementById('player_fname').value;
 		var player_lnamex = document.getElementById('player_lname').value;
-		//var releasedx = Ext.getCmp('released').value;
-//		var genrex = Ext.getCmp('genre').value;
-//		var taglinex = document.getElementById('tagline').value;
-		//$date     = date('h:i:s', strtotime($today . " +9 hours"));;
-
 		
-	//	
 		Ext.Ajax.request({
 		params: {action: 'update', id: idx,player_fname:player_fnamex,player_lname:player_lnamex},
 		url: 'callback.php',
@@ -298,11 +279,7 @@ $z = ' [' . implode(', ', $array) . ']';
 			
 		});
 	
-		//store.load();
-	
-
-	
-	     grid = new Ext.grid.EditorGridPanel({
+	    grid = new Ext.grid.EditorGridPanel({
 		 	viewConfig: {
 				emptyText: 'No records found'
 			},
@@ -424,118 +401,128 @@ $z = ' [' . implode(', ', $array) . ']';
 					stopEvent:true
 				}
 			],
-			tbar: [{
-				text: 'Add Schedule',
-				icon: 'images/table_add.png',
-				cls: 'x-btn-text-icon',
-				handler: addNew
-			},'-',{
-				text: 'Refresh',
-				icon: 'images/arrow_refresh.png',
-				cls: 'x-btn-text-icon',
-				handler: refreshPlayer			}],plugins:[new Ext.ux.grid.Search({
-				iconCls:'icon-zoom'
-				,position:top
-				,minChars:3
-				,autoFocus:true,
-				width:180,
-//				,menuStyle:'radio'
-			}), this.rowActions],
+			tbar: [
+				  {
+					  text: 'Add Schedule',
+					  icon: 'images/table_add.png',
+					  cls: 'x-btn-text-icon',
+					  handler: addNew
+				  },
+				  {
+					  text: 'Auto-Generate',
+					  icon: 'images/table_add.png',
+					  cls: 'x-btn-text-icon',
+					  handler: autoGenerate
+				  },
+				  '-',
+				  {
+					  text: 'Refresh',
+					  icon: 'images/arrow_refresh.png',
+					  cls: 'x-btn-text-icon',
+					  handler: refreshPlayer			}],plugins:[new Ext.ux.grid.Search({
+					  iconCls:'icon-zoom'
+					  ,position:top
+					  ,minChars:3
+					  ,autoFocus:true,
+					  width:180
+				  }), this.rowActions],
 	    });
 		var loadMask = new Ext.LoadMask(
             Ext.getBody(),
             {
               msg:'Loading Data...This May Take Awhile',
-              //msgCls: '#loading',
               removeMask: true,
               store: store
             }
           );
+		
 		loadMask.enable();
 		store.load();
 		loadMask.disable();
 		 
 		
 	});
+	
+	function autoGenerate() {
+		return;
+	}
+	
 	function addNew()
-{	
-	formLogin = new Ext.FormPanel({
-		frame: false, border: false, buttonAlign: 'center',
-		method: 'POST', id: 'frmAddNew',
-		bodyStyle: 'padding:10px 10px 15px 15px;background:#dfe8f6;',
-		width: 500, labelWidth: 150,
-		items: [
-				{
+	{	
+		formLogin = new Ext.FormPanel({
+			frame: false, border: false, buttonAlign: 'center',
+			method: 'POST', id: 'frmAddNew',
+			bodyStyle: 'padding:10px 10px 15px 15px;background:#dfe8f6;',
+			width: 500, labelWidth: 150,
+			items: [{
 						xtype: 'datefield',
 						fieldLabel: 'Game Date',
 						name: 'game_date',
 						id:'game_date',
 						format: 'Y-m-d',
 						width:160,
-						allowBlank:false,
-
-				},
-				new Ext.form.TimeField({						
-					  fieldLabel: 'Game Time',
-					  minValue: '00:00:00',
-					  maxValue: '23:00:00',
-					  increment: 15,
-					  format:'H:i:s',
-					  name:'game_time',
-					  id:'game_time',
-					  allowBlank: false
+						allowBlank:false
+					},
+						new Ext.form.TimeField({						
+							fieldLabel: 'Game Time',
+							minValue: '00:00:00',
+							maxValue: '23:00:00',
+							increment: 15,
+							format:'H:i:s',
+							name:'game_time',
+							id:'game_time',
+							allowBlank: false
 						}),
-				 { 
-					 xtype: 'combo',
-					 name: 'team1',
-					 id: 'team1',
-					 fieldLabel: 'Team 1',
-					 mode: 'local',
-					 store: teamx,
-					 displayField:'team_name',
-					 valueField:'id',
-					 triggerAction: 'all',
-					 allowBlank: false
-				 },
-				{ 
-					 xtype: 'combo',
-					 name: 'team2',
-					 id: 'team2',
-					 fieldLabel: 'Team 2',
-					 mode: 'local',
-					 store: teamx,
-					 displayField:'team_name',
-					 valueField:'id',
-					 triggerAction: 'all',
-					 allowBlank: false
-				 },
-				 
-			],
-			buttons: [
-				{ text: 'Save', handler: fnSave },
-				{ text: 'Cancel', handler: function() {
-						formLogin.getForm().reset();
-						winLogin.destroy();
-					}
-				}
-			]
-		});
+					{ 
+						xtype: 'combo',
+						name: 'team1',
+						id: 'team1',
+						fieldLabel: 'Team 1',
+						mode: 'local',
+						store: teamx,
+						displayField:'team_name',
+						valueField:'id',
+						triggerAction: 'all',
+						allowBlank: false
+					},
+					{ 
+						xtype: 'combo',
+						name: 'team2',
+						id: 'team2',
+						fieldLabel: 'Team 2',
+						mode: 'local',
+						store: teamx,
+						displayField:'team_name',
+						valueField:'id',
+						triggerAction: 'all',
+						allowBlank: false
+					}],
+			buttons: [{
+						text: 'Save', handler: fnSave
+					},
+					{ 
+						text: 'Cancel', handler: function() {
+							formLogin.getForm().reset();
+							winLogin.destroy();
+						}
+					}]
+			});
 		
 		winLogin = new Ext.Window({
-		title: 'Add New',
-		layout: 'fit',
-		width: 430,
-		height: 180,
-		y: 340,
-		resizable: false,
-		closable: true,
-		items: [formLogin]
-	});
+			title: 'Add New',
+			layout: 'fit',
+			width: 430,
+			height: 180,
+			y: 340,
+			resizable: false,
+			closable: true,
+			items: [formLogin]
+		});
 
-	winLogin.show();
-}
+		winLogin.show();
+	}
 	</script>
-</head>
-<body style="padding:20px; overflow:auto;">
+	</head>
+	<body style="padding:20px; overflow:auto;">
 </body>
 </html>
