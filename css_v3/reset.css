@@ -1,0 +1,28 @@
+*{margin:0;padding:0;}
+html{margin:0;padding:0;position:relative;}
+body{margin:0;padding:0;font-size:12px;line-height:18px;font-weight:normal;}
+blockquote, q {quotes:"" ""; font-style:italic; }
+
+a img { border:0px; }
+img { margin:0px; padding:0px; border:none; }
+
+.clear{clear:both;}
+.f_left{float:left;position:relative;}
+.f_right{float:right;position:relative;}
+.t_right{text-align:right;}
+.t_center{text-align:center !important;}
+.t_justify{text-align:justify;}
+.clear { clear:both; margin:0px; padding:0px; height:0px; line-height:0; font-size:0; }
+.space { clear:both; display:block; margin:0px; padding:0px; height:5px; border:none; font:normal 1px arial; }
+.space-1 { clear:both; display:block; margin:0px; padding:0px; height:10px; border:none; font:normal 1px arial; }
+.space-2 { clear:both; display:block; margin:0px; padding:0px; height:20px; border:none; font:normal 1px arial; }
+.space-3 { clear:both; display:block; margin:0px; padding:0px; height:30px; border:none; font:normal 1px arial; }
+.line { margin:0 0 10px 0; padding:10px 0 0 0; border-bottom:1px dashed #aaa; }
+
+h1{font-size:40px;margin:0px;padding:0;line-height:48px;}
+h2{font-size:30px;margin:0px;padding:0;line-height:38px;}
+h3{font-size:24px;margin:0px;padding:0;line-height:32px;}
+h4{font-size:18px;margin:0px;padding:0;line-height:22px;}
+h5{font-size:16px;margin:0px;padding:0;line-height:20px;}
+h6{font-size:14px;margin:0px;padding:0;line-height:16px;}
+.placeholder {color: #aaa;}

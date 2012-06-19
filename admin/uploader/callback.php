@@ -4,29 +4,12 @@ require_once('/home/bhleague/public_html/admin/class/db.cls.php');
 $db = new DB_Connect(MYSQL_INTRANET, true);
 extract($_REQUEST);
 
-$myplayer = array();
-
-$sql = "SELECT `id`,team_id  from bhleague.players ";
-$resultz = $db->query($sql);
-while($rowz = $resultz->fetch_array()){
-
-$myplayer[$rowz['id']] = $rowz['team_id'];
-
-}
-
 
 switch ($action){
 	case 'update':
 		//$sched_end = date('Y-m-d H:i:s', strtotime($_REQUEST['date_schedule'].' '.$_REQUEST['schedule'] . " +9 hours"));
 		//$_schedule = $_REQUEST['date_schedule'].' '.$_REQUEST['schedule']." - ".$sched_end;
-		if(trim(@$_REQUEST['field'])=='player_id')
-		{
-			$sql = "UPDATE bhleague.players_stats SET ".@$_REQUEST['field']." = '".@$_REQUEST['value']."',team_id = '".@$myplayer[@$_REQUEST['value']]."' WHERE id = ".@$_REQUEST['id'];
-		}
-		else
-		{
-			$sql = "UPDATE bhleague.players_stats SET ".@$_REQUEST['field']." = '".@$_REQUEST['value']."' WHERE id = ".@$_REQUEST['id'];
-		}
+		$sql = "UPDATE bhleague.photos SET ".@$_REQUEST['field']." = '".@$_REQUEST['value']."' WHERE id = ".@$_REQUEST['id'];
 		//echo $sql;exit;
 		if (!$rs = $db->query($sql)) 
 		{
@@ -39,41 +22,40 @@ switch ($action){
 			echo '{success:true}';
 		}
 	break;
-	case 'insert':
-		//$emp_id = explode(",",$_REQUEST['employee']);
-//		$error =0;
-//		$sqx =" SELECT date_schedule from intranet.employee_schedule WHERE date_schedule='". $_REQUEST['date_schedule']."' and employee ='".$_REQUEST['employee']."'";
-//		//echo $sqx; exit;
-//		$rx = $db->query($sqx);
-//		if($rx->num_rows==0)
-//		{
-//			$sched_end = date('Y-m-d H:i:s', strtotime($_REQUEST['date_schedule'].' '.$_REQUEST['schedule'] . " +9 hours"));
-//			$_schedule = $_REQUEST['date_schedule'].' '.$_REQUEST['schedule']." - ".$sched_end;
-//			for($i=0;$i<sizeof($emp_id);$i++)
+	//case 'insert':
+//		//$emp_id = explode(",",$_REQUEST['employee']);
+////		$error =0;
+////		$sqx =" SELECT date_schedule from intranet.employee_schedule WHERE date_schedule='". $_REQUEST['date_schedule']."' and employee ='".$_REQUEST['employee']."'";
+////		//echo $sqx; exit;
+////		$rx = $db->query($sqx);
+////		if($rx->num_rows==0)
+////		{
+////			$sched_end = date('Y-m-d H:i:s', strtotime($_REQUEST['date_schedule'].' '.$_REQUEST['schedule'] . " +9 hours"));
+////			$_schedule = $_REQUEST['date_schedule'].' '.$_REQUEST['schedule']." - ".$sched_end;
+////			for($i=0;$i<sizeof($emp_id);$i++)
+////			{
+//			$sql = "INSERT INTO bhleague.players (player_fname,player_lname,team_id,team_id2,team_id3,email,height,weight,position_id) VALUES ('".$player_fname."','".$player_lname."','".$team_id."','".$team_id2."','".$team_id3."','".$email."','".$height."','".$weight."','".$position_id."')";
+//			//echo $sql; exit;
+//			
+//			$rs = $db->query($sql);
+//			
+//			if($rs)	
 //			{
-			$sql = "INSERT INTO bhleague.players_stats (game_date,player_id,team_id,game_points_1,game_attempts_1,game_points_2,game_attempts_2,game_points_3,game_attempts_3,game_assists,game_rebounds) VALUES 
-			('".@$game_date."','".@$player_id."','".@$team_id."','".@$game_points_1."','".@$game_attempts_1."','".@$game_points_2."','".@$game_attempts_2."','".@$game_points_3."','".@$game_attempts_3."','".@$game_assists."','".@$game_rebounds."')";
-			//echo $sql; exit;
-			
-			$rs = $db->query($sql);
-			
-			if($rs)	
-			{
-				echo '{success:true}';
-			}
-			else
-			{
-				echo '{success:false}';
-			}
-		//}
-//		else
-//		{
-//			echo "DUPLICATE DATE";
-//		}
-		//echo $sql;exit;
-	break;
+//				echo '{success:true}';
+//			}
+//			else
+//			{
+//				echo '{success:false}';
+//			}
+//		//}
+////		else
+////		{
+////			echo "DUPLICATE DATE";
+////		}
+//		//echo $sql;exit;
+//	break;
 	case 'delete':
-		$sql = "DELETE FROM bhleague.players_stats WHERE id = ".$_REQUEST['id'];
+		$sql = "DELETE FROM bhleague.photos WHERE id = ".$_REQUEST['id'];
 		if (!$rs = $db->query($sql)) 
 		{
 		
@@ -85,16 +67,6 @@ switch ($action){
 			echo '{success:true}';
 		}
 	break;
-	
-	case 'getteamid':
-	
-	//echo $player_id;exit;
-	echo $myplayer[$player_id];
-	
-	break;
-	
-	
-	
 }
 
 

@@ -1,5 +1,38 @@
- result2 --> {"user_id":668534,"access_token":"37c484a56a686ac7d5cd95861346b3f14c9dd745052f88398ae504d9b900b58b","token_type":"BEARER"}
 
-key --> user_id=>668534
-key --> access_token=>37c484a56a686ac7d5cd95861346b3f14c9dd745052f88398ae504d9b900b58b
+
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":9765283,"access_token":"6be7e710f19c257c4baa9e1f2583c4089ea908180a2020bb9a0c6265d76b04cd","token_type":"BEARER"}
+
+key --> user_id=>9765283
+key --> access_token=>6be7e710f19c257c4baa9e1f2583c4089ea908180a2020bb9a0c6265d76b04cd
 key --> token_type=>BEARER
+9765283 => 6be7e710f19c257c4baa9e1f2583c4089ea908180a2020bb9a0c6265d76b04cd => BEARER
+https://wepayapi.com/v2/account/create
+PAYMENT result --> {"account_id":629334,"account_uri":"https:\/\/www.wepay.com\/account\/629334"}
+
+key --> account_id=>629334
+key --> account_uri=>https://www.wepay.com/account/629334
+error --> cURL error number:52
+ cURL error:SSL read: error:00000000:lib(0):func(0):reason(0), errno 104
+
+CHECKOUT result --> 
+
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":9765283,"access_token":"7e55b5cbcfe363f5b0d0fe79aa9aa5c799ef10be0490f09895deb052d17731d7","token_type":"BEARER"}
+
+key --> user_id=>9765283
+key --> access_token=>7e55b5cbcfe363f5b0d0fe79aa9aa5c799ef10be0490f09895deb052d17731d7
+key --> token_type=>BEARER
+9765283 => 7e55b5cbcfe363f5b0d0fe79aa9aa5c799ef10be0490f09895deb052d17731d7 => BEARER
+https://wepayapi.com/v2/account/create
+PAYMENT result --> {"account_id":1600267,"account_uri":"https:\/\/www.wepay.com\/account\/1600267"}
+
+key --> account_id=>1600267
+key --> account_uri=>https://www.wepay.com/account/1600267
+error --> cURL error number:52
+ cURL error:SSL read: error:00000000:lib(0):func(0):reason(0), errno 104
+
+CHECKOUT result --> 
+

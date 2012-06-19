@@ -27,6 +27,16 @@ if ($rs = $db->query($sql)) {
 	$rs->close();
 }
 $y = '['.implode(', ', $p_arr).']';
+
+$s_arr = array();
+
+$sql = "SELECT `id`, `name` FROM `bhleague`.`seasons`";
+if ($rsx = $db->query($sql)) {
+	while ($rowx = $rsx->fetch_object()) $s_arr[] = "['{$rowx->id}','{$rowx->name}']";
+	$rsx->close();
+}
+$zx = '['.implode(', ', $s_arr).']';
+
 ?>
 <html>
 	<head>
@@ -100,6 +110,9 @@ $y = '['.implode(', ', $p_arr).']';
 		var heightx = document.getElementById('height').value;
 		var weightx = document.getElementById('weight').value;
 		var position_idx = Ext.getCmp('position_id').value;
+		var jersey_numberx = Ext.getCmp('jersey_number').value;
+		var jersey_sizex = Ext.getCmp('jersey_size').value;
+		var seasonxx = Ext.getCmp('season').value;
 		//var releasedx = Ext.getCmp('released').value;
 		//var genrex = Ext.getCmp('genre').value;
 		//var taglinex = document.getElementById('tagline').value;
@@ -108,7 +121,7 @@ $y = '['.implode(', ', $p_arr).']';
 		//Ext.getCmp('employee').getValue()
 		
 		Ext.Ajax.request({
-		params: {action: 'insert', player_fname:player_fnamex, player_lname:player_lnamex, team_id:team_idx, team_id2:team_id2x, team_id3:team_id3x, email:emailx, height:heightx, weight:weightx,position_id:position_idx},
+		params: {action: 'insert', player_fname:player_fnamex, player_lname:player_lnamex, team_id:team_idx, team_id2:team_id2x, team_id3:team_id3x, email:emailx, height:heightx, weight:weightx,position_id:position_idx,jersey_number:jersey_numberx,jersey_size:jersey_size,season:seasonxx,},
 		url: 'callback.php',
 		success: function (resp,form,action) {
 			//var data;
@@ -117,7 +130,7 @@ $y = '['.implode(', ', $p_arr).']';
 				mask.hide();
 				Ext.MessageBox.alert('Message', 'Record successfully inserted');
 				store.reload();
-				grid.getstore();
+				//grid.getstore();
 				grid.getView().refresh();
 								
 			} 
@@ -182,10 +195,10 @@ $y = '['.implode(', ', $p_arr).']';
 		success: function (resp,form,action) {
 			if (resp.responseText == '{success:true}') {
 				mask.hide();
-				Ext.MessageBox.alert('Message', 'Record ' + idx + ' successfully updated');
+				//Ext.MessageBox.alert('Message', 'Record ' + idx + ' successfully updated');
 				store.load();
 				store.reload();
-				grid.getstore();
+				//grid.getstore();
 				grid.getView().refresh();
 								
 			} else {
@@ -270,7 +283,10 @@ $y = '['.implode(', ', $p_arr).']';
 			{ name: 'email' },
 			{ name: 'height' },
 			{ name: 'weight' },
-			{ name: 'position_id', sortType: Ext.data.SortTypes.asInt}
+			{ name: 'position_id', sortType: Ext.data.SortTypes.asInt},
+			{ name: 'jersey_number' },
+			{ name: 'jersey_size' },
+			{ name: 'season', sortType: Ext.data.SortTypes.asInt}
 		]);
 		teamx = new Ext.data.SimpleStore({
 	        fields: ['id', 'team_name'],
@@ -280,6 +296,11 @@ $y = '['.implode(', ', $p_arr).']';
 		positionx = new Ext.data.SimpleStore({
 	        fields: ['pid', 'position_abbv'],
 		    data : <?php echo $y; ?>
+	    });
+		
+		seasonx = new Ext.data.SimpleStore({
+	        fields: ['id', 'name'],
+		    data : <?php echo $zx; ?>
 	    });
 		
 		var string_edit = new Ext.form.TextField({
@@ -341,6 +362,26 @@ $y = '['.implode(', ', $p_arr).']';
 			valueField: 'pid',
 			listeners: {}
 		});
+		
+		var jersey_edit = new Ext.form.NumberField({
+			//allowBlank: false,
+			allowDecimals:false,
+			allowNegative: false,
+			minValue: 1
+		});
+		
+		var season_edit = new Ext.form.ComboBox({
+			typeAhead: true,
+			triggerAction: 'all',
+			allowBlank: true,
+			editable: true,
+			selectOnFocus: true,
+			mode: 'local',
+			store: seasonx,
+			displayField:'name',
+			valueField: 'id',
+			listeners: {}
+		});
 	
 	    grid = new Ext.grid.EditorGridPanel({
 		 	viewConfig: {
@@ -350,7 +391,7 @@ $y = '['.implode(', ', $p_arr).']';
 			frame:true,
 			title: 'BH League Players',
 	        /*height:500,*/
-	        width:1130,
+	        width:1430,
 			mode:'local',
 			/*layout:'fit',*/
 			autoHeight: true,
@@ -368,6 +409,9 @@ $y = '['.implode(', ', $p_arr).']';
 				{header: "Height", dataIndex: 'height', width:90,sortable:true,editor:string_edit},
 				{header: "Weight", dataIndex: 'weight', width:90,sortable:true,editor:string_edit},
 				{header: "Position", dataIndex: 'position_id', width:50,sortable:true,editor:position_edit,renderer:Ext.ux.comboBoxRenderer(position_edit)},
+				{header: "Jersey Number", dataIndex: 'jersey_number', width:90,sortable:true,editor:jersey_edit},
+				{header: "Jersey Size", dataIndex: 'jersey_size', width:90,sortable:true,editor:string_edit},
+				{header: "Season", dataIndex: 'season', width:90,sortable:true,editor:season_edit},
 				{
 					xtype: 'actioncolumn',
 					width: 30,
@@ -401,9 +445,9 @@ $y = '['.implode(', ', $p_arr).']';
 							e.record.commit();
 							if (resp.responseText == '{success:true}') {
 							//mask.hide();
-							//Ext.MessageBox.alert('Message', 'Record ' + e.record.id + ' successfully updated');
+							Ext.MessageBox.alert('Message', 'Record ' + e.record.id + ' successfully updated');
 							store.reload();
-							grid.getstore();
+							//grid.getstore();
 							grid.getView().refresh();
 							}
 						},
@@ -589,7 +633,38 @@ $y = '['.implode(', ', $p_arr).']';
 					 displayField:'position_abbv',
 					 valueField:'pid',
 					 triggerAction: 'all'
-					}
+					},
+					new Ext.form.NumberField({  
+					fieldLabel: 'Jersey Number', 
+					allowBlank: true, 
+					name:'jersey_number', 
+					id:'jersey_number', 
+					fieldClass: 'cTextAlign',
+					allowDecimals:false,
+					allowNegative: false,
+					minValue: 1
+					}),
+					{
+						xtype: 'textfield',
+						fieldLabel: 'Jersey Size',
+						name: 'jersey_size',
+						id: 'jersey_size',
+						align: 'left',
+						width:165
+
+					},
+					{ 
+					 xtype: 'combo',
+					 name: 'season',
+					 id: 'season',
+					 fieldLabel: 'Season',
+					 allowBlank:true,
+					 mode: 'local',
+					 store: seasonx,
+					 displayField:'name',
+					 valueField:'id',
+					 triggerAction: 'all'
+					},
 					],
 					buttons: [
 						{ text: 'Save', handler: fnSave },
@@ -605,7 +680,7 @@ $y = '['.implode(', ', $p_arr).']';
 				title: 'Add New',
 				layout: 'fit',
 				width: 430,
-				height: 340,
+				height: 410,
 				y: 340,
 				resizable: false,
 				closable: true,

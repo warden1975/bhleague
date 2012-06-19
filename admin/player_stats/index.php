@@ -37,6 +37,15 @@ while ($rowx = $rx->fetch_assoc())
 
 }
 $iz = ' [' . implode(', ', $arrx) . ']';
+
+$s_arr = array();
+
+$sql = "SELECT `id`, `name` FROM `bhleague`.`seasons`";
+if ($rsx = $db->query($sql)) {
+	while ($rowx = $rsx->fetch_object()) $s_arr[] = "['{$rowx->id}','{$rowx->name}']";
+	$rsx->close();
+}
+$zx = '['.implode(', ', $s_arr).']';
 //echo $iz; exit;
 ?>
 
@@ -96,6 +105,7 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 	var playerx;
 	var teamidx;
 	var playeridx;
+	var seasonx;
 	function trimAll(sString)
 	{
 		while (sString.substring(0,1) == ' ')
@@ -123,13 +133,13 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 		var game_attempts_3x = document.getElementById('game_attempts_3').value;
 		var game_assistsx = document.getElementById('game_assists').value;
 		var game_reboundsx = document.getElementById('game_rebounds').value;
-		
+		var seasonxx = Ext.getCmp('season').value;
 		
 		//var myquery = formLogin.getForm().getValues(true);
 		//Ext.getCmp('employee').getValue()
 		
 		Ext.Ajax.request({
-		params: {action:'insert',game_date:game_datex,player_id:player_idx,team_id:team_idx,game_points_1:game_points_1x,game_attempts_1:game_attempts_1x,game_points_2:game_points_2x,game_attempts_2:game_attempts_2x,game_points_3:game_points_3x,game_attempts_3:game_attempts_3x,game_assists:game_assistsx,game_rebounds:game_reboundsx},
+		params: {action:'insert',game_date:game_datex,player_id:player_idx,team_id:team_idx,game_points_1:game_points_1x,game_attempts_1:game_attempts_1x,game_points_2:game_points_2x,game_attempts_2:game_attempts_2x,game_points_3:game_points_3x,game_attempts_3:game_attempts_3x,game_assists:game_assistsx,game_rebounds:game_reboundsx,season:seasonxx},
 		url: 'callback.php',
 		success: function (resp,form,action) {
 			//var data;
@@ -142,10 +152,10 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 				grid.getView().refresh();
 								
 			} 
-			else if(resp.responseText == 'DUPLICATE DATE')
+			else if(resp.responseText == '{duplicate:true}')
 			{
 				mask.hide();
-				Ext.MessageBox.alert('Error', 'Duplicate Entry ');
+				Ext.MessageBox.alert('Invalid', 'Duplicate Entry ');
 			}
 			else 
 			{
@@ -311,7 +321,8 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 			{ name: 'game_points_3', sortType: Ext.data.SortTypes.asInt },
 			{ name: 'game_attempts_3', sortType: Ext.data.SortTypes.asInt },
 			{ name: 'game_assists', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'game_rebounds', sortType: Ext.data.SortTypes.asInt }
+			{ name: 'game_rebounds', sortType: Ext.data.SortTypes.asInt },
+			{ name: 'season', sortType: Ext.data.SortTypes.asInt }
 			
 			
 		]);
@@ -323,6 +334,12 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 	        fields: ['idx', 'player'],
 		    data : <?php echo $iz; ?>
 	    });
+		
+		seasonx = new Ext.data.SimpleStore({
+	        fields: ['id', 'name'],
+		    data : <?php echo $zx; ?>
+	    });
+		
 		var string_edit = new Ext.form.TextField({
 			allowBlank: false
 		});
@@ -356,25 +373,21 @@ $iz = ' [' . implode(', ', $arrx) . ']';
     }
 	}
 		});	
-		//var team_edit = new Ext.form.ComboBox({
-//			typeAhead: true,
-//			triggerAction: 'all',
-//			editable:false,
-//			readonly:true,
-//			mode: 'local',
-//			store: teamx,
-//			displayField:'team_name',
-//			valueField: 'id',
-//			listeners: {
-//    select: function(combo, record, index) {
-//      //alert(combo.getValue()); // Return Unitad States and no USA
-//    }
-//  }
-//		});
+		
+		var season_edit = new Ext.form.ComboBox({
+			typeAhead: true,
+			triggerAction: 'all',
+			allowBlank: true,
+			editable: true,
+			selectOnFocus: true,
+			mode: 'local',
+			store: seasonx,
+			displayField:'name',
+			valueField: 'id',
+			listeners: {}
+		});
 	
-		//store.load();
-	
-
+		
 	
 	     grid = new Ext.grid.EditorGridPanel({
 		 	viewConfig: {
@@ -385,7 +398,7 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 			frame:true,
 			title: 'BH League Players Statistics',
 	        height:300,
-	        width:1315,
+	        width:1400,
 			mode:'local',
 			layout:'fit',
 			autoHeight: true,
@@ -405,6 +418,7 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 				{header: "3-Pt Attempt", dataIndex: 'game_attempts_3',width:90,sortable:true,editor:number_edit,align:'right'},
 				{header: "Assists", dataIndex: 'game_assists',width:90,sortable:true,editor:number_edit,align:'right'},
 				{header: "Rebounds", dataIndex: 'game_rebounds',width:90,sortable:true,editor:number_edit,align:'right'},
+				{header: "Season", dataIndex: 'season', width:90,sortable:true,editor:season_edit},
 				
 				{
 					xtype: 'actioncolumn',
@@ -695,6 +709,19 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 					 allowDecimals:true,
 					 allowNegative: false,
 					 minValue: 0})
+					 ,
+					{ 
+					 xtype: 'combo',
+					 name: 'season',
+					 id: 'season',
+					 fieldLabel: 'Season',
+					 allowBlank:true,
+					 mode: 'local',
+					 store: seasonx,
+					 displayField:'name',
+					 valueField:'id',
+					 triggerAction: 'all'
+					}
 					 
 					 
 						
@@ -713,7 +740,7 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 				title: 'Add New',
 				layout: 'fit',
 				width: 530,
-				height: 360,
+				height: 400,
 				y: 340,
 				resizable: false,
 				closable: true,

@@ -15,7 +15,9 @@ if (isset($action) && strlen(trim($action)) > 0) {
 			$sql = "UPDATE bhleague.teams SET `".@$field."` = '".@$value."' WHERE id = ".@$id;
 			break;
 		case 'insert':
-			$sql = "INSERT INTO bhleague.teams (team_name, team_desc, logo) VALUES ('".$team_name."','".$team_desc."','".$logo."')";
+			$sql = "INSERT INTO bhleague.teams (team_name, team_desc, logo,mini_logo,season) VALUES ('".$team_name."','".$team_desc."','".$logo."','".$mini_logo."','".$season."')";
+			//echo $sql;
+//			exit;
 			break;
 		case 'delete':
 			$sql = "DELETE FROM bhleague.teams WHERE id = ".$id;

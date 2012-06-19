@@ -1,0 +1,109 @@
+
+
+.code {
+	background-color: #DEF;
+	color: #124;
+	font: normal 12px monospace;
+	line-height: 18px;
+}
+
+.code .comment {
+	color: #78A;
+}
+
+.left {
+	display: block;
+	float: left;
+}
+
+.light {
+	color: #888;
+}
+
+.small {
+	font-size: 11px;
+}
+
+a {
+	color: #C08;
+}
+
+a.button {
+    background: transparent url('../img/bg_button_a.gif') no-repeat scroll top right;
+    color: #444;
+    display: block;
+    float: left;
+    font: normal 12px arial, sans-serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px;
+    text-decoration: none;
+}
+
+a.button span {
+    background: transparent url('../img/bg_button_span.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+}
+
+a.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none;
+}
+
+a.button:active span {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px;
+}
+
+
+div#author {
+	color: #888;
+	font-size: 11px;
+	margin-bottom: 22px;
+}
+
+div#author a {
+	color: #888;
+}
+
+div#wrapper {
+	margin: 0 auto;
+	width: 600px;
+}
+
+h1 {
+	color: #000;
+	font: normal 30px arial, sans-serif;
+	margin: 0 0 2px 0;
+	letter-spacing: -1px;
+}
+
+h2 {
+	color: #000;
+	font: normal 20px arial, sans-serif;
+	margin: 0 0 8px 0;
+	letter-spacing: -1px;
+}
+
+img {
+	border: none;
+	display: block;
+}
+
+
+
+p#intro {
+	color: #000;
+}
+
+p.note {
+	background-color: #FFD;
+	padding: 6px;
+}
+
+p.note em {
+	color: #000;
+}

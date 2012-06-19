@@ -1,0 +1,61 @@
+[12-Jun-2012 21:15:08] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 21:15:08] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 21:15:09] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 23:04:01] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 23:04:01] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 23:04:01] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 23:04:09] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 23:04:09] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 23:04:09] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 23:33:43] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 23:33:43] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[12-Jun-2012 23:33:44] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29
+[14-Jun-2012 23:40:11] PHP Fatal error:  Call to a member function query() on a non-object in /home/bhleague/public_html/admin/teams/index.php on line 28
+[17-Jun-2012 19:02:26] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 19:02:26] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 19:02:26] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 19:02:56] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 19:02:56] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 19:02:56] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 19:03:13] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 19:03:13] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 19:03:13] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 19:03:13] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 19:03:13] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 19:03:13] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 192
+[17-Jun-2012 19:03:13] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 194
+[17-Jun-2012 19:03:20] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 19:03:20] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 19:03:20] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 19:03:27] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 19:03:27] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 19:03:27] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 19:03:41] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 19:03:41] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 19:03:41] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 19:03:41] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 19:03:41] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 19:03:41] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 192
+[17-Jun-2012 19:03:41] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 194
+[17-Jun-2012 19:07:57] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 19:07:57] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 19:07:57] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 20:12:53] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 20:12:53] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 20:12:53] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 20:30:36] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 20:30:36] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 20:30:36] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 20:30:36] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 20:30:36] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 20:30:36] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 162
+[17-Jun-2012 20:48:24] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 20:48:24] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 20:48:24] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 21:20:26] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 21:20:26] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 21:20:26] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 119
+[17-Jun-2012 21:20:26] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 104
+[17-Jun-2012 21:20:26] PHP Warning:  mysqli::mysqli() [<a href='mysqli.mysqli'>mysqli.mysqli</a>]: (HY000/2003): Can't connect to MySQL server on '10.10.26.14' (111) in /home/bhleague/public_html/admin/class/db.cls.php on line 84
+[17-Jun-2012 21:20:26] PHP Warning:  mysqli::ping() [<a href='mysqli.ping'>mysqli.ping</a>]: Couldn't fetch mysqli in /home/bhleague/public_html/admin/class/db.cls.php on line 162
+[18-Jun-2012 22:58:19] PHP Notice:  Undefined variable: data in /home/bhleague/public_html/admin/teams/datasource.php on line 29

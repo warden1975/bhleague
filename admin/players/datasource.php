@@ -12,13 +12,25 @@ while($row = $result->fetch_array()){
 $myarr[$row['id']] = $row['team_name'];
 
 }
+
+$season_arr = array();
+
+$sql = "SELECT `id`,name from bhleague.seasons ";
+$resultz = $db->query($sql);
+while($rowz = $resultz->fetch_array()){
+
+$season_arr[$rowz['id']] = $rowz['name'];
+
+}
+
 //print_r($_REQUEST); exit;
 
-$sql = "SELECT `id`,player_fname,player_lname,team_id,team_id2,team_id3,email,height,weight,position_id FROM bhleague.players "; 
+$sql = "SELECT `id`,player_fname,player_lname,team_id,team_id2,team_id3,email,height,weight,position_id,jersey_number,jersey_size,season FROM bhleague.players "; 
 
 if(isset($query) && $query!='')
 {
-	$sql .=" WHERE player_fname LIKE '%".$query."%' OR `player_lname` LIKE '%".$query."%' OR `team_id` LIKE '%".$query."%' OR `email` LIKE '%".$query."%' OR `height` LIKE '%".$query."%' OR `weight` LIKE '%".$query."%' ORDER by team_id,player_fname,player_lname  ";
+	$sql .=" WHERE player_fname LIKE '%".$query."%' OR `player_lname` LIKE '%".$query."%' OR `team_id` LIKE '%".$query."%' OR `email` LIKE '%".$query."%' OR `height` LIKE '%".$query."%' OR `weight` LIKE '%".$query."%' 
+	OR `jersey_number` LIKE '%".$query."%' OR `jersey_size` LIKE '%".$query."%' OR `season` LIKE '%".$query."%'  ORDER by team_id,player_fname,player_lname  ";
 }
 else
 {
@@ -38,6 +50,7 @@ if (!$rs = $db->query($sql)) {
 	while($obj = $rs->fetch_array()){
 		//$arr[] = $obj;
 		$obj['team_id'] = @$myarr[$obj['team_id']];
+		$obj['season'] = @$season_arr[$obj['season']];
 		array_push($arr,$obj);
 	}
 

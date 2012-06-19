@@ -1,0 +1,16 @@
+.form-reg{margin:0 auto;padding:20px;}
+.form-reg .form_left{float:left;width:450px;}
+.form-reg .form_right{float:right;width:450px;padding:80px 0px 0px;}
+.form-reg .input-text{}
+.form-reg .input-text label{float:left;width:100px;font-weight:bold;padding:5px 0px;}
+.form-reg .input-text .input-select,.form-reg .input-text .input{float:left;position:relative;margin-bottom:5px;}
+.form-reg .input-text .input{background:#fff;padding:2px;width:67%;border:1px solid #00A9D3;}
+.form-reg .input-text .input-select{padding:3px 0px;}
+.form-reg .input-text .input-select .req,.form-reg .input-text .input .req{position:absolute;right:-10px;top:0px;color:red;}
+.form-reg .input-text .input input{width:98%;background:none;font-size:12px;border:0px}
+.form-reg .input-button{width:400px;margin:0 auto;text-align:center;}
+.form-reg .input-button input{
+	background:#00A9D3;border:1px solid #0085AC;font-family:"BebasNeueRegular",'Arial';font-size:24px;padding:5px 30px;color:#fff;
+}
+h2.title2 small{position:relative;float:right;font-size:11px;}
+h2.title2 small .req{position:absolute;left:-10px;top:0px;color:red;}

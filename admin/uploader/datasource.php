@@ -27,18 +27,18 @@ $myplayer[$rowz['id']] = $rowz['player_name'];
 //print_r($myarr); exit;
 
 
-$sql = "SELECT `id`,game_date,player_id,team_id,game_points_1,game_attempts_1,game_points_2,game_attempts_2,game_points_3,game_attempts_3,game_assists,game_rebounds FROM bhleague.players_stats "; 
+$sql = "SELECT `id`,`name`,`title`,`url` FROM bhleague.photos ORDER by id DESC"; 
 
-if(isset($query) && $query!='')
-{
-	$sql .=" WHERE   game_date  LIKE '%".$query."%'
- player_id  LIKE '%".$query."%' OR  team_id  LIKE '%".$query."%' OR  game_points_1  LIKE '%".$query."%' OR  game_attempts_1  LIKE '%".$query."%' OR  game_points_2  LIKE '%".$query."%'
-OR  game_attempts_2  LIKE '%".$query."%' OR  game_points_3  LIKE '%".$query."%' OR  game_attempts_3  LIKE '%".$query."%' OR  game_assists  LIKE '%".$query."%'OR  game_rebounds  LIKE '%".$query."%'";
-}
-else
-{
-	$sql .=" ORDER by game_date desc,player_id ";
-}
+//if(isset($query) && $query!='')
+//{
+//	$sql .=" WHERE   game_date  LIKE '%".$query."%'
+// player_id  LIKE '%".$query."%' OR  team_id  LIKE '%".$query."%' OR  game_points_1  LIKE '%".$query."%' OR  game_attempts_1  LIKE '%".$query."%' OR  game_points_2  LIKE '%".$query."%'
+//OR  game_attempts_2  LIKE '%".$query."%' OR  game_points_3  LIKE '%".$query."%' OR  game_attempts_3  LIKE '%".$query."%' OR  game_assists  LIKE '%".$query."%'OR  game_rebounds  LIKE '%".$query."%'";
+//}
+//else
+//{
+//	$sql .=" ORDER by id DESC ";
+//}
 
 //echo $sql;exit;	
 $arr = array();
@@ -51,9 +51,9 @@ if (!$rs = $db->query($sql)) {
 	
 	$record_count = $rs->num_rows;
 	while($obj = $rs->fetch_array()){
-		//$arr[] = $obj;
-		@$obj['team_id'] = $myarr[$obj['team_id']];
-		@$obj['player_id'] = $myplayer[$obj['player_id']];
+		$filepath = "http://www.bhleague.com/".@$obj['url'];
+		@$obj['name'] = "<a href=\"$filepath\"  target=\"_blank\">".$obj['name']."</a>";
+		
 		array_push($arr,$obj);
 	}
 

@@ -48,199 +48,117 @@ $iz = ' [' . implode(', ', $arrx) . ']';
     <script type="text/javascript" src="/lib/extjs/ext-all.js"></script>-->
 	<link rel="stylesheet" type="text/css" href="SuperBoxSelect/superboxselect.css" />
 	<link rel="stylesheet" type="text/css" href="../extjs/resources/css/ext-all.css" />
-	<link rel="stylesheet" type="text/css" href="./css/icons.css">
-	  <link rel="stylesheet" type="text/css" href="./css/Ext.ux.upload.css">
-	  
+	<!--<link rel="stylesheet" type="text/css" href="./css/icons.css">-->
+	<!--<link rel="stylesheet" type="text/css" href="./css/Ext.ux.upload.css">-->
+	<link rel="stylesheet" type="text/css" href="./css/examples.css">	
+	<link rel="stylesheet" type="text/css" href="./css/fileuploadfield.css"/>  
  	<script type="text/javascript" src="../extjs/adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="../extjs/ext-all.js"></script>
-	<script src="Exporter-all.js" type="text/javascript"></script>
-	 <script type="text/javascript" src="js/Ext.ux.grid.RowActions.js"></script>
+	<!--<script src="Exporter-all.js" type="text/javascript"></script>-->
+	 <!--<script type="text/javascript" src="js/Ext.ux.grid.RowActions.js"></script>-->
 	<!--<script type="text/javascript" src="SuperBoxSelect/SuperBoxSelect.js"></script>-->
 	<!--<script type="text/javascript" src="./js/WebPage.js"></script>-->
 	<!-- <script type="text/javascript" src="js/Ext.ux.StatusBar.js"></script>-->
-    <script type="text/javascript" src="js/Ext.ux.Dialog.js"></script>
-    <script type="text/javascript" src="js/Ext.ux.upload.LogPanel.js"></script>
-    <script type="text/javascript" src="js/Ext.ux.upload.SwfConnector.js"></script>
-    <script type="text/javascript" src="js/Ext.ux.upload.Html5Connector.js"></script>
-    <script type="text/javascript" src="js/Ext.ux.upload.Uploader.js"></script>
-	<script type="text/javascript" src="js/swfupload.js"></script>
-    <script type="text/javascript" src="js/swfupload.queue.js"></script>
-    <script type="text/javascript" src="js/swfupload.cookies.js"></script>
-	<style>
-		.cTextAlign{
-    text-align: right;
-	width:165px;
-
-   }
-	.x-grid3-col {
-    border-left:  1px solid #EEEEEE;
-    border-right: 1px solid #D2D2D2;
-}
- 
-/* Also remove padding from table data (to compensate for added grid lines) */
-.x-grid3-row td, .x-grid3-summary-row td {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-	</style>
+    <script type="text/javascript" src="js/FileUploadField.js"></script>
+    
+	 <style>
+        .upload-icon {
+            background: url('images/image_add.png') no-repeat 0 0 !important;
+        }
+        #fi-button-msg {
+            border: 2px solid #ccc;
+            padding: 5px 10px;
+            background: #eee;
+            margin: 5px;
+            float: left;
+        }
+    </style>
 	<script>
-	var winLogin;
-	var formLogin;
-	var store;
-	var grid;
-	var formEdit;
-	var winEdit;
-	var mytime;
-	var teamx;
-	var playerx;
-	var teamidx;
-	var playeridx;
-	function trimAll(sString)
-	{
-		while (sString.substring(0,1) == ' ')
-		{
-			sString = sString.substring(1, sString.length);
-		}
-		while (sString.substring(sString.length-1, sString.length) == ' ')
-		{
-			sString = sString.substring(0,sString.length-1);
-		}
-		return sString;
-	} 
-	function fnSave()
-	{
-		var mask = new Ext.LoadMask(Ext.get(document.body), {msg:'Inserting records. Please wait...'});
-		mask.show();
-		var game_datex = Ext.getCmp('game_date').value;
-		var player_idx = Ext.getCmp('player_id').value;
-		var team_idx = Ext.getCmp('team_id').value;
-		var game_points_1x = document.getElementById('game_points_1').value;
-		var game_attempts_1x = document.getElementById('game_attempts_1').value;
-		var game_points_2x = document.getElementById('game_points_2').value;
-		var game_attempts_2x = document.getElementById('game_attempts_2').value;
-		var game_points_3x = document.getElementById('game_points_3').value;
-		var game_attempts_3x = document.getElementById('game_attempts_3').value;
-		var game_assistsx = document.getElementById('game_assists').value;
-		var game_reboundsx = document.getElementById('game_rebounds').value;
-		
-		
-		//var myquery = formLogin.getForm().getValues(true);
-		//Ext.getCmp('employee').getValue()
-		
-		Ext.Ajax.request({
-		params: {action:'insert',game_date:game_datex,player_id:player_idx,team_id:team_idx,game_points_1:game_points_1x,game_attempts_1:game_attempts_1x,game_points_2:game_points_2x,game_attempts_2:game_attempts_2x,game_points_3:game_points_3x,game_attempts_3:game_attempts_3x,game_assists:game_assistsx,game_rebounds:game_reboundsx},
-		url: 'callback.php',
-		success: function (resp,form,action) {
-			//var data;
-			//data = Ext.decode(resp.responseText);
-			if (resp.responseText == '{success:true}') {
-				mask.hide();
-				Ext.MessageBox.alert('Message', 'Record successfully inserted');
-				store.reload();
-				grid.getstore();
-				grid.getView().refresh();
-								
-			} 
-			else if(resp.responseText == 'DUPLICATE DATE')
-			{
-				mask.hide();
-				Ext.MessageBox.alert('Error', 'Duplicate Entry ');
-			}
-			else 
-			{
-				
-				mask.hide();
-				Ext.MessageBox.alert('Error', 'Some problem occurred');
-			}
-		},
-		failure: function (form,action) {
-			switch (action.failureType) {
-					  case Ext.form.Action.CLIENT_INVALID:
-						 Ext.Msg.alert('Failure', 'Form fields may not be submitted with invalid values');
-						 break;
-					  case Ext.form.Action.CONNECT_FAILURE:
-						 Ext.Msg.alert('Failure', 'Ajax communication failed');
-						 break;
-					  case Ext.form.Action.SERVER_INVALID:
-						Ext.Msg.alert('Failure', action.result.msg);
-						break;
-					  default:
-						Ext.Msg.alert('Failure',action.result.msg);
-				  }
-		}
-	});
+
 	
-	formLogin.getForm().reset();
-	winLogin.destroy();
-	
-	
-	}
-	function refreshPlayer()
+	/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+  var msg = function(title, msg){
+        Ext.Msg.show({
+            title: title,
+            msg: msg,
+            minWidth: 200,
+            modal: true,
+            icon: Ext.Msg.INFO,
+            buttons: Ext.Msg.OK
+        });
+    };
+ function showForm()
+ {
+ 	var fp = new Ext.FormPanel({
+        renderTo: 'fi-form',
+        fileUpload: true,
+        width: 500,
+        frame: true,
+        title: 'File Upload ',
+        autoHeight: true,
+        bodyStyle: 'padding: 10px 10px 10px 10px;',
+        labelWidth: 50,
+        defaults: {
+            anchor: '95%',
+            allowBlank: false,
+            msgTarget: 'side'
+        },
+        items: [{
+            xtype: 'textfield',
+            fieldLabel: 'Title',
+			id: 'title',
+			name: 'title'
+        },{
+            xtype: 'fileuploadfield',
+            id: 'photo-path',
+            emptyText: 'Select an image',
+            fieldLabel: 'Photo',
+            name: 'photo-path',
+            buttonText: '',
+            buttonCfg: {
+                iconCls: 'upload-icon'
+            }
+        }],
+        buttons: [{
+            text: 'Save',
+            handler: function(){
+                if(fp.getForm().isValid()){
+	                fp.getForm().submit({
+	                    url: 'file-upload.php',
+	                    waitMsg: 'Uploading your photo...',
+	                    success: function(fp, o){
+	                         msg('Success', 'Processed file');
+							 ShowGrid();
+	                    }
+	                });
+                }
+            }
+        },{
+            text: 'Reset',
+            handler: function(){
+                fp.getForm().reset();
+            }
+        }]
+    });
+ }
+	function refreshAll()
 	{
+		//window.location.href ="index.php";
 		store.reload();
 		grid.getstore();
 		grid.getView().refresh();
 	}
-	function fnEditSave()
-	{
-		var mask = new Ext.LoadMask(Ext.get(document.body), {msg:'Updating records. Please wait...'});
-		mask.show();
-		var idx = document.getElementById('id').value;
-		var player_fnamex = document.getElementById('player_fname').value;
-		var player_lnamex = document.getElementById('player_lname').value;
-		//var releasedx = Ext.getCmp('released').value;
-//		var genrex = Ext.getCmp('genre').value;
-//		var taglinex = document.getElementById('tagline').value;
-		//$date     = date('h:i:s', strtotime($today . " +9 hours"));;
-
-		 //alert(Ext.getCmp('employee').getValue());
-	//	
-		Ext.Ajax.request({
-		params: {action: 'update', id: idx,player_fname:player_fnamex,player_lname:player_lnamex},
-		url: 'callback.php',
-		success: function (resp,form,action) {
-			if (resp.responseText == '{success:true}') {
-				mask.hide();
-				Ext.MessageBox.alert('Message', 'Record ' + idx + ' successfully updated');
-				store.load();
-				store.reload();
-				grid.getstore();
-				grid.getView().refresh();
-								
-			} else {
-				mask.hide();
-				Ext.MessageBox.alert('Error', 'Some problem occurred');
-			}
-		},
-		failure: function (form,action) {
-			  switch (action.failureType) {
-					  case Ext.form.Action.CLIENT_INVALID:
-						 Ext.Msg.alert('Failure', 'Form fields may not be submitted with invalid values');
-						 break;
-					  case Ext.form.Action.CONNECT_FAILURE:
-						 Ext.Msg.alert('Failure', 'Ajax communication failed');
-						 break;
-					  case Ext.form.Action.SERVER_INVALID:
-						Ext.Msg.alert('Failure', action.result.msg);
-						break;
-					  default:
-						Ext.Msg.alert('Failure',action.result.msg);
-				  }
-		}
-	});
-	
-	formEdit.getForm().reset();
-	winEdit.destroy();
-	
-	
-	}
-	
 	function DeleteRow(ids, name)
 	{
 		var sm=grid.getSelectionModel();
         var sel=sm.getSelections();
 		Ext.Msg.show({
-							title: 'Remove Player', 
+							title: 'Remove File', 
 							buttons: Ext.MessageBox.YESNOCANCEL,
 							msg: 'Remove '+ name + ' ?',
 							fn: function(btn){
@@ -258,81 +176,23 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 											store.reload();
 										},
 										failure: function(resp,opt) { 
-											Ext.Msg.alert('Error','Unable to delete Player Stats'); 
+											Ext.Msg.alert('Error','Unable to delete File '); 
 										}
 									});
 								}
 							}
 						});
 	}
-	
-	Ext.onReady(function(){
-		Ext.BLANK_IMAGE_URL = 'images/s.gif';
-		Ext.QuickTips.init();
-		
-		this.rowActions = new Ext.ux.grid.RowActions({
-			 actions:[{
-				 iconCls:'icon-minus'
-				,qtip:'Delete Record'
-				,style:'margin:0 0 0 3px'
-			}]
-		});
-		this.rowActions.on('action', this.onRowAction, this);
-		
-		// Ext.form.VTypes.nameVal  = /^([A-Z]{1})[A-Za-z\-]+ ([A-Z]{1})[A-Za-z\-]+/;
-		// Ext.form.VTypes.nameMask = /[A-Za-z\- ]/;
-		// Ext.form.VTypes.nameText = 'In-valid Director Name.';
-		// Ext.form.VTypes.name 	= function(v){
-			// return Ext.form.VTypes.nameVal.test(v);
-		// };
-		
-	   // var genres = new Ext.data.SimpleStore({
-//	        fields: ['id', 'genre'],
-//	        //data : [['0','New Genre'],['1','Comedy'],['2','Drama'],['3','Action'],['4','Mystery']]
-//		    data : <?php //echo $z; ?>
-//	    });
-//		
-//		function genre_name(val){
-//			return genres.queryBy(function(rec){
-//				return rec.data.id == val;
-//			}).itemAt(0).data.genre;
-//		}
-	
-		var ds_model = Ext.data.Record.create([
+  function showGrid()
+  {
+  	var ds_model = Ext.data.Record.create([
 			{ name: 'id', sortType: Ext.data.SortTypes.asInt },
-		    { name: 'game_date', sortType: Ext.data.SortTypes.asDate},			
-			{ name: 'player_id', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'team_id', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'game_points_1', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'game_attempts_1', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'game_points_2', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'game_attempts_2', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'game_points_3', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'game_attempts_3', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'game_assists', sortType: Ext.data.SortTypes.asInt },
-			{ name: 'game_rebounds', sortType: Ext.data.SortTypes.asInt }
-			
+		    { name: 'name'},			
+			{ name: 'title' },
+			{ name: 'url' }
 			
 		]);
-		 teamx = new Ext.data.SimpleStore({
-	        fields: ['id', 'team_name'],
-		    data : <?php echo $z; ?>
-	    });
-		playerx = new Ext.data.SimpleStore({
-	        fields: ['idx', 'player'],
-		    data : <?php echo $iz; ?>
-	    });
-		var string_edit = new Ext.form.TextField({
-			allowBlank: false
-		});
-		
-		var number_edit = new Ext.form.NumberField({
-			allowBlank: false,
-			allowDecimals:false,
-			allowNegative: false,
-			minValue: 0
-		});
-	     store = new Ext.data.Store({
+  	store = new Ext.data.Store({
 			url: 'datasource.php',
 			reader: new Ext.data.JsonReader({
 				root:'rows',
@@ -340,80 +200,39 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 				id:'id'
 			}, ds_model)
 	    });
-		var player_edit = new Ext.form.ComboBox({
-			typeAhead: true,
-			triggerAction: 'all',
-			editable:false,
-			//readonly:true,
-			mode: 'local',
-			store: playerx,
-			displayField:'player',
-			valueField: 'idx',
-			listeners: {
-    select: function(combo, record, index) {
-      //alert(combo.getValue()); // Return Unitad States and no USA
-    }
-	}
-		});	
-		//var team_edit = new Ext.form.ComboBox({
-//			typeAhead: true,
-//			triggerAction: 'all',
-//			editable:false,
-//			readonly:true,
-//			mode: 'local',
-//			store: teamx,
-//			displayField:'team_name',
-//			valueField: 'id',
-//			listeners: {
-//    select: function(combo, record, index) {
-//      //alert(combo.getValue()); // Return Unitad States and no USA
-//    }
-//  }
-//		});
-	
-		//store.load();
-	
-
-	
-	     grid = new Ext.grid.EditorGridPanel({
+		var string_edit = new Ext.form.TextField({
+			allowBlank: false
+		});
+  	grid = new Ext.grid.EditorGridPanel({
 		 	viewConfig: {
 				emptyText: 'No records found'
 			},
-
-			renderTo: document.body,
+			renderTo: 'fi-grid',
 			frame:true,
-			title: 'BH League Players Statistics',
-	        height:300,
-	        width:1315,
+			title: 'Photos',
+	        /*height:500,*/
+	        width:720,
 			mode:'local',
-			layout:'fit',
+			/*layout:'fit',*/
 			autoHeight: true,
 			enableColumnMove: false,
 	        store: store,
 			clicksToEdit: 2,
 	        columns: [
 				{header: "ID", dataIndex: 'id', width:100,sortable:true,align:'right'},
-				{header: "Game Date", dataIndex: 'game_date', width:150,sortable:true,editor:new Ext.form.DateField({format :'Y-m-d'})},
-				{header: "Player", dataIndex: 'player_id', width:150,sortable:true,editor:player_edit},
-				{header: "Team ", dataIndex: 'team_id', width:150,sortable:true},
-				{header: "FT Point", dataIndex: 'game_points_1', width:90,sortable:true,editor:number_edit,align:'right' },
-				{header: "FT Attempt", dataIndex: 'game_attempts_1',width:90,sortable:true,editor:number_edit,align:'right' },
-				{header: "2-Pt Point",  dataIndex: 'game_points_2', width:90,sortable:true,editor:number_edit,align:'right'},
-				{header: "2-Pt Attempt", dataIndex: 'game_attempts_2',width:90,sortable:true,editor:number_edit,align:'right'},
-				{header: "3-Pt Point", dataIndex: 'game_points_3', width:90,sortable:true,editor:number_edit,align:'right'},
-				{header: "3-Pt Attempt", dataIndex: 'game_attempts_3',width:90,sortable:true,editor:number_edit,align:'right'},
-				{header: "Assists", dataIndex: 'game_assists',width:90,sortable:true,editor:number_edit,align:'right'},
-				{header: "Rebounds", dataIndex: 'game_rebounds',width:90,sortable:true,editor:number_edit,align:'right'},
+				{header: "File Name", dataIndex: 'name', width:150,sortable:true},
+				{header: "Description", dataIndex: 'title', width:150,sortable:true,editor:string_edit},
+				{header: "File Path", dataIndex: 'url', width:250,sortable:true},
 				
 				{
 					xtype: 'actioncolumn',
 					width: 30,
 					items: [{
 						icon   : 'images/database_delete.png',  // Use a URL in the icon config
-						tooltip: 'Remove Player Stats ',
+						tooltip: 'Remove File ',
 						handler: function(grid, rowIndex, colIndex) {
 							var rec = store.getAt(rowIndex);
-							DeleteRow(rec.get('id'),rec.get('player_id'));
+							DeleteRow(rec.get('id'),rec.get('name'));
 						}
 					}]
 				}
@@ -436,13 +255,9 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 						},
 						success: function(resp,opt) {
 							e.record.commit();
-//							refreshPlayer();
-//							store.reload();
-//							grid.getstore();
-//							grid.getView().refresh();
 							if (resp.responseText == '{success:true}') {
-				//mask.hide();
-							Ext.MessageBox.alert('Message', 'Record ' + e.record.id + ' successfully updated');
+							//mask.hide();
+							//Ext.MessageBox.alert('Message', 'Record ' + e.record.id + ' successfully updated');
 							store.reload();
 							grid.getstore();
 							grid.getView().refresh();
@@ -463,7 +278,7 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 						var sel = sm.getSelected();
 						if (sm.hasSelection()){
 							Ext.Msg.show({
-								title: 'Remove Player Stats', 
+								title: 'Remove File', 
 								buttons: Ext.MessageBox.YESNOCANCEL,
 								msg: 'Remove '+ sel.data.player_fname + ' ' + sel.data.player_lname + '?',
 								fn: function(btn){
@@ -479,7 +294,7 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 												grid.getStore().remove(sel); 
 											},
 											failure: function(resp,opt) { 
-												Ext.Msg.alert('Error','Unable to delete Player Stats'); 
+												Ext.Msg.alert('Error','Unable to delete Player'); 
 											}
 										});
 									}
@@ -492,23 +307,11 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 				}
 			],
 			tbar: [{
-				text: 'Add Player Stats',
-				icon: 'images/table_add.png',
-				cls: 'x-btn-text-icon',
-				handler: addNew
-			},'-',{
 				text: 'Refresh',
 				icon: 'images/arrow_refresh.png',
 				cls: 'x-btn-text-icon',
-				handler: refreshPlayer
-			}],plugins:[new Ext.ux.grid.Search({
-				iconCls:'icon-zoom'
-				,position:top
-				,minChars:3
-				,autoFocus:true,
-				width:180,
-//				,menuStyle:'radio'
-			}), this.rowActions],
+				handler: refreshAll
+			}]
 	    });
 		var loadMask = new Ext.LoadMask(
             Ext.getBody(),
@@ -522,207 +325,26 @@ $iz = ' [' . implode(', ', $arrx) . ']';
 		loadMask.enable();
 		store.load();
 		loadMask.disable();
-		 
-		
-	});
-	function getteamid(idx)
-	{
-		Ext.Ajax.request({
-		params: {action: 'getteamid', player_id: idx},
-		url: 'callback.php',
-		success: function (resp,form,action) {
-		
-		Ext.getCmp('team_id').setValue(resp.responseText) ;
-		teamidx = resp.responseText;
-		//team_id.setValue(team_id.getStore().getAt(resp.responseText).get(cb.valueField));
-			 
-		},
-		
-		failure: function (form,action) {
-			  switch (action.failureType) {
-					  case Ext.form.Action.CLIENT_INVALID:
-						 Ext.Msg.alert('Failure', 'Form fields may not be submitted with invalid values');
-						 break;
-					  case Ext.form.Action.CONNECT_FAILURE:
-						 Ext.Msg.alert('Failure', 'Ajax communication failed');
-						 break;
-					  case Ext.form.Action.SERVER_INVALID:
-						Ext.Msg.alert('Failure', action.result.msg);
-						break;
-					  default:
-						Ext.Msg.alert('Failure',action.result.msg);
-				  }
-		}
-	});
-	}
-	function addNew()
-	{
-		var mystore = new Ext.data.SimpleStore({
-	        fields: ['id', 'team_name'],
-		    data : <?php echo $z; ?>
-	    });
-		 formLogin = new Ext.FormPanel({
-					frame: false, border: false, buttonAlign: 'center',
-					 method: 'POST', id: 'frmAddNew',
-					bodyStyle: 'padding:10px 10px 15px 15px;background:#dfe8f6;',
-					width: 500, labelWidth: 150,
-					items: [					
-					 {
-						xtype: 'datefield',
-						fieldLabel: 'Game Date',
-						name: 'game_date',
-						id: 'game_date',
-						format: 'Y-m-d',
-						width:160,
-					},
-					{ xtype: 'combo',
-					  name: 'player_id',
-					  id: 'player_id',
-					  fieldLabel: 'Player',
-					  mode: 'local',
-					  store: playerx,
-					  displayField:'player',
-					  valueField:'idx',
-					  triggerAction: 'all',
-					  width:160,
-					 listeners: {
-						select: function(combo, record, index) {
-							//alert(combo.getValue());
-						//Ext.getCmp('player_id').setValue(combo.getvalue()) ; 
-						 getteamid(combo.getValue()); 
-						 // Return Unitad States and no USA
-						}
-					  
-					 }
-					 },
-					 { 
-					 xtype: 'combo',
-					 name: 'team_id',
-					 id: 'team_id',
-					 fieldLabel: 'Team Id',
-					 mode: 'local',
-					 store: teamx,
-					 displayField:'team_name',
-					 valueField:'id',
-					 disabled:false,
-					 triggerAction: 'all',
-					 //readonly:true,
-//					 editable:false,
-					 typeAhead: false,
-					 //hideTrigger:true,
-					 width:160
-					 },
-					 new Ext.form.NumberField({  
-					 fieldLabel: 'Free Throw Point', 
-					 allowBlank: false, 
-					 name:'game_points_1', 
-					 id:'game_points_1', 
-					 fieldClass: 'cTextAlign',
-					 allowDecimals:true,
-					 allowNegative: false,
-					 minValue: 0}),	
-					 				 
-					 new Ext.form.NumberField({  
-					 fieldLabel: 'Free Throw Attempt', 
-					 allowBlank: false, 
-					 name:'game_attempts_1', 
-					 id:'game_attempts_1', 
-					 fieldClass: 'cTextAlign',
-					 allowDecimals:false,
-					 allowNegative: false,
-					 minValue: 0}),
-					 
-					 new Ext.form.NumberField({  
-					 fieldLabel: '2 Point Shot', 
-					 allowBlank: false, 
-					 name:'game_points_2', 
-					 id:'game_points_2', 
-					 fieldClass: 'cTextAlign',
-					 allowDecimals:false,
-					 allowNegative: false,
-					 minValue: 0}),
-					 
-					 new Ext.form.NumberField({  
-					 fieldLabel: '2 Point Attempt', 
-					 allowBlank: false, 
-					 name:'game_attempts_2', 
-					 id:'game_attempts_2', 
-					 fieldClass: 'cTextAlign',
-					 allowDecimals:false,
-					 allowNegative: false,
-					 minValue: 0}),
-					 
-					 new Ext.form.NumberField({  
-					 fieldLabel: '3 Point Shot', 
-					 allowBlank: false, 
-					 name:'game_points_3', 
-					 id:'game_points_3', 
-					 fieldClass: 'cTextAlign',
-					 allowDecimals:false,
-					 allowNegative: false,
-					 minValue: 0
-					 }),
-					 
-					 new Ext.form.NumberField({  
-					 fieldLabel: '3 Point Attempt', 
-					 allowBlank: false, 
-					 name:'game_attempts_3', 
-					 id:'game_attempts_3', 
-					 fieldClass: 'cTextAlign',
-					 allowDecimals:false,
-					 allowNegative: false,
-					 minValue: 0
-					 }),
-					 
-					 new Ext.form.NumberField({  
-					 fieldLabel: 'Assists', 
-					 allowBlank: false, 
-					 name:'game_assists', 
-					 id:'game_assists', 
-					 fieldClass: 'cTextAlign',
-					 allowDecimals:true,
-					 allowNegative: false,
-					 minValue: 0
-					 }),
-					 
-					 new Ext.form.NumberField({  
-					 fieldLabel: 'Rebounds', 
-					 allowBlank: false, 
-					 name:'game_rebounds', 
-					 id:'game_rebounds', 
-					 fieldClass: 'cTextAlign',
-					 allowDecimals:true,
-					 allowNegative: false,
-					 minValue: 0})
-					 
-					 
-						
-					],
-					buttons: [
-						{ text: 'Save', handler: fnSave },
-						{ text: 'Cancel', handler: function() {
-								formLogin.getForm().reset();
-								winLogin.destroy();
-							}
-						}
-					]
-				});
-				
-				winLogin = new Ext.Window({
-				title: 'Add New',
-				layout: 'fit',
-				width: 530,
-				height: 360,
-				y: 340,
-				resizable: false,
-				closable: true,
-				items: [formLogin]
-			});
+  }
 
-			winLogin.show();
-	}
+
+    Ext.onReady(function(){
+
+    Ext.QuickTips.init();
+	
+	 showForm();
+	 showGrid();
+   
+
+    
+
+});
 	</script>
 </head>
-<body style="padding:20px;">
+<body >
+
+<div id="fi-form"></div>
+<div style="clear:both; height:20px;"></div>
+<div id="fi-grid"></div>
 </body>
 </html>

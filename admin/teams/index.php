@@ -1,8 +1,15 @@
 <?php
 define('IMG_DIR', '/home/bhleague/public_html/bhleague_logos/');
 define('IMG_PATH', 'bhleague_logos/');
+define('MINI_IMG_DIR', '/home/bhleague/public_html/bhleague_mini_logos/');
+define('MINI_IMG_PATH', 'bhleague_mini_logos/');
+
+require_once('/home/bhleague/public_html/admin/class/db.cls.php');
+$db = new DB_Connect(MYSQL_INTRANET, true);
 
 $files = array();
+$mini_files = array();
+
 
 if ($handle = opendir(IMG_DIR)) {
     while (false !== ($entry = readdir($handle))) {
@@ -21,6 +28,38 @@ if ($handle = opendir(IMG_DIR)) {
 	}
 }
 $clogo = '['.implode(', ', $logo_arr).']';
+
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+if ($handle = opendir(MINI_IMG_DIR)) {
+    while (false !== ($entry_mini = readdir($handle))) {
+        if ($entry_mini != "." && $entry_mini != ".." && $entry_mini != ".DS_Store") {
+			$mini_files[] = $entry_mini;
+        }
+    }
+    closedir($handle);
+	
+	sort($mini_files);
+	
+	foreach ($mini_files as $entry_mini) {
+		$mini_path = MINI_IMG_PATH . $entry_mini;
+		$mini_files = $entry_mini;
+		$mini_logo_arr[] = "['{$mini_path}', '{$mini_files}']";
+	}
+}
+$cminilogo = '['.implode(', ', $mini_logo_arr).']';
+
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+$s_arr = array();
+
+$sql = "SELECT `id`, `name` FROM `bhleague`.`seasons`";
+if ($rsx = $db->query($sql)) {
+	while ($rowx = $rsx->fetch_object()) $s_arr[] = "['{$rowx->id}','{$rowx->name}']";
+	$rsx->close();
+}
+$zx = '['.implode(', ', $s_arr).']';
+//echo $iz; exit;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -71,6 +110,8 @@ var winEdit;
 var mytime;
 var teamx;
 var clogox;
+var cminilogox;
+var seasonx;
 
 Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = 'images/s.gif';
@@ -90,12 +131,19 @@ Ext.onReady(function(){
 		{ name: 'id', sortType: Ext.data.SortTypes.asInt },
 		{ name: 'team_name'},
 		{ name: 'team_desc'},
-		{ name: 'logo', sortType: Ext.data.SortTypes.asInt }
+		{ name: 'logo',  },
+		{ name: 'mini_logo' },
+		{ name: 'season', sortType: Ext.data.SortTypes.asInt }
 	]);
 	
-	var clogox = new Ext.data.SimpleStore({
+	 clogox = new Ext.data.SimpleStore({
 	        fields: ['path', 'file'],
 		    data : <?php echo $clogo; ?>
+	    });
+		
+	 cminilogox = new Ext.data.SimpleStore({
+	        fields: ['mini_path', 'mini_files'],
+		    data : <?php echo $cminilogo; ?>
 	    });
 	
 	var string_edit = new Ext.form.TextField({
@@ -111,6 +159,11 @@ Ext.onReady(function(){
 		}, ds_model)
 	});
 	
+	seasonx = new Ext.data.SimpleStore({
+	        fields: ['id', 'name'],
+		    data : <?php echo $zx; ?>
+	    });
+	
 	Ext.namespace("Ext.ux");
 	Ext.ux.comboBoxRenderer = function(combo) {
 	  return function(value) {
@@ -119,7 +172,18 @@ Ext.onReady(function(){
 		return (rec==null ? '' : rec.get(combo.displayField));
 	  };
 	}
-	
+	var season_edit = new Ext.form.ComboBox({
+			typeAhead: true,
+			triggerAction: 'all',
+			allowBlank: true,
+			editable: true,
+			selectOnFocus: true,
+			mode: 'local',
+			store: seasonx,
+			displayField:'name',
+			valueField: 'id',
+			listeners: {}
+		});
 	var clogo_edit = new Ext.form.ComboBox({
 		typeAhead: true,
 		triggerAction: 'all',
@@ -132,6 +196,19 @@ Ext.onReady(function(){
 		valueField: 'path',
 		listeners: {}
 	});
+	
+	var cmini_logo_edit = new Ext.form.ComboBox({
+		typeAhead: true,
+		triggerAction: 'all',
+		allowBlank: true,
+		editable: true,
+		selectOnFocus: true,
+		mode: 'local',
+		store: cminilogox,
+		displayField:'mini_files',
+		valueField: 'mini_path',
+		listeners: {}
+	});
 
 	grid = new Ext.grid.EditorGridPanel({
 		viewConfig: {
@@ -142,7 +219,7 @@ Ext.onReady(function(){
 		frame:true,
 		title: 'BH League Teams',
 		/*height:300,*/
-		width:750,
+		width:1000,
 		mode:'local',
 		layout:'fit',
 		autoHeight: true,
@@ -151,9 +228,12 @@ Ext.onReady(function(){
 		clicksToEdit: 2,
 		columns: [
 			{header: "ID", dataIndex: 'id', width:100,sortable:true,align:'right'},
-			{header: "Team Name", dataIndex: 'team_name', width:300,sortable:true,editor:string_edit},
+			{header: "Team Name", dataIndex: 'team_name', width:150,sortable:true,editor:string_edit},
 			{header: "Description", dataIndex: 'team_desc', width:100,sortable:true,editor:string_edit,hidden:true},
-			{header: "Logo", dataIndex: 'logo', width:300,sortable:true,editor:clogo_edit,renderer:Ext.ux.comboBoxRenderer(clogo_edit)},
+			{header: "Logo", dataIndex: 'logo', width:300,sortable:true,editor:clogo_edit},
+			//{header: "Logo", dataIndex: 'logo', width:150,sortable:true,editor:clogo_edit,renderer:Ext.ux.comboBoxRenderer(clogo_edit)},
+			{header: "Mini Logo", dataIndex: 'mini_logo', width:300,sortable:true,editor:cmini_logo_edit},
+			{header: "Season", dataIndex: 'season', width:90,sortable:true,editor:season_edit},
 			{
 				xtype: 'actioncolumn',
 				width: 30,
@@ -286,9 +366,11 @@ function fnSave()
 	var team_descx = document.getElementById('team_desc').value;
 	var team_namex = document.getElementById('team_name').value;
 	var logox = Ext.getCmp('logo').value;
+	var mini_logox = Ext.getCmp('mini_logo').value;
+	var seasonxx = Ext.getCmp('season').value;
 	
 	Ext.Ajax.request({
-	params: {action: 'insert', team_name: team_namex, team_desc:team_descx, logo:logox},
+	params: {action: 'insert', team_name: team_namex, team_desc:team_descx, logo:logox,mini_logo:mini_logox,season:seasonxx},
 	url: 'callback.php',
 	success: function (resp,form,action) {
 		if (resp.responseText == '{success:true}') {
@@ -413,7 +495,7 @@ function DeleteRow(ids, fname,lname)
 
 function addNew()
 {
-	
+	//alert(clogox);
 	formLogin = new Ext.FormPanel({
 		frame: false, border: false, buttonAlign: 'center',
 		method: 'POST', id: 'frmAddNew',
@@ -448,6 +530,33 @@ function addNew()
 			 displayField:'file',
 			 valueField:'path',
 			 triggerAction: 'all'
+			},
+			 { 
+			 xtype: 'combo',
+			typeAhead: true,
+			fieldLabel: 'Mini Logo',
+			id: 'mini_logo',
+			name:'mini_logo',
+			triggerAction: 'all',
+			allowBlank: true,
+			editable: true,
+			selectOnFocus: true,
+			mode: 'local',
+			store: cminilogox,
+			displayField:'mini_files',
+			valueField: 'mini_path'
+			},
+			{ 
+			 xtype: 'combo',
+			 name: 'season',
+			 id: 'season',
+			 fieldLabel: 'Season',
+			 allowBlank:true,
+			 mode: 'local',
+			 store: seasonx,
+			 displayField:'name',
+			 valueField:'id',
+			 triggerAction: 'all'
 			}
 			],
 			buttons: [
@@ -464,7 +573,7 @@ function addNew()
 		title: 'Add New',
 		layout: 'fit',
 		width: 430,
-		height: 160,
+		height: 220,
 		y: 340,
 		resizable: false,
 		closable: true,

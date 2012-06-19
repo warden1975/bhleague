@@ -1,0 +1,35 @@
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":668534,"access_token":"aea4c7e52d6e6bebdb82cd2f8f6dc5c4108163f05a9dcb1f3cb126e44ff59f6e","token_type":"BEARER"}
+
+key --> user_id=>668534
+key --> access_token=>aea4c7e52d6e6bebdb82cd2f8f6dc5c4108163f05a9dcb1f3cb126e44ff59f6e
+key --> token_type=>BEARER
+668534 => aea4c7e52d6e6bebdb82cd2f8f6dc5c4108163f05a9dcb1f3cb126e44ff59f6e => BEARER
+https://stage.wepayapi.com/v2/account/create
+PAYMENT result --> {"account_id":1205039,"account_uri":"https:\/\/stage.wepay.com\/account\/1205039"}
+
+key --> account_id=>1205039
+key --> account_uri=>https://stage.wepay.com/account/1205039
+CHECKOUT result --> {"checkout_id":301583,"checkout_uri":"https:\/\/stage.wepay.com\/api\/checkout\/301583\/ebfbeb48"}
+
+key --> checkout_id=>301583
+key --> checkout_uri=>https://stage.wepay.com/api/checkout/301583/ebfbeb48
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":1541012,"access_token":"148d5120990ed8e580d1beae306383392b00db454742b0a5ab86a171dba22100","token_type":"BEARER"}
+
+key --> user_id=>1541012
+key --> access_token=>148d5120990ed8e580d1beae306383392b00db454742b0a5ab86a171dba22100
+key --> token_type=>BEARER
+1541012 => 148d5120990ed8e580d1beae306383392b00db454742b0a5ab86a171dba22100 => BEARER
+https://stage.wepayapi.com/v2/account/create
+PAYMENT result --> {"account_id":1520636,"account_uri":"https:\/\/stage.wepay.com\/account\/1520636"}
+
+key --> account_id=>1520636
+key --> account_uri=>https://stage.wepay.com/account/1520636
+CHECKOUT result --> {"checkout_id":1073956,"checkout_uri":"https:\/\/stage.wepay.com\/api\/checkout\/1073956\/a4771873"}
+
+key --> checkout_id=>1073956
+key --> checkout_uri=>https://stage.wepay.com/api/checkout/1073956/a4771873
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

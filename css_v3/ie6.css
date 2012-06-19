@@ -1,0 +1,2 @@
+.signup span,img{position:relative;behavior:url(js/PIE.htc);-pie-png-fix:true;}
+.photo img{-pie-png-fix:false;behavior:none;}

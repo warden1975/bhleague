@@ -24,26 +24,74 @@ if (isset($action) && strlen(trim($action)) > 0) {
 			}
 			else
 			{
-			$sql = "UPDATE bhleague.schedule SET `".@$field."` = '".@$value."' WHERE id = ".@$id;
-			if ($rs = $db->query($sql)) echo '{success:true}';
-			else echo '{success:false}';
+				$sql = "UPDATE bhleague.schedule SET `".@$field."` = '".@$value."' WHERE id = ".@$id;
+				if ($rs = $db->query($sql)) 
+				{
+				echo '{success:true}';
+				}
+				
+				else 
+				{
+				echo '{success:false}';
+				}
 			}
 			break;
 		case 'insert':
-			$sql = "INSERT INTO bhleague.schedule (game_date, game_time, team1, team2,team1_score,team2_score) VALUES ('".@$game_date."','".@$game_time."','".@$team1."','".@$team2."','".@$team1_score."','".@$team2_score."')";
-			if ($rs = $db->query($sql)) echo '{success:true}';
-			else echo '{success:false}';
+			if(@$bye_week=='on')
+			{
+				@$bye_wekx =1;
+			}
+			else
+			{
+				@$bye_wekx =0;
+			}
+			
+			$sql = "INSERT INTO bhleague.schedule (game_date, game_time, team1, team2,team1_score,team2_score,season,bye_week) VALUES ('".@$game_date."','".@$game_time."','".@$team1."','".@$team2."','".@$team1_score."','".@$team2_score."','".@$season."','".@$bye_wekx."')";
+			if ($rs = $db->query($sql)) 
+			{
+			echo '{success:true}';
+			}
+			
+			else 
+			{
+			echo '{success:false}';
+			}
 			break;
 		case 'delete':
 			$sql = "DELETE FROM bhleague.schedule WHERE id = ".$id;
-			if ($rs = $db->query($sql)) echo '{success:true}';
-			else echo '{success:false}';
+			if ($rs = $db->query($sql)) 
+			{
+			echo '{success:true}';
+			}
+			
+			else 
+			{
+			echo '{success:false}';
+			}
 			break;
+		case 'update_bye_week':
+			$sql ="UPDATE bhleague.schedule SET bye_week =".@$bye_week." WHERE id = ".@$id;
+			//echo $sql;exit;
+			
+			if ($rs = $db->query($sql)) 
+			{
+			echo '{success:true}';
+			}
+			
+			else 
+			{
+			echo '{success:false}';
+			}
+			break;
+			
 	}
 	
 	
 
-} else echo '{success:false}';
+} 
+else {
+echo '{success:false}';
+}
 
 $db->close();
 $db = NULL;

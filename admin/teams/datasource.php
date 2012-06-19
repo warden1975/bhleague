@@ -9,11 +9,11 @@ if (!$db) die("Can't connect to database.");
 
 extract($_REQUEST);
 
-$st = "SELECT `id`, `team_name`,`team_desc`,`logo` FROM `bhleague`.`teams`";
+$st = "SELECT `id`, `team_name`,`team_desc`,`logo`,`mini_logo`,`season` FROM `bhleague`.`teams`";
 $where = "";
 $order = " ORDER BY `id`";
 if (isset($query) && strlen(trim($query)) > 0) {
-	$where = " WHERE `team_name` LIKE '%" . $query ."%' OR `team_desc` LIKE '%" . $query ."%'";
+	$where = " WHERE `team_name` LIKE '%" . $query ."%' OR `team_desc` LIKE '%" . $query ."%' OR `mini_logo` LIKE '%" . $query ."%' OR `season` LIKE '%" . $query ."%'";
 }
 $sql = $st . $where . $order;
 

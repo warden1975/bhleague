@@ -49,21 +49,28 @@ switch ($action){
 //		{
 //			$sched_end = date('Y-m-d H:i:s', strtotime($_REQUEST['date_schedule'].' '.$_REQUEST['schedule'] . " +9 hours"));
 //			$_schedule = $_REQUEST['date_schedule'].' '.$_REQUEST['schedule']." - ".$sched_end;
-//			for($i=0;$i<sizeof($emp_id);$i++)
-//			{
-			$sql = "INSERT INTO bhleague.players_stats (game_date,player_id,team_id,game_points_1,game_attempts_1,game_points_2,game_attempts_2,game_points_3,game_attempts_3,game_assists,game_rebounds) VALUES 
-			('".@$game_date."','".@$player_id."','".@$team_id."','".@$game_points_1."','".@$game_attempts_1."','".@$game_points_2."','".@$game_attempts_2."','".@$game_points_3."','".@$game_attempts_3."','".@$game_assists."','".@$game_rebounds."')";
-			//echo $sql; exit;
-			
-			$rs = $db->query($sql);
-			
-			if($rs)	
+			$sql ="SELECT * from `bhleague`.`players_stats` WHERE game_date='".@$game_date."' AND player_id='".@$player_id."' AND team_id ='".@$team_id."'";
+			$rec = $db->query($sql);
+			if($rec->num_rows>0)
 			{
-				echo '{success:true}';
+				echo '{duplicate:true}';
 			}
-			else
+			else if($rec->num_rows==0)
 			{
-				echo '{success:false}';
+				$sql = "INSERT INTO bhleague.players_stats (game_date,player_id,team_id,game_points_1,game_attempts_1,game_points_2,game_attempts_2,game_points_3,game_attempts_3,game_assists,game_rebounds,season) VALUES 
+				('".@$game_date."','".@$player_id."','".@$team_id."','".@$game_points_1."','".@$game_attempts_1."','".@$game_points_2."','".@$game_attempts_2."','".@$game_points_3."','".@$game_attempts_3."','".@$game_assists."','".@$game_rebounds."','".@$season."')";
+				//echo $sql; exit;
+				
+				$rs = $db->query($sql);
+				
+				if($rs)	
+				{
+					echo '{success:true}';
+				}
+				else
+				{
+					echo '{success:false}';
+				}
 			}
 		//}
 //		else

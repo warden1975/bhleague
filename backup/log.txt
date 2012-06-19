@@ -1,0 +1,202 @@
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":1230768,"access_token":"bf2f6009d904e6bdc52218506eac86b3017b7336f2d17d756d46447e20c03236","token_type":"BEARER"}
+
+key --> user_id=>1230768
+key --> access_token=>bf2f6009d904e6bdc52218506eac86b3017b7336f2d17d756d46447e20c03236
+key --> token_type=>BEARER
+1230768 => bf2f6009d904e6bdc52218506eac86b3017b7336f2d17d756d46447e20c03236 => BEARER
+https://stage.wepayapi.com/v2/account/create
+PAYMENT result --> {"account_id":980514,"account_uri":"https:\/\/stage.wepay.com\/account\/980514"}
+
+key --> account_id=>980514
+key --> account_uri=>https://stage.wepay.com/account/980514
+CHECKOUT result --> {"checkout_id":1594207,"checkout_uri":"https:\/\/stage.wepay.com\/api\/checkout\/1594207\/7ab3bf02"}
+
+key --> checkout_id=>1594207
+key --> checkout_uri=>https://stage.wepay.com/api/checkout/1594207/7ab3bf02
+USER SEARCH result --> {"user_id":1230768,"first_name":"lester@golivemobile.com","last_name":"","email":"lester@golivemobile.com","state":"registered"}
+
+key --> user_id=>1230768
+key --> first_name=>lester@golivemobile.com
+key --> last_name=>
+key --> email=>lester@golivemobile.com
+key --> state=>registered
+INSERT WEPAY QUERY --> INSERT INTO `bhleague`.`wepay_accounts` SET wepay_user_id='1230768',wepay_access_token='bf2f6009d904e6bdc52218506eac86b3017b7336f2d17d756d46447e20c03236',wepay_token_type='BEARER',
+				wepay_account_id='980514',wepay_account_uri='https://stage.wepay.com/account/980514',wepay_checkout_id='1594207',wepay_checkout_uri='https://stage.wepay.com/api/checkout/1594207/7ab3bf02',first_name='lester@golivemobile.com',last_name='',wepay_email='lester@golivemobile.com'
+
+
+ NEW ACCOUNT 
+THANK YOU QUERY 1--> SELECT * from `bhleague`.`wepay_accounts` where wepay_checkout_id ='1594207'
+
+THANK YOU QUERY 2--> SELECT `id`,player_fname,player_lname,email from `bhleague`.`players` where (player_fname='' AND player_lname ='lester@golivemobile.com') OR email ='lester@golivemobile.com' LIMIT 1
+
+THANK YOU UPDATE QUERY 1--> UPDATE `bhleague`.`wepay_accounts` SET player_id ='119',first_name ='lester',last_name='canlas'  WHERE id =12
+
+THANK YOU UPDATE QUERY 3--> UPDATE `bhleague`.`players` SET status = 1 WHERE id =119
+
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":1541012,"access_token":"773137aeb237b0ad2cd736efdd81c28b7f05225a5998d9803d6fdc8e15f62574","token_type":"BEARER"}
+
+key --> user_id=>1541012
+key --> access_token=>773137aeb237b0ad2cd736efdd81c28b7f05225a5998d9803d6fdc8e15f62574
+key --> token_type=>BEARER
+1541012 => 773137aeb237b0ad2cd736efdd81c28b7f05225a5998d9803d6fdc8e15f62574 => BEARER
+https://stage.wepayapi.com/v2/account/create
+PAYMENT result --> {"account_id":147945,"account_uri":"https:\/\/stage.wepay.com\/account\/147945"}
+
+key --> account_id=>147945
+key --> account_uri=>https://stage.wepay.com/account/147945
+CHECKOUT result --> {"checkout_id":1911383,"checkout_uri":"https:\/\/stage.wepay.com\/api\/checkout\/1911383\/879eec83"}
+
+key --> checkout_id=>1911383
+key --> checkout_uri=>https://stage.wepay.com/api/checkout/1911383/879eec83
+USER SEARCH result --> {"user_id":1541012,"first_name":"rainier","last_name":"lee","email":"rainier.lee@golivemobile.com","state":"registered"}
+
+key --> user_id=>1541012
+key --> first_name=>rainier
+key --> last_name=>lee
+key --> email=>rainier.lee@golivemobile.com
+key --> state=>registered
+INSERT WEPAY QUERY --> INSERT INTO `bhleague`.`wepay_accounts` SET wepay_user_id='1541012',wepay_access_token='773137aeb237b0ad2cd736efdd81c28b7f05225a5998d9803d6fdc8e15f62574',wepay_token_type='BEARER',
+				wepay_account_id='147945',wepay_account_uri='https://stage.wepay.com/account/147945',wepay_checkout_id='1911383',wepay_checkout_uri='https://stage.wepay.com/api/checkout/1911383/879eec83',first_name='rainier',last_name='lee',wepay_email='rainier.lee@golivemobile.com'
+
+
+ NEW ACCOUNT 
+THANK YOU QUERY 1--> SELECT * from `bhleague`.`wepay_accounts` where wepay_checkout_id ='1911383'
+
+THANK YOU QUERY 2--> SELECT `id`,player_fname,player_lname,email from `bhleague`.`players` where (player_fname='lee' AND player_lname ='rainier') OR email ='rainier.lee@golivemobile.com' LIMIT 1
+
+THANK YOU UPDATE QUERY 1--> UPDATE `bhleague`.`wepay_accounts` SET player_id ='114',first_name ='rainier',last_name='lee'  WHERE id =13
+
+THANK YOU UPDATE QUERY 3--> UPDATE `bhleague`.`players` SET status = 1 WHERE id =114
+
+
+ NEW ACCOUNT 
+THANK YOU QUERY 1--> SELECT * from `bhleague`.`wepay_accounts` where wepay_checkout_id ='1911383'
+
+THANK YOU QUERY 2--> SELECT `id`,player_fname,player_lname,email,league from `bhleague`.`players` where (player_fname='lee' AND player_lname ='rainier') OR email ='rainier.lee@golivemobile.com' LIMIT 1
+
+THANK YOU UPDATE QUERY 1--> UPDATE `bhleague`.`wepay_accounts` SET player_id ='114',first_name ='rainier',last_name='lee'  WHERE id =13
+
+THANK YOU UPDATE QUERY 3--> UPDATE `bhleague`.`players` SET status = 1 WHERE id =114
+
+
+ NEW ACCOUNT 
+THANK YOU QUERY 1--> SELECT * from `bhleague`.`wepay_accounts` where wepay_checkout_id ='1911383'
+
+THANK YOU QUERY 2--> SELECT `id`,player_fname,player_lname,email,league from `bhleague`.`players` where (player_fname='lee' AND player_lname ='rainier') OR email ='rainier.lee@golivemobile.com' LIMIT 1
+
+THANK YOU UPDATE QUERY 1--> UPDATE `bhleague`.`wepay_accounts` SET player_id ='114',first_name ='rainier',last_name='lee'  WHERE id =13
+
+THANK YOU UPDATE QUERY 3--> UPDATE `bhleague`.`players` SET status = 1 WHERE id =114
+
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":9765283,"access_token":"52267d7db34d0093bd51b494a78eb72b03494f231e676fc1daff2d59a9e51868","token_type":"BEARER"}
+
+key --> user_id=>9765283
+key --> access_token=>52267d7db34d0093bd51b494a78eb72b03494f231e676fc1daff2d59a9e51868
+key --> token_type=>BEARER
+9765283 => 52267d7db34d0093bd51b494a78eb72b03494f231e676fc1daff2d59a9e51868 => BEARER
+https://wepayapi.com/v2/account/create
+PAYMENT result --> {"error":"access_denied","error_description":"a valid access_token is required"}
+
+key --> error=>access_denied
+key --> error_description=>a valid access_token is required
+CHECKOUT result --> {"error":"invalid_request","error_description":"account_id parameter is required"}
+
+key --> error=>invalid_request
+key --> error_description=>account_id parameter is required
+USER SEARCH result --> {"user_id":9765283,"first_name":"rainier.lee@golivemobile.com","last_name":"","email":"rainier.lee@golivemobile.com","state":"registered"}
+
+key --> user_id=>9765283
+key --> first_name=>rainier.lee@golivemobile.com
+key --> last_name=>
+key --> email=>rainier.lee@golivemobile.com
+key --> state=>registered
+INSERT WEPAY QUERY --> INSERT INTO `bhleague`.`wepay_accounts` SET wepay_user_id='9765283',wepay_access_token='52267d7db34d0093bd51b494a78eb72b03494f231e676fc1daff2d59a9e51868',wepay_token_type='BEARER',
+				wepay_account_id='',wepay_account_uri='',wepay_checkout_id='',wepay_checkout_uri='',first_name='rainier.lee@golivemobile.com',last_name='',wepay_email='rainier.lee@golivemobile.com'
+
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":9765283,"access_token":"f2339eaacc97535b782046eda1e72dd764f7e88abbfe7d2bdc6213e18aa3ccf0","token_type":"BEARER"}
+
+key --> user_id=>9765283
+key --> access_token=>f2339eaacc97535b782046eda1e72dd764f7e88abbfe7d2bdc6213e18aa3ccf0
+key --> token_type=>BEARER
+9765283 => f2339eaacc97535b782046eda1e72dd764f7e88abbfe7d2bdc6213e18aa3ccf0 => BEARER
+https://wepayapi.com/v2/account/create
+PAYMENT result --> {"account_id":1108207,"account_uri":"https:\/\/www.wepay.com\/account\/1108207"}
+
+key --> account_id=>1108207
+key --> account_uri=>https://www.wepay.com/account/1108207
+CHECKOUT result --> {"checkout_id":1264396,"checkout_uri":"https:\/\/www.wepay.com\/api\/checkout\/1264396\/d73725ec"}
+
+key --> checkout_id=>1264396
+key --> checkout_uri=>https://www.wepay.com/api/checkout/1264396/d73725ec
+USER SEARCH result --> {"user_id":9765283,"first_name":"rainier.lee@golivemobile.com","last_name":"","email":"rainier.lee@golivemobile.com","state":"registered"}
+
+key --> user_id=>9765283
+key --> first_name=>rainier.lee@golivemobile.com
+key --> last_name=>
+key --> email=>rainier.lee@golivemobile.com
+key --> state=>registered
+INSERT WEPAY QUERY --> INSERT INTO `bhleague`.`wepay_accounts` SET wepay_user_id='9765283',wepay_access_token='f2339eaacc97535b782046eda1e72dd764f7e88abbfe7d2bdc6213e18aa3ccf0',wepay_token_type='BEARER',
+				wepay_account_id='1108207',wepay_account_uri='https://www.wepay.com/account/1108207',wepay_checkout_id='1264396',wepay_checkout_uri='https://www.wepay.com/api/checkout/1264396/d73725ec',first_name='rainier.lee@golivemobile.com',last_name='',wepay_email='rainier.lee@golivemobile.com'
+
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":9598291,"access_token":"d743efa6e6a08e6a744bce9a802e8b5a63c6cd9133dc40666dbab30bf799472a","token_type":"BEARER"}
+
+key --> user_id=>9598291
+key --> access_token=>d743efa6e6a08e6a744bce9a802e8b5a63c6cd9133dc40666dbab30bf799472a
+key --> token_type=>BEARER
+9598291 => d743efa6e6a08e6a744bce9a802e8b5a63c6cd9133dc40666dbab30bf799472a => BEARER
+https://wepayapi.com/v2/account/create
+PAYMENT result --> {"account_id":136565,"account_uri":"https:\/\/www.wepay.com\/account\/136565"}
+
+key --> account_id=>136565
+key --> account_uri=>https://www.wepay.com/account/136565
+CHECKOUT result --> {"checkout_id":3231002,"checkout_uri":"https:\/\/www.wepay.com\/api\/checkout\/3231002\/9dba7145"}
+
+key --> checkout_id=>3231002
+key --> checkout_uri=>https://www.wepay.com/api/checkout/3231002/9dba7145
+USER SEARCH result --> {"user_id":9598291,"first_name":"Ari","last_name":"Afshar","email":"afsharari@gmail.com","state":"registered"}
+
+key --> user_id=>9598291
+key --> first_name=>Ari
+key --> last_name=>Afshar
+key --> email=>afsharari@gmail.com
+key --> state=>registered
+INSERT WEPAY QUERY --> INSERT INTO `bhleague`.`wepay_accounts` SET wepay_user_id='9598291',wepay_access_token='d743efa6e6a08e6a744bce9a802e8b5a63c6cd9133dc40666dbab30bf799472a',wepay_token_type='BEARER',
+				wepay_account_id='136565',wepay_account_uri='https://www.wepay.com/account/136565',wepay_checkout_id='3231002',wepay_checkout_uri='https://www.wepay.com/api/checkout/3231002/9dba7145',first_name='Ari',last_name='Afshar',wepay_email='afsharari@gmail.com'
+
+
+ NEW ACCOUNT 
+Authorize result --> {"user_id":9598291,"access_token":"fb1ba9d1df607a008ecb9aafe905ce308ca98f5edd1e3cf85ca6fcf29daefc7c","token_type":"BEARER"}
+
+key --> user_id=>9598291
+key --> access_token=>fb1ba9d1df607a008ecb9aafe905ce308ca98f5edd1e3cf85ca6fcf29daefc7c
+key --> token_type=>BEARER
+9598291 => fb1ba9d1df607a008ecb9aafe905ce308ca98f5edd1e3cf85ca6fcf29daefc7c => BEARER
+https://wepayapi.com/v2/account/create
+PAYMENT result --> {"account_id":1269964,"account_uri":"https:\/\/www.wepay.com\/account\/1269964"}
+
+key --> account_id=>1269964
+key --> account_uri=>https://www.wepay.com/account/1269964
+CHECKOUT result --> {"checkout_id":822075,"checkout_uri":"https:\/\/www.wepay.com\/api\/checkout\/822075\/8911b2d7"}
+
+key --> checkout_id=>822075
+key --> checkout_uri=>https://www.wepay.com/api/checkout/822075/8911b2d7
+USER SEARCH result --> {"user_id":9598291,"first_name":"Ari","last_name":"Afshar","email":"afsharari@gmail.com","state":"registered"}
+
+key --> user_id=>9598291
+key --> first_name=>Ari
+key --> last_name=>Afshar
+key --> email=>afsharari@gmail.com
+key --> state=>registered
+INSERT WEPAY QUERY --> INSERT INTO `bhleague`.`wepay_accounts` SET wepay_user_id='9598291',wepay_access_token='fb1ba9d1df607a008ecb9aafe905ce308ca98f5edd1e3cf85ca6fcf29daefc7c',wepay_token_type='BEARER',
+				wepay_account_id='1269964',wepay_account_uri='https://www.wepay.com/account/1269964',wepay_checkout_id='822075',wepay_checkout_uri='https://www.wepay.com/api/checkout/822075/8911b2d7',first_name='Ari',last_name='Afshar',wepay_email='afsharari@gmail.com'
+

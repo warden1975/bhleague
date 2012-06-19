@@ -1,0 +1,3 @@
+#player_photos .photo{float:left;width:140px;height:140px;overflow:hidden;padding:10px;background:#efefef;margin:20px 37px;border:1px solid #ccc;}
+#player_photos .photo:hover{border:1px solid #00A9D3;}
+#player_photos .photo a{display:block;width:140px;height:140px;overflow:hidden;}

@@ -2,14 +2,15 @@
 	define('DIR', $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR);
 	define('DB_CLS', DIR . 'admin/class/db.cls.php');
 	define('COMMON', DIR . 'bhlcommon.php');
-
+	error_reporting (E_ALL ^ E_NOTICE);
+	error_reporting(0);
 	require DB_CLS;
 	require COMMON;
 
 	$db = new DB_Connect(MYSQL_INTRANET, 1);
 	if (!$db) die("Can't connect to database.");
 
-	$player = 3;
+	//$player = 3;
 	$d = array();
 	$dx = array();
 
@@ -20,9 +21,9 @@
 
 	$sql = "SELECT `id`,team_name from bhleague.teams ";
 	$result = $db->query($sql);
-	while($row = $result->fetch_object()){
+	while($rowzx = $result->fetch_object()){
 	
-	$myarr[$row->id] = $row->team_name;
+	$myarr[$rowzx->id] = $rowzx->team_name;
 	
 	}
 	
@@ -84,12 +85,21 @@
 					}
 					@$team1 = @$obj->team1;
 					@$team2 = @$obj->team2;
+					//if (isset($obj->team1x) && trim($obj->team1x)!='')
+//					{
+//					//If not isset -> set with dumy value
+//					@$obj->team1x = "undefine";
+//					@$team1x = @$obj->team1x;
+//					} 
+//					else
+//					{
 					@$team1x = @$obj->team1x;
+					//}
 					@$team2x = @$obj->team2x;
 					@$score = @$obj->score;
 				}
 				
-				$dx[] = "[ '{$game_date}', '{$team_id}', '{$position}', {$team1x},'{$team1}',{$team2x},'{$team2}', '{$score}',  {$points}, {$rebounds}, {$assists}]";
+				$dx[] = "[ '{$game_date}', '{$team_id}', '{$position}', '{$team1x}','{$team1}',{$team2x},'{$team2}', '{$score}',  '{$points}', {$rebounds}, {$assists}]";
 			}
 			
 		}
@@ -183,7 +193,7 @@
 		when '5' then b.team_id2 
 		when '6' then b.team_id3
 		end) = c.id 
-		and weekday(a.game_date) = '{$gameday}' and a.player_id = '{$player}'  
+		and weekday(a.game_date) = '{$gameday}' and b.id = '{$player}'  
 	group by b.id 
 	order by points desc
 	) as ave 
@@ -322,16 +332,18 @@
 				<div class="menu">
 					<img src="images/banner-left.png" class="b_left" />
 					<img src="images/banner-right.png" class="b_right" />	
-					<div id="game_league_id" style="float: left;left:30px;top:15px;position:absolute">
+					<div id="game_league_id" style="float: left;left:20px;top:15px;position:absolute">
                       <input type="text" id="local-gamedays" size="20"/>
                     </div>			
 					<div class="menu-link">				
 						<a href="index.php" target="_self">HOME</a>
 						<a href="standings_v2.html" target="_self">STANDINGS</a>
 						<a href="schedule_v2.html" target="_self">SCHEDULES</a>
-						<a href="league_leaders_v2.html" target="_self">LEAGUE LEADERS</a>
-						<a href="rosters_v2.php" target="_self">ROSTERS</a>
-						<a href="payments_v2.html">PAYMENTS</a>
+                        <a href="league_leaders_v2.html" target="_self">LEAGUE LEADERS</a>
+                        <a href="rosters_v2.php" target="_self">ROSTERS</a>
+						<a href="photos.php" target="_self">PHOTOS</a>
+						<a href="signup.php">SIGN UP</a>
+						<a href="about.php">ABOUT</a>
 						
 					</div>
 				</div>

@@ -34,7 +34,7 @@ switch ($action){
 //			$_schedule = $_REQUEST['date_schedule'].' '.$_REQUEST['schedule']." - ".$sched_end;
 //			for($i=0;$i<sizeof($emp_id);$i++)
 //			{
-			$sql = "INSERT INTO bhleague.players (player_fname,player_lname,team_id,team_id2,team_id3,email,height,weight,position_id) VALUES ('".$player_fname."','".$player_lname."','".$team_id."','".$team_id2."','".$team_id3."','".$email."','".$height."','".$weight."','".$position_id."')";
+			$sql = "INSERT INTO bhleague.players (player_fname,player_lname,team_id,team_id2,team_id3,email,height,weight,position_id,jersey_number,jersey_size,season) VALUES ('".$player_fname."','".$player_lname."','".$team_id."','".$team_id2."','".$team_id3."','".$email."','".$height."','".$weight."','".$position_id."','".$jersey_number."','".$jersey_size."','".$season."')";
 			//echo $sql; exit;
 			
 			$rs = $db->query($sql);

@@ -1,0 +1,29 @@
+a.button2 {
+background: transparent url('../images/bg_button_a.gif') no-repeat scroll top right;
+color: #444;
+display: block;
+float: left;
+font: normal 15px arial, sans-serif;
+height: 34px;
+margin-right: 6px;
+padding-right: 12px;
+text-decoration: none;
+}
+
+a.button2 span {
+    background: transparent url('../images/bg_button_span.gif') no-repeat;
+    display: block;
+    line-height: 24px;
+    padding: 5px 0 5px 10px;
+}
+
+a.button2:hover {
+    background-position: bottom right;
+    color: #000;
+    outline: none;
+}
+
+a.button2:hover span {
+    background-position: bottom left;
+    padding: 5px 0 5px 10px;
+}

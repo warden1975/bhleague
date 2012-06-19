@@ -1,0 +1,5 @@
+[18-Jun-2012 03:23:08] PHP Parse error:  syntax error, unexpected '}' in /home/bhleague/public_html/admin/schedule/callback.php on line 55
+[18-Jun-2012 03:23:55] PHP Fatal error:  Cannot break/continue 1 level in /home/bhleague/public_html/admin/schedule/callback.php on line 49
+[18-Jun-2012 03:25:01] PHP Parse error:  syntax error, unexpected $end in /home/bhleague/public_html/admin/schedule/callback.php on line 98
+[18-Jun-2012 03:25:53] PHP Parse error:  syntax error, unexpected T_CASE in /home/bhleague/public_html/admin/schedule/callback.php on line 38
+[18-Jun-2012 03:27:11] PHP Parse error:  syntax error, unexpected $end in /home/bhleague/public_html/admin/schedule/callback.php on line 119

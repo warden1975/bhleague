@@ -22,18 +22,26 @@ $myplayer[$rowz['id']] = $rowz['player_name'];
 
 }
 
+$season_arr = array();
 
+$sql = "SELECT `id`,name from bhleague.seasons ";
+$resultz = $db->query($sql);
+while($rowz = $resultz->fetch_array()){
+
+$season_arr[$rowz['id']] = $rowz['name'];
+
+}
 
 //print_r($myarr); exit;
 
 
-$sql = "SELECT `id`,game_date,player_id,team_id,game_points_1,game_attempts_1,game_points_2,game_attempts_2,game_points_3,game_attempts_3,game_assists,game_rebounds FROM bhleague.players_stats "; 
+$sql = "SELECT `id`,game_date,player_id,team_id,game_points_1,game_attempts_1,game_points_2,game_attempts_2,game_points_3,game_attempts_3,game_assists,game_rebounds,season FROM bhleague.players_stats "; 
 
 if(isset($query) && $query!='')
 {
 	$sql .=" WHERE   game_date  LIKE '%".$query."%'
  player_id  LIKE '%".$query."%' OR  team_id  LIKE '%".$query."%' OR  game_points_1  LIKE '%".$query."%' OR  game_attempts_1  LIKE '%".$query."%' OR  game_points_2  LIKE '%".$query."%'
-OR  game_attempts_2  LIKE '%".$query."%' OR  game_points_3  LIKE '%".$query."%' OR  game_attempts_3  LIKE '%".$query."%' OR  game_assists  LIKE '%".$query."%'OR  game_rebounds  LIKE '%".$query."%'";
+OR  game_attempts_2  LIKE '%".$query."%' OR  game_points_3  LIKE '%".$query."%' OR  game_attempts_3  LIKE '%".$query."%' OR  game_assists  LIKE '%".$query."%' OR  game_rebounds  LIKE '%".$query."%' OR  season  LIKE '%".$query."%'";
 }
 else
 {
@@ -54,6 +62,7 @@ if (!$rs = $db->query($sql)) {
 		//$arr[] = $obj;
 		@$obj['team_id'] = $myarr[$obj['team_id']];
 		@$obj['player_id'] = $myplayer[$obj['player_id']];
+		$obj['season'] = @$season_arr[$obj['season']];
 		array_push($arr,$obj);
 	}
 

@@ -28,6 +28,15 @@ if ($rs = $db->query($sql)) {
 	$tdata = '[' . implode(',', $data) . ']';
 }
 
+$s_arr = array();
+
+$sql = "SELECT `id`, `name` FROM `bhleague`.`seasons`";
+if ($rsx = $db->query($sql)) {
+	while ($rowx = $rsx->fetch_object()) $s_arr[] = "['{$rowx->id}','{$rowx->name}']";
+	$rsx->close();
+}
+$zx = '['.implode(', ', $s_arr).']';
+
 $db->close();
 $db = NULL;
 ?>
@@ -102,6 +111,7 @@ Ext.onReady(function(){
 		{ name: 'winner_score', sortType: Ext.data.SortTypes.asInt },
 		{ name: 'game_loser', sortType: Ext.data.SortTypes.asInt },
 		{ name: 'loser_score', sortType: Ext.data.SortTypes.asInt },
+		{ name: 'season', sortType: Ext.data.SortTypes.asInt },
 	]);
 	
 	team_winnerx = new Ext.data.SimpleStore({
@@ -117,6 +127,12 @@ Ext.onReady(function(){
 	var string_edit = new Ext.form.TextField({
 		allowBlank: false
 	});
+	
+	
+	seasonx = new Ext.data.SimpleStore({
+	        fields: ['id', 'name'],
+		    data : <?php echo $zx; ?>
+	    });
 	
 	var number_edit = new Ext.form.NumberField({
 		allowBlank: false,
@@ -160,6 +176,19 @@ Ext.onReady(function(){
 		displayField: 'game_loser_name',
 		valueField: 'game_loser_id'
 	});
+	
+	var season_edit = new Ext.form.ComboBox({
+			typeAhead: true,
+			triggerAction: 'all',
+			allowBlank: true,
+			editable: true,
+			selectOnFocus: true,
+			mode: 'local',
+			store: seasonx,
+			displayField:'name',
+			valueField: 'id',
+			listeners: {}
+		});
   
   	
 
@@ -172,7 +201,7 @@ Ext.onReady(function(){
 		frame:true,
 		title: 'BH League Games Statistics',
 		height:300,
-		width:800,
+		width:900,
 		mode:'local',
 		layout:'fit',
 		autoHeight: true,
@@ -186,6 +215,7 @@ Ext.onReady(function(){
 			{header: "Winner Score", dataIndex: 'winner_score', width:90,sortable:true,editor:number_edit,align:'right'},
 			{header: "Loser", dataIndex: 'game_loser', width:160,sortable:true,editor:team_loser_edit,renderer: Ext.util.Format.comboRenderer(team_loser_edit)},
 			{header: "Loser Score", dataIndex: 'loser_score', width:90,sortable:true,editor:number_edit,align:'right'},
+			{header: "Season", dataIndex: 'season', width:90,sortable:true,editor:season_edit},
 			{
 				xtype: 'actioncolumn',
 				width: 30,
@@ -307,9 +337,10 @@ function fnSave()
 	var winner_scorex = document.getElementById('winner_score').value;
 	var game_loserx = Ext.getCmp('game_loser').value;
 	var loser_scorex = document.getElementById('loser_score').value;
+	var seasonxx = Ext.getCmp('season').value;
 	
 	Ext.Ajax.request({
-	params: {action: 'insert', game_date: game_datex, game_winner: game_winnerx, winner_score: winner_scorex, game_loser: game_loserx, loser_score: loser_scorex},
+	params: {action: 'insert', game_date: game_datex, game_winner: game_winnerx, winner_score: winner_scorex, game_loser: game_loserx, loser_score:loser_scorex,season:seasonxx},
 	url: 'callback.php',
 	success: function (resp,form,action) {
 		if (resp.responseText == '{success:true}') {
@@ -318,6 +349,11 @@ function fnSave()
 			store.reload();
 			grid.getstore();
 			grid.getView().refresh();
+		}
+		else if(resp.responseText == '{duplicate:true}')
+		{
+			mask.hide();
+			Ext.MessageBox.alert('Invalid', 'Duplicate Entry ');
 		}
 		else 
 		{
@@ -498,6 +534,18 @@ function addNew()
 					 allowDecimals:false,
 					 allowNegative: false,
 					 minValue: 0}),
+					{ 
+					 xtype: 'combo',
+					 name: 'season',
+					 id: 'season',
+					 fieldLabel: 'Season',
+					 allowBlank:true,
+					 mode: 'local',
+					 store: seasonx,
+					 displayField:'name',
+					 valueField:'id',
+					 triggerAction: 'all'
+					},
 			],
 			buttons: [
 				{ text: 'Save', handler: fnSave },
